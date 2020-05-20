@@ -8,6 +8,6 @@ class Home extends StatelessWidget {
         appBar: AppBar(
           title: Text("Better C25K"),
         ),
-        body: HomeBody(),
+        body: HomeBody(), // Don't be such a homebody!
       );
 }
