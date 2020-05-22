@@ -7,5 +7,8 @@ class Exercise {
 
   final ExerciseAction exerciseAction;
 
-  Exercise({@required this.durationInSeconds, @required this.exerciseAction});
+  const Exercise({
+    @required this.durationInSeconds,
+    @required this.exerciseAction,
+  });
 }
