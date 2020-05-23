@@ -1,6 +1,6 @@
 import 'package:better_c25k/exercise/exercise.dart';
+import 'package:better_c25k/regimen/regimen_model.dart';
 import 'package:better_c25k/workout/workout.dart';
-import 'regimen.dart';
 
 class C25KRegimenModel extends RegimenModel {
   static final c25kWorkouts = _getC25kWorkouts();
