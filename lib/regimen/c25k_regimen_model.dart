@@ -4,7 +4,7 @@ import 'package:better_c25k/workout/workout.dart';
 
 class C25KRegimenModel extends RegimenModel {
   static final c25kWorkouts = _getC25kWorkouts();
-  C25KRegimenModel() : super(c25kWorkouts);
+  C25KRegimenModel() : super(workouts: c25kWorkouts, name: "C25K");
 
   static Iterable<WorkoutModel> _getC25kWorkouts() => [
         ..._getWeekOneWorkouts(),
