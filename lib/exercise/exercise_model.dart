@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'exercise_action.dart';
 
-class Exercise {
+class ExerciseModel {
   final int durationInSeconds;
 
   final ExerciseAction exerciseAction;
 
-  const Exercise({
+  const ExerciseModel({
     @required this.durationInSeconds,
     @required this.exerciseAction,
   });

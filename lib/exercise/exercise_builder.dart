@@ -2,11 +2,11 @@ import 'exercise_action.dart';
 import 'exercise.dart';
 
 class ExerciseBuilder {
-  List<Exercise> exercises = [];
-  Exercise warmup;
-  Exercise cooldown;
+  List<ExerciseModel> exercises = [];
+  ExerciseModel warmup;
+  ExerciseModel cooldown;
   ExerciseBuilder withWarmup(int durationInSeconds) {
-    warmup = Exercise(
+    warmup = ExerciseModel(
       durationInSeconds: durationInSeconds,
       exerciseAction: ExerciseAction.warmup,
     );
@@ -14,14 +14,14 @@ class ExerciseBuilder {
   }
 
   ExerciseBuilder withCooldown(int durationInSeconds) {
-    cooldown = Exercise(
+    cooldown = ExerciseModel(
       durationInSeconds: durationInSeconds,
       exerciseAction: ExerciseAction.cooldown,
     );
     return this;
   }
 
-  ExerciseBuilder repeat(List<Exercise> exercises, int repetitionsAfterFirst) {
+  ExerciseBuilder repeat(List<ExerciseModel> exercises, int repetitionsAfterFirst) {
     exercises = [
       ...exercises,
       ...Iterable<int>.generate(repetitionsAfterFirst - 1)
@@ -30,17 +30,17 @@ class ExerciseBuilder {
     return this;
   }
 
-  ExerciseBuilder addInOrder(Exercise exercise) {
+  ExerciseBuilder addInOrder(ExerciseModel exercise) {
     exercises.add(exercise);
     return this;
   }
 
-  ExerciseBuilder addRangeInOrder(List<Exercise> exercises) {
+  ExerciseBuilder addRangeInOrder(List<ExerciseModel> exercises) {
     exercises.addAll(exercises);
     return this;
   }
 
-  List<Exercise> build() => [warmup, ...exercises, cooldown]
+  List<ExerciseModel> build() => [warmup, ...exercises, cooldown]
       .where((exercise) => exercise != null)
       .toList(growable: false);
 }

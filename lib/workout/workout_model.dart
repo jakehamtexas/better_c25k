@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'exercise/exercise.dart';
+import 'package:better_c25k/exercise/exercise.dart';
 
 const _defaultDescription = "An exercise! What does it mean?";
 
 /// A workout is a collection of exercises that occur in a single day.
-class Workout {
-  final List<Exercise> exercises;
+class WorkoutModel {
+  final List<ExerciseModel> exercises;
 
   /// The time at which the workout occurs. Only omit initializing this
   /// value if there will be only one workout for the day in question.
@@ -29,7 +29,7 @@ class Workout {
       .reduce((totalDuration, durationInSeconds) =>
           totalDuration + durationInSeconds);
 
-  Workout(
+  WorkoutModel(
       {@required this.exercises,
       @required this.ordinalDayOfWeekNumber,
       @required this.ordinalWeekNumber,

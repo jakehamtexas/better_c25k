@@ -1,6 +1,7 @@
-import 'package:better_c25k/regimen/model/regimen/c25k_regimen.dart';
-import 'package:better_c25k/router/routes.dart';
 import 'package:flutter/material.dart';
+
+import 'package:better_c25k/regimen/model/regimen.dart';
+import 'package:better_c25k/router/routes.dart';
 
 class HomeBody extends StatelessWidget {
   @override
@@ -8,7 +9,7 @@ class HomeBody extends StatelessWidget {
         child: RaisedButton(
           child: Text("Go To C25k"),
           onPressed: () => Navigator.of(context).pushNamed(Routes.regimen,
-              arguments: C25KRegimen()),
+              arguments: C25KRegimenModel()),
         ),
       );
 }
