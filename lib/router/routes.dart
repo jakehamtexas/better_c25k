@@ -1,4 +1,4 @@
 class Routes {
   static const String home = "/";
-  static const String workout = "/workout";
+  static const String regimen = "/regimen";
 }

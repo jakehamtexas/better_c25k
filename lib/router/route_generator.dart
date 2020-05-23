@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'error_route.dart';
-import 'routes.dart';
+import 'route_builders.dart';
 
 class RouteGenerator {
   static Widget Function(BuildContext) _getBuilder(RouteSettings settings) =>
-      routes[settings.name](settings.arguments);
+      routeBuilders[settings.name](settings.arguments);
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     try {
