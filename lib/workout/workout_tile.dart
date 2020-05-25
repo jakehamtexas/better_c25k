@@ -7,7 +7,7 @@ import 'do_workout/do_workout.dart';
 import 'workout_card.dart';
 import 'workout_model.dart';
 
-class WorkoutWidget extends StatelessWidget {
+class WorkoutTile extends StatelessWidget {
   final WorkoutModel _workout;
   String get _workoutDescription => _workout.description;
   String get _workoutTitle {
@@ -19,7 +19,7 @@ class WorkoutWidget extends StatelessWidget {
     return "$week $day";
   }
 
-  WorkoutWidget(this._workout);
+  WorkoutTile(this._workout);
 
   @override
   Widget build(BuildContext context) {
