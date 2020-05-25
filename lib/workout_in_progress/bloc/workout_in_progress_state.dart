@@ -10,11 +10,24 @@ class WorkoutInProgressInitial extends WorkoutInProgressState {
 }
 
 class PauseToggledOnState extends WorkoutInProgressState {
+  final String exerciseActionMessage;
+  final int currentCountdownTime;
+
+  PauseToggledOnState({
+    @required this.exerciseActionMessage,
+    @required this.currentCountdownTime,
+  });
+
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [currentCountdownTime, exerciseActionMessage];
 }
 
 class PauseToggledOffState extends WorkoutInProgressState {
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [];
+}
+
+class IsStartedState extends WorkoutInProgressState {
+  @override
+  List<Object> get props => [];
 }

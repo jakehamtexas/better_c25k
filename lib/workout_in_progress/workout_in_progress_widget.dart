@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../exercise/exercise.dart';
+import 'bloc/workout_in_progress_bloc.dart';
 
 class WorkoutInProgressWidget extends StatefulWidget {
   final List<ExerciseModel> _exercises;
@@ -35,9 +37,10 @@ class _DoWorkoutState extends State<WorkoutInProgressWidget> {
     if (_isPaused) {
       _stopwatch.start();
     }
-    setState(() {
-      _isPaused = !_isPaused;
-    });
+    BlocProvider.of<WorkoutInProgressBloc>(context).add(PauseEvent(
+      currentCountdownTime: _currentCountdownTime,
+      exerciseActionMessage: _exerciseActionMessage,
+    ));
   }
 
   void startTimer() {

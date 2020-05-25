@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 part 'workout_in_progress_event.dart';
 part 'workout_in_progress_state.dart';
@@ -16,9 +17,12 @@ class WorkoutInProgressBloc
   Stream<WorkoutInProgressState> mapEventToState(
     WorkoutInProgressEvent event,
   ) async* {
-    if (event is PauseToggledEvent) {
-      yield _isPaused ? PauseToggledOffState() : PauseToggledOnState();
-      _isPaused = !_isPaused;
+    if (event is PauseEvent) {
+      _isPaused = true;
+      yield PauseToggledOnState(
+        currentCountdownTime: event.currentCountdownTime,
+        exerciseActionMessage: event.exerciseActionMessage,
+      );
     }
   }
 }
