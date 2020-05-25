@@ -1,7 +1,8 @@
 import 'package:better_c25k/workout_in_progress/bloc/workout_in_progress_bloc.dart';
+import 'package:better_c25k/workout_in_progress/workout_in_progress_widget.dart';
 import 'package:flutter/material.dart';
 
-class PausedWorkout extends StatelessWidget {
+class PausedWorkout extends WorkoutInProgressViewport {
   final PauseToggledOnState _state;
   String get _exerciseActionMessage => _state.exerciseActionMessage;
   int get _currentCountdownTime => _state.currentCountdownTime;
@@ -9,18 +10,12 @@ class PausedWorkout extends StatelessWidget {
   PausedWorkout(this._state);
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        RaisedButton(
-          onPressed: () {
-            // no-op
-          },
-          child: Text("Resume"),
-        ),
-        Text("Time Remaining: $_currentCountdownTime"),
-        Text(_exerciseActionMessage)
-      ],
-    );
-  }
+  Widget build(BuildContext context) => super.buildViewport(
+        onPressedHandler: () {
+          // no-op
+        },
+        buttonMessage: "Resume",
+        currentCountdownTime: _currentCountdownTime,
+        exerciseMessage: _exerciseActionMessage,
+      );
 }

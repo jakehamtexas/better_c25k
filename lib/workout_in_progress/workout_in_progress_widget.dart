@@ -90,14 +90,16 @@ class _DoWorkoutState extends State<WorkoutInProgressWidget> {
   Widget build(BuildContext context) {
     final startStopMessage = _getButtonMessage();
     final buttonOnPressedHandler = _getButtonOnPressedHandler();
-    return Column(children: <Widget>[
-      RaisedButton(
-        onPressed: buttonOnPressedHandler,
-        child: Text(startStopMessage),
-      ),
-      Text("Time Remaining: $_currentCountdownTime"),
-      Text(_exerciseActionMessage)
-    ]);
+    return Column(
+      children: <Widget>[
+        RaisedButton(
+          onPressed: buttonOnPressedHandler,
+          child: Text(startStopMessage),
+        ),
+        Text("Time Remaining: $_currentCountdownTime"),
+        Text(_exerciseActionMessage)
+      ],
+    );
   }
 
   @override
@@ -105,5 +107,25 @@ class _DoWorkoutState extends State<WorkoutInProgressWidget> {
     _timer.cancel();
     _stopwatch.reset();
     super.dispose();
+  }
+}
+
+abstract class WorkoutInProgressViewport extends StatelessWidget {
+  Widget buildViewport({
+    @required Null Function() onPressedHandler,
+    @required String buttonMessage,
+    @required int currentCountdownTime,
+    @required String exerciseMessage,
+  }) {
+    return Column(
+      children: <Widget>[
+        RaisedButton(
+          onPressed: onPressedHandler,
+          child: Text(buttonMessage),
+        ),
+        Text("Time Remaining: $currentCountdownTime"),
+        Text(exerciseMessage),
+      ],
+    );
   }
 }
