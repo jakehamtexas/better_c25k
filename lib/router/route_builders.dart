@@ -1,10 +1,9 @@
-import 'package:better_c25k/workout/do_workout/do_workout.dart';
 import 'package:flutter/material.dart';
 
-import 'routes.dart';
-
-import '../regimen/regimen.dart';
 import '../home/home.dart';
+import '../regimen/regimen.dart';
+import '../workout/do_workout/do_workout.dart';
+import 'routes.dart';
 
 final _home = (Object _args) => (BuildContext _) => Home();
 final _regimen = (Object args) => (BuildContext _) => RegimenPage(args);

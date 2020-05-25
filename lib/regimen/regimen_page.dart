@@ -1,7 +1,6 @@
-import 'package:better_c25k/router/routes.dart';
-import 'package:better_c25k/workout/workout.dart';
 import 'package:flutter/material.dart';
 
+import '../workout/workout.dart';
 import 'regimen_model.dart';
 
 class RegimenPage extends StatelessWidget {

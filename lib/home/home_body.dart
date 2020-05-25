@@ -1,7 +1,7 @@
-import 'package:better_c25k/regimen/regimen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:better_c25k/router/routes.dart';
+import '../regimen/regimen.dart';
+import '../router/routes.dart';
 
 class HomeBody extends StatelessWidget {
   @override

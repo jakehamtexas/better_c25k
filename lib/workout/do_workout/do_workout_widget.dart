@@ -1,7 +1,9 @@
-import 'package:better_c25k/exercise/exercise_model.dart';
-import '../../exercise/exercise.dart';
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import '../../exercise/exercise.dart';
+import '../../exercise/exercise_model.dart';
 
 class DoWorkoutWidget extends StatefulWidget {
   final List<ExerciseModel> _exercises;

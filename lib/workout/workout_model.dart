@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:better_c25k/exercise/exercise.dart';
+import '../exercise/exercise.dart';
 
 const _defaultDescription = "An exercise! What does it mean?";
 

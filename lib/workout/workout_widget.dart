@@ -1,6 +1,6 @@
-import 'package:better_c25k/router/routes.dart';
 import 'package:flutter/material.dart';
 
+import '../router/routes.dart';
 import 'do_workout/do_workout.dart';
 import 'workout_model.dart';
 
