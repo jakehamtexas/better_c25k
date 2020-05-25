@@ -1,5 +1,7 @@
+import 'package:better_c25k/router/routes.dart';
 import 'package:flutter/material.dart';
 
+import 'do_workout/do_workout.dart';
 import 'workout_model.dart';
 
 class WorkoutWidgetState extends State<WorkoutWidget> {
@@ -22,7 +24,16 @@ class WorkoutWidgetState extends State<WorkoutWidget> {
     });
   }
 
-  void _start() {}
+  void _start() {
+    Navigator.of(context).pushNamed(
+      Routes.doWorkout,
+      arguments: DoWorkoutConfiguration(
+        exercises: _workout.exercises,
+        workoutTitle: _workoutTitle,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final double _height = _isExpanded ? 155 : 72;
