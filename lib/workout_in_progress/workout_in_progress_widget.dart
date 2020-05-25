@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 import '../exercise/exercise.dart';
 
-class DoWorkoutWidget extends StatefulWidget {
+class WorkoutInProgressWidget extends StatefulWidget {
   final List<ExerciseModel> _exercises;
-  DoWorkoutWidget(this._exercises);
+  WorkoutInProgressWidget(this._exercises);
 
   @override
   State<StatefulWidget> createState() => _DoWorkoutState(_exercises);
 }
 
-class _DoWorkoutState extends State<DoWorkoutWidget> {
+class _DoWorkoutState extends State<WorkoutInProgressWidget> {
   final List<ExerciseModel> _exercises;
 
   int _exerciseIndex = 0;

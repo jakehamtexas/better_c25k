@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../do_workout/do_workout.dart';
+import '../workout_in_progress/workout_in_progress.dart';
 import '../router/routes.dart';
 import 'bloc/workout_bloc.dart';
 import 'workout_card.dart';
@@ -26,7 +26,7 @@ class WorkoutTile extends StatelessWidget {
     final start = () {
       Navigator.of(context).pushNamed(
         Routes.doWorkout,
-        arguments: DoWorkoutConfiguration(
+        arguments: WorkoutInProgressConfiguration(
           exercises: _workout.exercises,
           workoutTitle: _workoutTitle,
         ),
