@@ -5,12 +5,12 @@ import 'do_workout_configuration.dart';
 import 'do_workout_widget.dart';
 
 class DoWorkoutPage extends StatelessWidget {
-  List<ExerciseModel> _exercises;
-  String _workoutTitle;
-  DoWorkoutPage(DoWorkoutConfiguration configuration) {
-    _exercises = configuration.exercises;
-    _workoutTitle = configuration.workoutTitle;
-  }
+  final DoWorkoutConfiguration _configuration;
+
+  String get _workoutTitle => _configuration.workoutTitle;
+  List<ExerciseModel> get _exercises => _configuration.exercises;
+
+  DoWorkoutPage(this._configuration);
 
   @override
   Widget build(BuildContext context) {
