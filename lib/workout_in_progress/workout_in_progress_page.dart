@@ -1,10 +1,10 @@
-import 'package:better_c25k/workout_in_progress/bloc/workout_in_progress_bloc.dart';
-import 'package:better_c25k/workout_in_progress/paused_workout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../exercise/exercise.dart';
+import 'bloc/workout_in_progress_bloc.dart';
 import 'workout_in_progress_configuration.dart';
+import 'workout_in_progress_paused_viewport.dart';
 import 'workout_in_progress_widget.dart';
 
 class WorkoutInProgressPage extends StatelessWidget {
@@ -20,7 +20,7 @@ class WorkoutInProgressPage extends StatelessWidget {
       return WorkoutInProgressWidget(_exercises);
     }
     if (state is PauseToggledOnState) {
-      return PausedWorkout(state);
+      return WorkoutInProgressPausedViewport(state);
     }
     return null;
   }
