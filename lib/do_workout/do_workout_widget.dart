@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../exercise/exercise.dart';
-import '../../exercise/exercise_model.dart';
+import '../exercise/exercise.dart';
 
 class DoWorkoutWidget extends StatefulWidget {
   final List<ExerciseModel> _exercises;

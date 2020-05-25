@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../exercise/exercise.dart';
+import '../exercise/exercise.dart';
 import 'do_workout_configuration.dart';
 import 'do_workout_widget.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../home/home.dart';
 import '../regimen/regimen.dart';
-import '../workout/do_workout/do_workout.dart';
+import '../do_workout/do_workout.dart';
 import 'routes.dart';
 
 final _home = (Object _args) => (BuildContext _) => Home();
