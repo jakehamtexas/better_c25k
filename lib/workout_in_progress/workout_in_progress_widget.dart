@@ -37,10 +37,17 @@ class _DoWorkoutState extends State<WorkoutInProgressWidget> {
     if (_isPaused) {
       _stopwatch.start();
     }
-    BlocProvider.of<WorkoutInProgressBloc>(context).add(PauseEvent(
-      currentCountdownTime: _currentCountdownTime,
-      exerciseActionMessage: _exerciseActionMessage,
-    ));
+    if (_isPaused) {
+      BlocProvider.of<WorkoutInProgressBloc>(context).add(UnpauseEvent(
+        currentCountdownTime: _currentCountdownTime,
+        exerciseActionMessage: _exerciseActionMessage,
+      ));
+    } else {
+      BlocProvider.of<WorkoutInProgressBloc>(context).add(PauseEvent(
+        currentCountdownTime: _currentCountdownTime,
+        exerciseActionMessage: _exerciseActionMessage,
+      ));
+    }
   }
 
   void startTimer() {

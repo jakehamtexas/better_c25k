@@ -1,6 +1,7 @@
 import 'package:better_c25k/workout_in_progress/bloc/workout_in_progress_bloc.dart';
 import 'package:better_c25k/workout_in_progress/workout_in_progress_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WorkoutInProgressPausedViewport extends WorkoutInProgressViewport {
   final PauseToggledOnState _state;
@@ -12,7 +13,10 @@ class WorkoutInProgressPausedViewport extends WorkoutInProgressViewport {
   @override
   Widget build(BuildContext context) => super.buildViewport(
         onPressedHandler: () {
-          // no-op
+          BlocProvider.of<WorkoutInProgressBloc>(context).add(UnpauseEvent(
+            currentCountdownTime: _currentCountdownTime,
+            exerciseActionMessage: _exerciseActionMessage,
+          ));
         },
         buttonMessage: "Resume",
         currentCountdownTime: _currentCountdownTime,

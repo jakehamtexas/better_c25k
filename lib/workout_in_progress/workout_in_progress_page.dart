@@ -5,6 +5,7 @@ import '../exercise/exercise.dart';
 import 'bloc/workout_in_progress_bloc.dart';
 import 'workout_in_progress_configuration.dart';
 import 'workout_in_progress_paused_viewport.dart';
+import 'workout_in_progress_unpaused_viewport.dart';
 import 'workout_in_progress_widget.dart';
 
 class WorkoutInProgressPage extends StatelessWidget {
@@ -16,11 +17,14 @@ class WorkoutInProgressPage extends StatelessWidget {
   WorkoutInProgressPage(this._configuration);
 
   Widget bodyBuilder(WorkoutInProgressState state) {
-    if (state is WorkoutInProgressInitial) {
+    if (state is WorkoutInProgressInitialState) {
       return WorkoutInProgressWidget(_exercises);
     }
     if (state is PauseToggledOnState) {
       return WorkoutInProgressPausedViewport(state);
+    }
+    if (state is IsStartedState || state is PauseToggledOffState) {
+      return WorkoutInProgressUnpausedViewport(state);
     }
     return null;
   }

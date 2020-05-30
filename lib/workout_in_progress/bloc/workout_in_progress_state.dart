@@ -4,30 +4,59 @@ abstract class WorkoutInProgressState extends Equatable {
   const WorkoutInProgressState();
 }
 
-class WorkoutInProgressInitial extends WorkoutInProgressState {
+class WorkoutInProgressInitialState extends WorkoutInProgressState {
   @override
   List<Object> get props => [];
 }
 
-class PauseToggledOnState extends WorkoutInProgressState {
+class PauseToggledOnState extends WorkoutInProgressStateDTO {
+  PauseToggledOnState({
+    @required String exerciseActionMessage,
+    @required int currentCountdownTime,
+  }) : super(
+          exerciseActionMessage: exerciseActionMessage,
+          currentCountdownTime: currentCountdownTime,
+        );
+
+  @override
+  List<Object> get props => [currentCountdownTime, exerciseActionMessage];
+}
+
+class PauseToggledOffState extends WorkoutInProgressStateDTO {
+  final buttonMessage = "Pause";
+  PauseToggledOffState({
+    @required String exerciseActionMessage,
+    @required int currentCountdownTime,
+  }) : super(
+          exerciseActionMessage: exerciseActionMessage,
+          currentCountdownTime: currentCountdownTime,
+        );
+  @override
+  List<Object> get props =>
+      [buttonMessage, exerciseActionMessage, currentCountdownTime];
+}
+
+class IsStartedState extends WorkoutInProgressStateDTO {
+  final buttonMessage = "Start";
+
+  IsStartedState({
+    @required String exerciseActionMessage,
+    @required int currentCountdownTime,
+  }) : super(
+          exerciseActionMessage: exerciseActionMessage,
+          currentCountdownTime: currentCountdownTime,
+        );
+}
+
+class WorkoutInProgressStateDTO extends WorkoutInProgressState {
   final String exerciseActionMessage;
   final int currentCountdownTime;
 
-  PauseToggledOnState({
+  WorkoutInProgressStateDTO({
     @required this.exerciseActionMessage,
     @required this.currentCountdownTime,
   });
 
   @override
   List<Object> get props => [currentCountdownTime, exerciseActionMessage];
-}
-
-class PauseToggledOffState extends WorkoutInProgressState {
-  @override
-  List<Object> get props => [];
-}
-
-class IsStartedState extends WorkoutInProgressState {
-  @override
-  List<Object> get props => [];
 }
