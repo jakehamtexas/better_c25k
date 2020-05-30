@@ -67,6 +67,8 @@ class WorkoutInProgressBloc
         currentCountdownTime: _currentCountdownTime,
         exerciseActionMessage: _exerciseActionMessage,
       );
+    } else if (event is WorkoutCompletedEvent) {
+      yield WorkoutCompletedState();
     }
   }
 

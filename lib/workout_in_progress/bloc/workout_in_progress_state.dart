@@ -9,6 +9,11 @@ class WorkoutInProgressInitialState extends WorkoutInProgressState {
   List<Object> get props => [];
 }
 
+class WorkoutCompletedState extends WorkoutInProgressState {
+  @override
+  List<Object> get props => [];
+}
+
 class PauseToggledOnState extends WorkoutInProgressStateDTO {
   PauseToggledOnState({
     @required String exerciseActionMessage,

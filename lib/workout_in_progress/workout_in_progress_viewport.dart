@@ -1,5 +1,6 @@
-import 'package:better_c25k/workout_in_progress/bloc/workout_in_progress_bloc.dart';
 import 'package:flutter/material.dart';
+
+import 'bloc/workout_in_progress_bloc.dart';
 
 abstract class WorkoutInProgressViewport extends StatelessWidget {
   final WorkoutInProgressStateDTO _state;
@@ -10,16 +11,15 @@ abstract class WorkoutInProgressViewport extends StatelessWidget {
   Widget buildViewport({
     @required Null Function() onPressedHandler,
     @required String buttonMessage,
-  }) {
-    return Column(
-      children: <Widget>[
-        RaisedButton(
-          onPressed: onPressedHandler,
-          child: Text(buttonMessage),
-        ),
-        Text("Time Remaining: $_currentCountdownTime"),
-        Text(_exerciseMessage),
-      ],
-    );
-  }
+  }) =>
+      Column(
+        children: <Widget>[
+          RaisedButton(
+            onPressed: onPressedHandler,
+            child: Text(buttonMessage),
+          ),
+          Text("Time Remaining: $_currentCountdownTime"),
+          Text(_exerciseMessage),
+        ],
+      );
 }

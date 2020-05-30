@@ -1,13 +1,13 @@
-import 'package:better_c25k/workout_in_progress/workout_in_progress_initial_viewport.dart';
+import 'package:better_c25k/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../exercise/exercise.dart';
 import 'bloc/workout_in_progress_bloc.dart';
 import 'workout_in_progress_configuration.dart';
+import 'workout_in_progress_initial_viewport.dart';
 import 'workout_in_progress_paused_viewport.dart';
 import 'workout_in_progress_unpaused_viewport.dart';
-import 'workout_in_progress_viewport.dart';
 
 class WorkoutInProgressPage extends StatelessWidget {
   final WorkoutInProgressConfiguration _configuration;
@@ -36,11 +36,19 @@ class WorkoutInProgressPage extends StatelessWidget {
       builder: (_) => WorkoutInProgressBloc(),
       child: BlocBuilder<WorkoutInProgressBloc, WorkoutInProgressState>(
         builder: (context, state) {
+          if (state is WorkoutCompletedState) {
+            Navigator.of(context).pushReplacementNamed(
+              Routes.workoutComplete,
+              arguments: "",
+            );
+          }
           return Scaffold(
             appBar: AppBar(
               title: Text(_workoutTitle),
             ),
-            body: bodyBuilder(state),
+            body: bodyBuilder(
+              state,
+            ),
           );
         },
       ),
