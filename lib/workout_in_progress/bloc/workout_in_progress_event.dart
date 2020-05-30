@@ -5,32 +5,33 @@ abstract class WorkoutInProgressEvent extends Equatable {
 }
 
 class PauseEvent extends WorkoutInProgressEvent {
-  final int currentCountdownTime;
   final String exerciseActionMessage;
   PauseEvent({
     @required this.exerciseActionMessage,
-    @required this.currentCountdownTime,
   });
   @override
-  List<Object> get props => [currentCountdownTime];
+  List<Object> get props => [exerciseActionMessage];
 }
 
 class UnpauseEvent extends PauseEvent {
   UnpauseEvent({
     @required exerciseActionMessage,
-    @required currentCountdownTime,
   }) : super(
           exerciseActionMessage: exerciseActionMessage,
-          currentCountdownTime: currentCountdownTime,
         );
 }
 
 class StartEvent extends PauseEvent {
+  final int currentCountdownTime;
   StartEvent({
     @required exerciseActionMessage,
-    @required currentCountdownTime,
+    @required this.currentCountdownTime,
   }) : super(
           exerciseActionMessage: exerciseActionMessage,
-          currentCountdownTime: currentCountdownTime,
         );
+}
+
+class DecrementRemainingTimeEvent extends WorkoutInProgressEvent {
+  @override
+  List<Object> get props => [];
 }

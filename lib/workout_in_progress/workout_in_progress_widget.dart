@@ -39,12 +39,10 @@ class _DoWorkoutState extends State<WorkoutInProgressWidget> {
     }
     if (_isPaused) {
       BlocProvider.of<WorkoutInProgressBloc>(context).add(UnpauseEvent(
-        currentCountdownTime: _currentCountdownTime,
         exerciseActionMessage: _exerciseActionMessage,
       ));
     } else {
       BlocProvider.of<WorkoutInProgressBloc>(context).add(PauseEvent(
-        currentCountdownTime: _currentCountdownTime,
         exerciseActionMessage: _exerciseActionMessage,
       ));
     }
@@ -67,9 +65,8 @@ class _DoWorkoutState extends State<WorkoutInProgressWidget> {
             goToWorkoutCompletePage();
           }
         } else if (_stopwatch.isRunning) {
-          setState(() {
-            _currentCountdownTime--;
-          });
+          BlocProvider.of<WorkoutInProgressBloc>(context)
+              .add(DecrementRemainingTimeEvent());
         }
       },
     );
@@ -79,9 +76,10 @@ class _DoWorkoutState extends State<WorkoutInProgressWidget> {
 
   Function _getButtonOnPressedHandler() {
     if (!_isStarted) {
-      setState(() {
-        _isStarted = true;
-      });
+      BlocProvider.of<WorkoutInProgressBloc>(context).add(StartEvent(
+        currentCountdownTime: _currentCountdownTime,
+        exerciseActionMessage: _exerciseActionMessage,
+      ));
       return startTimer;
     }
 

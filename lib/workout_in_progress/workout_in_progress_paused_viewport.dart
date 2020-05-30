@@ -14,7 +14,6 @@ class WorkoutInProgressPausedViewport extends WorkoutInProgressViewport {
   Widget build(BuildContext context) => super.buildViewport(
         onPressedHandler: () {
           BlocProvider.of<WorkoutInProgressBloc>(context).add(UnpauseEvent(
-            currentCountdownTime: _currentCountdownTime,
             exerciseActionMessage: _exerciseActionMessage,
           ));
         },

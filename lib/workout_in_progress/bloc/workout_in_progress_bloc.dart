@@ -12,6 +12,7 @@ class WorkoutInProgressBloc
   @override
   WorkoutInProgressState get initialState => WorkoutInProgressInitialState();
 
+  int currentCountdownTime = 0;
   bool _isStarted = false;
   @override
   Stream<WorkoutInProgressState> mapEventToState(
@@ -19,20 +20,21 @@ class WorkoutInProgressBloc
   ) async* {
     if (event is StartEvent && !_isStarted) {
       _isStarted = true;
+      currentCountdownTime = event.currentCountdownTime;
       yield IsStartedState(
         currentCountdownTime: event.currentCountdownTime,
         exerciseActionMessage: event.exerciseActionMessage,
       );
     } else if (event is UnpauseEvent) {
       yield PauseToggledOffState(
-        currentCountdownTime: event.currentCountdownTime,
+        currentCountdownTime: currentCountdownTime,
         exerciseActionMessage: event.exerciseActionMessage,
       );
     } else if (event is PauseEvent) {
       yield PauseToggledOnState(
-        currentCountdownTime: event.currentCountdownTime,
+        currentCountdownTime: currentCountdownTime,
         exerciseActionMessage: event.exerciseActionMessage,
       );
-    }
+    } else if (event is DecrementRemainingTimeEvent) {}
   }
 }
