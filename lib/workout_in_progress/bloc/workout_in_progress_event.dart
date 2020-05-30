@@ -5,33 +5,35 @@ abstract class WorkoutInProgressEvent extends Equatable {
 }
 
 class PauseEvent extends WorkoutInProgressEvent {
-  final String exerciseActionMessage;
-  PauseEvent({
-    @required this.exerciseActionMessage,
-  });
   @override
-  List<Object> get props => [exerciseActionMessage];
+  List<Object> get props => [];
 }
 
-class UnpauseEvent extends PauseEvent {
-  UnpauseEvent({
-    @required exerciseActionMessage,
-  }) : super(
-          exerciseActionMessage: exerciseActionMessage,
-        );
+class UnpauseEvent extends WorkoutInProgressEvent {
+  @override
+  List<Object> get props => [];
 }
 
-class StartEvent extends PauseEvent {
-  final int currentCountdownTime;
+class StartEvent extends WorkoutInProgressEvent {
+  final List<ExerciseModel> exercises;
   StartEvent({
-    @required exerciseActionMessage,
-    @required this.currentCountdownTime,
-  }) : super(
-          exerciseActionMessage: exerciseActionMessage,
-        );
+    @required this.exercises,
+  });
+
+  @override
+  List<Object> get props => [...exercises];
 }
 
 class DecrementRemainingTimeEvent extends WorkoutInProgressEvent {
   @override
+  List<Object> get props => [];
+}
+
+class IncrementExerciseEvent extends WorkoutInProgressEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class WorkoutCompletedEvent extends WorkoutInProgressEvent {
   List<Object> get props => [];
 }
