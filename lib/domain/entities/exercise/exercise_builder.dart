@@ -1,12 +1,12 @@
-import 'exercise_action.dart';
+import '../../../constant/exercise_action.dart';
 import 'exercise.dart';
 
 class ExerciseBuilder {
-  List<ExerciseModel> _exercises = [];
-  ExerciseModel _warmup;
-  ExerciseModel _cooldown;
+  List<ExerciseEntity> _exercises = [];
+  ExerciseEntity _warmup;
+  ExerciseEntity _cooldown;
   ExerciseBuilder withWarmup(int durationInSeconds) {
-    _warmup = ExerciseModel(
+    _warmup = ExerciseEntity(
       durationInSeconds: durationInSeconds,
       exerciseAction: ExerciseAction.warmup,
     );
@@ -14,7 +14,7 @@ class ExerciseBuilder {
   }
 
   ExerciseBuilder withCooldown(int durationInSeconds) {
-    _cooldown = ExerciseModel(
+    _cooldown = ExerciseEntity(
       durationInSeconds: durationInSeconds,
       exerciseAction: ExerciseAction.cooldown,
     );
@@ -22,7 +22,7 @@ class ExerciseBuilder {
   }
 
   ExerciseBuilder repeat(
-      List<ExerciseModel> exercises, int repetitionsAfterFirst) {
+      List<ExerciseEntity> exercises, int repetitionsAfterFirst) {
     _exercises = [
       ...exercises,
       ...Iterable<int>.generate(repetitionsAfterFirst - 1)
@@ -31,17 +31,17 @@ class ExerciseBuilder {
     return this;
   }
 
-  ExerciseBuilder addInOrder(ExerciseModel exercise) {
+  ExerciseBuilder addInOrder(ExerciseEntity exercise) {
     _exercises.add(exercise);
     return this;
   }
 
-  ExerciseBuilder addRangeInOrder(List<ExerciseModel> exercises) {
+  ExerciseBuilder addRangeInOrder(List<ExerciseEntity> exercises) {
     _exercises.addAll(exercises);
     return this;
   }
 
-  List<ExerciseModel> build() => [_warmup, ..._exercises, _cooldown]
+  List<ExerciseEntity> build() => [_warmup, ..._exercises, _cooldown]
       .where((exercise) => exercise != null)
       .toList(growable: false);
 }

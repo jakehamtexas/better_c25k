@@ -15,7 +15,7 @@ class UnpauseEvent extends WorkoutInProgressEvent {
 }
 
 class StartEvent extends WorkoutInProgressEvent {
-  final List<ExerciseModel> exercises;
+  final List<ExerciseEntity> exercises;
   StartEvent({
     @required this.exercises,
   });

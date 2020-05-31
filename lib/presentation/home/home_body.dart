@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../app/router/routes.dart';
-import '../regimen/regimen.dart';
+import '../../domain/entities/regimen/static/static.dart';
 
 class HomeBody extends StatelessWidget {
   @override
@@ -9,7 +9,7 @@ class HomeBody extends StatelessWidget {
         child: RaisedButton(
           child: Text("Go To C25k"),
           onPressed: () => Navigator.of(context)
-              .pushNamed(Routes.regimen, arguments: C25KRegimenModel()),
+              .pushNamed(Routes.regimen, arguments: C25KRegimenStaticEntity()),
         ),
       );
 }

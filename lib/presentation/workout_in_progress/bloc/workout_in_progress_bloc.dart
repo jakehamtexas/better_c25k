@@ -4,7 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../exercise/exercise.dart';
+import '../../../constant/exercise_action.dart';
+import '../../../domain/entities/exercise/exercise.dart';
 
 part 'workout_in_progress_event.dart';
 part 'workout_in_progress_state.dart';
@@ -14,11 +15,11 @@ class WorkoutInProgressBloc
   @override
   WorkoutInProgressState get initialState => WorkoutInProgressInitialState();
 
-  List<ExerciseModel> _exercises;
+  List<ExerciseEntity> _exercises;
 
   int _exerciseIndex = 0;
 
-  ExerciseModel get _currentExercise => _exercises[_exerciseIndex];
+  ExerciseEntity get _currentExercise => _exercises[_exerciseIndex];
   String get _exerciseActionMessage => _currentExercise.exerciseAction.message;
 
   int _currentCountdownTime = 0;

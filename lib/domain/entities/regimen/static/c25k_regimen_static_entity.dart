@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../exercise/exercise.dart';
-import '../workout/workout.dart';
-import 'regimen_model.dart';
+import '../../../../constant/exercise_action.dart';
+import '../../exercise/exercise.dart';
+import '../../workout/workout.dart';
+import '../regimen.dart';
 
-class C25KRegimenModel extends RegimenModel {
+class C25KRegimenStaticEntity extends RegimenEntity {
   static final c25kWorkouts = _getC25kWorkouts();
-  C25KRegimenModel() : super(workouts: c25kWorkouts, name: "C25K");
+  C25KRegimenStaticEntity() : super(workouts: c25kWorkouts, name: "C25K");
 
-  static Iterable<WorkoutModel> _getC25kWorkouts() => [
+  static Iterable<WorkoutEntity> _getC25kWorkouts() => [
         ..._getWeekOneWorkouts(),
         ..._getWeekTwoWorkouts(),
         ..._getWeekThreeWorkouts(),
@@ -18,15 +19,15 @@ class C25KRegimenModel extends RegimenModel {
         ..._getWeekSevenWorkouts(),
         ..._getWeekEightWorkouts(),
       ];
-  static Iterable<WorkoutModel> _getWeekOneWorkouts() {
+  static Iterable<WorkoutEntity> _getWeekOneWorkouts() {
     final exercises =
         ExerciseBuilder().withWarmup(300).withCooldown(300).repeat(
       [
-        ExerciseModel(
+        ExerciseEntity(
           durationInSeconds: 60,
           exerciseAction: ExerciseAction.run,
         ),
-        ExerciseModel(
+        ExerciseEntity(
           durationInSeconds: 90,
           exerciseAction: ExerciseAction.walk,
         ),
@@ -42,15 +43,15 @@ class C25KRegimenModel extends RegimenModel {
     );
   }
 
-  static Iterable<WorkoutModel> _getWeekTwoWorkouts() {
+  static Iterable<WorkoutEntity> _getWeekTwoWorkouts() {
     final exercises =
         ExerciseBuilder().withWarmup(300).withCooldown(300).repeat(
       [
-        ExerciseModel(
+        ExerciseEntity(
           durationInSeconds: 90,
           exerciseAction: ExerciseAction.run,
         ),
-        ExerciseModel(
+        ExerciseEntity(
           durationInSeconds: 120,
           exerciseAction: ExerciseAction.walk,
         ),
@@ -66,23 +67,23 @@ class C25KRegimenModel extends RegimenModel {
     );
   }
 
-  static Iterable<WorkoutModel> _getWeekThreeWorkouts() {
+  static Iterable<WorkoutEntity> _getWeekThreeWorkouts() {
     final exercises =
         ExerciseBuilder().withWarmup(300).withCooldown(300).repeat(
       [
-        ExerciseModel(
+        ExerciseEntity(
           durationInSeconds: 90,
           exerciseAction: ExerciseAction.run,
         ),
-        ExerciseModel(
+        ExerciseEntity(
           durationInSeconds: 90,
           exerciseAction: ExerciseAction.walk,
         ),
-        ExerciseModel(
+        ExerciseEntity(
           durationInSeconds: 180,
           exerciseAction: ExerciseAction.run,
         ),
-        ExerciseModel(
+        ExerciseEntity(
           durationInSeconds: 180,
           exerciseAction: ExerciseAction.walk,
         ),
@@ -98,34 +99,34 @@ class C25KRegimenModel extends RegimenModel {
     );
   }
 
-  static Iterable<WorkoutModel> _getWeekFourWorkouts() {
+  static Iterable<WorkoutEntity> _getWeekFourWorkouts() {
     final exercises =
         ExerciseBuilder().withWarmup(300).withCooldown(300).addRangeInOrder([
-      ExerciseModel(
+      ExerciseEntity(
         durationInSeconds: 180,
         exerciseAction: ExerciseAction.run,
       ),
-      ExerciseModel(
+      ExerciseEntity(
         durationInSeconds: 90,
         exerciseAction: ExerciseAction.walk,
       ),
-      ExerciseModel(
+      ExerciseEntity(
         durationInSeconds: 300,
         exerciseAction: ExerciseAction.run,
       ),
-      ExerciseModel(
+      ExerciseEntity(
         durationInSeconds: 150,
         exerciseAction: ExerciseAction.walk,
       ),
-      ExerciseModel(
+      ExerciseEntity(
         durationInSeconds: 180,
         exerciseAction: ExerciseAction.run,
       ),
-      ExerciseModel(
+      ExerciseEntity(
         durationInSeconds: 90,
         exerciseAction: ExerciseAction.walk,
       ),
-      ExerciseModel(
+      ExerciseEntity(
         durationInSeconds: 300,
         exerciseAction: ExerciseAction.walk,
       ),
@@ -139,29 +140,29 @@ class C25KRegimenModel extends RegimenModel {
     );
   }
 
-  static Iterable<WorkoutModel> _getWeekFiveWorkouts() {
+  static Iterable<WorkoutEntity> _getWeekFiveWorkouts() {
     final dayOneExercises = ExerciseBuilder()
         .withWarmup(300)
         .withCooldown(300)
         .repeat(
           [
-            ExerciseModel(
+            ExerciseEntity(
               durationInSeconds: 300,
               exerciseAction: ExerciseAction.run,
             ),
-            ExerciseModel(
+            ExerciseEntity(
               durationInSeconds: 180,
               exerciseAction: ExerciseAction.walk,
             ),
           ],
           1,
         )
-        .addInOrder(ExerciseModel(
+        .addInOrder(ExerciseEntity(
             durationInSeconds: 300, exerciseAction: ExerciseAction.run))
         .build();
     const dayOneDescription =
         "Brisk five-minute warmup walk, then: Jog for 5 mins; Walk for 3 mins; Jog for 5 mins; Walk for 3 mins; Jog for 5 mins.";
-    final dayOneWorkout = WorkoutModel(
+    final dayOneWorkout = WorkoutEntity(
       ordinalDayOfWeekNumber: 1,
       ordinalWeekNumber: 5,
       description: dayOneDescription,
@@ -171,15 +172,15 @@ class C25KRegimenModel extends RegimenModel {
     final dayTwoExercises = ExerciseBuilder()
         .withWarmup(300)
         .withCooldown(300)
-        .addInOrder(ExerciseModel(
+        .addInOrder(ExerciseEntity(
           durationInSeconds: 8 * 60,
           exerciseAction: ExerciseAction.run,
         ))
-        .addInOrder(ExerciseModel(
+        .addInOrder(ExerciseEntity(
           durationInSeconds: 5 * 60,
           exerciseAction: ExerciseAction.walk,
         ))
-        .addInOrder(ExerciseModel(
+        .addInOrder(ExerciseEntity(
           durationInSeconds: 8 * 60,
           exerciseAction: ExerciseAction.run,
         ))
@@ -187,7 +188,7 @@ class C25KRegimenModel extends RegimenModel {
     const dayTwoDescription =
         "Brisk five-minute warmup warlk, then: Jog 3/4 mile (or 8 minutes); Walk 1/2 mile (or 5 minutes); Jog 3/4 mile (or 8 minutes).";
 
-    final dayTwoWorkout = WorkoutModel(
+    final dayTwoWorkout = WorkoutEntity(
       ordinalDayOfWeekNumber: 2,
       ordinalWeekNumber: 5,
       description: dayTwoDescription,
@@ -197,14 +198,14 @@ class C25KRegimenModel extends RegimenModel {
     final dayThreeExercises = ExerciseBuilder()
         .withWarmup(300)
         .withCooldown(300)
-        .addInOrder(ExerciseModel(
+        .addInOrder(ExerciseEntity(
           durationInSeconds: 20 * 60,
           exerciseAction: ExerciseAction.run,
         ))
         .build();
     const dayThreeDescription =
         "Brisk five-minute warmup walk, then jog two miles (or 20 minutes) with no walking.";
-    final dayThreeWorkout = WorkoutModel(
+    final dayThreeWorkout = WorkoutEntity(
       ordinalDayOfWeekNumber: 3,
       ordinalWeekNumber: 5,
       description: dayThreeDescription,
@@ -214,34 +215,34 @@ class C25KRegimenModel extends RegimenModel {
     return [dayOneWorkout, dayTwoWorkout, dayThreeWorkout];
   }
 
-  static Iterable<WorkoutModel> _getWeekSixWorkouts() {
+  static Iterable<WorkoutEntity> _getWeekSixWorkouts() {
     final dayOneExercises = ExerciseBuilder()
         .withWarmup(300)
         .withCooldown(300)
-        .addInOrder(ExerciseModel(
+        .addInOrder(ExerciseEntity(
           durationInSeconds: 5 * 60,
           exerciseAction: ExerciseAction.run,
         ))
-        .addInOrder(ExerciseModel(
+        .addInOrder(ExerciseEntity(
           durationInSeconds: 3 * 60,
           exerciseAction: ExerciseAction.walk,
         ))
-        .addInOrder(ExerciseModel(
+        .addInOrder(ExerciseEntity(
           durationInSeconds: 8 * 60,
           exerciseAction: ExerciseAction.run,
         ))
-        .addInOrder(ExerciseModel(
+        .addInOrder(ExerciseEntity(
           durationInSeconds: 5 * 60,
           exerciseAction: ExerciseAction.walk,
         ))
-        .addInOrder(ExerciseModel(
+        .addInOrder(ExerciseEntity(
           durationInSeconds: 8 * 60,
           exerciseAction: ExerciseAction.run,
         ))
         .build();
     const dayOneDescription =
         "Brisk five-minute warmup walk, then: Jog for 5 mins; Walk for 3 mins; Jog for 5 mins; Walk for 3 mins; Jog for 5 mins.";
-    final dayOneWorkout = WorkoutModel(
+    final dayOneWorkout = WorkoutEntity(
       ordinalDayOfWeekNumber: 1,
       ordinalWeekNumber: 6,
       description: dayOneDescription,
@@ -250,15 +251,15 @@ class C25KRegimenModel extends RegimenModel {
 
     final dayTwoExercises =
         ExerciseBuilder().withWarmup(300).withCooldown(300).addRangeInOrder([
-      ExerciseModel(
+      ExerciseEntity(
         durationInSeconds: 10 * 60,
         exerciseAction: ExerciseAction.run,
       ),
-      ExerciseModel(
+      ExerciseEntity(
         durationInSeconds: 3 * 60,
         exerciseAction: ExerciseAction.walk,
       ),
-      ExerciseModel(
+      ExerciseEntity(
         durationInSeconds: 10 * 60,
         exerciseAction: ExerciseAction.run,
       )
@@ -267,7 +268,7 @@ class C25KRegimenModel extends RegimenModel {
     const dayTwoDescription =
         "Brisk five-minute warmup walk, then: Jog 1 mile (or 10 minutes); Walk 1/4 mile (or 3 minutes); Jog 1 mile (or 10 minutes).";
 
-    final dayTwoWorkout = WorkoutModel(
+    final dayTwoWorkout = WorkoutEntity(
       ordinalDayOfWeekNumber: 2,
       ordinalWeekNumber: 6,
       description: dayTwoDescription,
@@ -276,14 +277,14 @@ class C25KRegimenModel extends RegimenModel {
     final dayThreeExercises = ExerciseBuilder()
         .withWarmup(300)
         .withCooldown(300)
-        .addInOrder(ExerciseModel(
+        .addInOrder(ExerciseEntity(
           durationInSeconds: 22 * 60,
           exerciseAction: ExerciseAction.run,
         ))
         .build();
     const dayThreeDescription =
         "Brisk five-minute warmup walk, then jog 2-1/4 miles (or 22 minutes) with no walking.";
-    final dayThreeWorkout = WorkoutModel(
+    final dayThreeWorkout = WorkoutEntity(
       ordinalDayOfWeekNumber: 3,
       ordinalWeekNumber: 6,
       description: dayThreeDescription,
@@ -293,12 +294,12 @@ class C25KRegimenModel extends RegimenModel {
     return [dayOneWorkout, dayTwoWorkout, dayThreeWorkout];
   }
 
-  static Iterable<WorkoutModel> _getWeekSevenWorkouts() {
+  static Iterable<WorkoutEntity> _getWeekSevenWorkouts() {
     final exercises = ExerciseBuilder()
         .withWarmup(300)
         .withCooldown(300)
         .addInOrder(
-          ExerciseModel(
+          ExerciseEntity(
             durationInSeconds: 25 * 60,
             exerciseAction: ExerciseAction.run,
           ),
@@ -313,12 +314,12 @@ class C25KRegimenModel extends RegimenModel {
     );
   }
 
-  static Iterable<WorkoutModel> _getWeekEightWorkouts() {
+  static Iterable<WorkoutEntity> _getWeekEightWorkouts() {
     final firstTwoDaysExercises = ExerciseBuilder()
         .withWarmup(300)
         .withCooldown(300)
         .addInOrder(
-          ExerciseModel(
+          ExerciseEntity(
             durationInSeconds: 28 * 60,
             exerciseAction: ExerciseAction.run,
           ),
@@ -337,7 +338,7 @@ class C25KRegimenModel extends RegimenModel {
         .withWarmup(300)
         .withCooldown(300)
         .addInOrder(
-          ExerciseModel(
+          ExerciseEntity(
             durationInSeconds: 30 * 60,
             exerciseAction: ExerciseAction.run,
           ),
@@ -345,7 +346,7 @@ class C25KRegimenModel extends RegimenModel {
         .build();
     const dayThreeDescription =
         "The final workout! Congratulations! Brisk five-minute warmup walk, then jog 3 miles (or 30 minutes).";
-    final dayThreeWorkout = WorkoutModel(
+    final dayThreeWorkout = WorkoutEntity(
       ordinalDayOfWeekNumber: 3,
       ordinalWeekNumber: 8,
       description: dayThreeDescription,
@@ -354,13 +355,13 @@ class C25KRegimenModel extends RegimenModel {
     return [...firstTwoDaysWorkouts, dayThreeWorkout];
   }
 
-  static Iterable<WorkoutModel> _getAsCopies({
+  static Iterable<WorkoutEntity> _getAsCopies({
     int numCopies = 3,
     @required int ordinalWeekNumber,
     @required String description,
-    @required List<ExerciseModel> exercises,
+    @required List<ExerciseEntity> exercises,
   }) =>
-      Iterable<int>.generate(numCopies).map((index) => WorkoutModel(
+      Iterable<int>.generate(numCopies).map((index) => WorkoutEntity(
             ordinalDayOfWeekNumber: index + 1,
             ordinalWeekNumber: ordinalWeekNumber,
             description: description,

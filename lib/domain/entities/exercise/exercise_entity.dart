@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'exercise_action.dart';
+import '../../../constant/exercise_action.dart';
 
-class ExerciseModel {
+class ExerciseEntity {
   final int durationInSeconds;
 
   final ExerciseAction exerciseAction;
 
-  const ExerciseModel({
+  const ExerciseEntity({
     @required this.durationInSeconds,
     @required this.exerciseAction,
   });

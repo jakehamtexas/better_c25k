@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../exercise/exercise.dart';
+import '../../domain/entities/exercise/exercise.dart';
+import '../../constant/exercise_action.dart';
 import 'bloc/workout_in_progress_bloc.dart';
 import 'workout_in_progress_viewport.dart';
 
 class WorkoutInProgressInitialViewport extends WorkoutInProgressViewport {
-  final List<ExerciseModel> _exercises;
+  final List<ExerciseEntity> _exercises;
   WorkoutInProgressInitialViewport(this._exercises)
       : super(WorkoutInProgressStateDTO(
           currentCountdownTime: _exercises[0].durationInSeconds,

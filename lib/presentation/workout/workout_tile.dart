@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app/router/routes.dart';
-import '../workout_in_progress/workout_in_progress.dart';
+import '../../domain/entities/workout/workout.dart';
+import '../../domain/entities/workout_in_progress/workout_in_progress.dart';
 import 'bloc/workout_bloc.dart';
 import 'workout_card.dart';
-import 'workout_model.dart';
 
 class WorkoutTile extends StatelessWidget {
-  final WorkoutModel _workout;
+  final WorkoutEntity _workout;
   String get _workoutDescription => _workout.description;
   String get _workoutTitle {
     final weekNumber = _workout.ordinalWeekNumber;
@@ -26,7 +26,7 @@ class WorkoutTile extends StatelessWidget {
     final start = () {
       Navigator.of(context).pushNamed(
         Routes.doWorkout,
-        arguments: WorkoutInProgressDTO(
+        arguments: WorkoutInProgressEntity(
           exercises: _workout.exercises,
           workoutTitle: _workoutTitle,
         ),
