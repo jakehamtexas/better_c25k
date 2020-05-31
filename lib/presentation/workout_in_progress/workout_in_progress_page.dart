@@ -4,18 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../app/router/routes.dart';
 import '../exercise/exercise.dart';
 import 'bloc/workout_in_progress_bloc.dart';
-import 'workout_in_progress_configuration.dart';
+import 'workout_in_progress_dto.dart';
 import 'workout_in_progress_initial_viewport.dart';
 import 'workout_in_progress_paused_viewport.dart';
 import 'workout_in_progress_unpaused_viewport.dart';
 
 class WorkoutInProgressPage extends StatelessWidget {
-  final WorkoutInProgressConfiguration _configuration;
+  final WorkoutInProgressDTO _dto;
 
-  String get _workoutTitle => _configuration.workoutTitle;
-  List<ExerciseModel> get _exercises => _configuration.exercises;
+  String get _workoutTitle => _dto.workoutTitle;
+  List<ExerciseModel> get _exercises => _dto.exercises;
 
-  WorkoutInProgressPage(this._configuration);
+  WorkoutInProgressPage(this._dto);
 
   Widget bodyBuilder(WorkoutInProgressState state) {
     if (state is WorkoutInProgressInitialState) {

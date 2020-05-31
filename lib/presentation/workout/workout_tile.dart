@@ -26,7 +26,7 @@ class WorkoutTile extends StatelessWidget {
     final start = () {
       Navigator.of(context).pushNamed(
         Routes.doWorkout,
-        arguments: WorkoutInProgressConfiguration(
+        arguments: WorkoutInProgressDTO(
           exercises: _workout.exercises,
           workoutTitle: _workoutTitle,
         ),

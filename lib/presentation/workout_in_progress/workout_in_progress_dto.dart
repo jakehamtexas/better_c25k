@@ -1,8 +1,8 @@
 import '../exercise/exercise.dart';
 
-class WorkoutInProgressConfiguration {
+class WorkoutInProgressDTO {
   final List<ExerciseModel> exercises;
   final String workoutTitle;
 
-  WorkoutInProgressConfiguration({this.exercises, this.workoutTitle});
+  WorkoutInProgressDTO({this.exercises, this.workoutTitle});
 }
