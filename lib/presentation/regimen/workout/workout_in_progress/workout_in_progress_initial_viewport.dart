@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../domain/entities/exercise/exercise.dart';
-import '../../constant/exercise_action.dart';
+import '../../../../domain/entities/exercise/exercise.dart';
+import '../../../../constant/exercise_action.dart';
 import 'bloc/workout_in_progress_bloc.dart';
 import 'workout_in_progress_viewport.dart';
 

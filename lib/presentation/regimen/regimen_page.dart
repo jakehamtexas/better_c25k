@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/regimen/regimen.dart';
-import '../workout/workout.dart';
+import 'workout/workout.dart';
 
 class RegimenPage extends StatelessWidget {
   final RegimenEntity regimen;

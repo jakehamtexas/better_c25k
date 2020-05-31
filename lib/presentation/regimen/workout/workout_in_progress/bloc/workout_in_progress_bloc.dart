@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constant/exercise_action.dart';
-import '../../../domain/entities/exercise/exercise.dart';
+import '../../../../../constant/exercise_action.dart';
+import '../../../../../domain/entities/exercise/exercise.dart';
 
 part 'workout_in_progress_event.dart';
 part 'workout_in_progress_state.dart';
