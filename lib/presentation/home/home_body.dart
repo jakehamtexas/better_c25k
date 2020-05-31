@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../app/router/routes.dart';
 import '../regimen/regimen.dart';
-import '../router/routes.dart';
 
 class HomeBody extends StatelessWidget {
   @override

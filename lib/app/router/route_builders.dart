@@ -1,9 +1,9 @@
-import 'package:better_c25k/workout_completed/workout_completed.dart';
 import 'package:flutter/material.dart';
 
-import '../home/home.dart';
-import '../regimen/regimen.dart';
-import '../workout_in_progress/workout_in_progress.dart';
+import '../../presentation/home/home.dart';
+import '../../presentation/regimen/regimen.dart';
+import '../../presentation/workout_completed/workout_completed.dart';
+import '../../presentation/workout_in_progress/workout_in_progress.dart';
 import 'routes.dart';
 
 final _home = (Object _args) => (BuildContext _) => Home();

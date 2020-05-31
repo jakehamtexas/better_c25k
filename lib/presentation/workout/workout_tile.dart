@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../app/router/routes.dart';
 import '../workout_in_progress/workout_in_progress.dart';
-import '../router/routes.dart';
 import 'bloc/workout_bloc.dart';
 import 'workout_card.dart';
 import 'workout_model.dart';

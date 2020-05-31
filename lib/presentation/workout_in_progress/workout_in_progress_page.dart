@@ -1,7 +1,7 @@
-import 'package:better_c25k/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../app/router/routes.dart';
 import '../exercise/exercise.dart';
 import 'bloc/workout_in_progress_bloc.dart';
 import 'workout_in_progress_configuration.dart';
