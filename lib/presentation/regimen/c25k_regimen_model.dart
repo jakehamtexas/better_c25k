@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../exercise/exercise.dart';
 import '../workout/workout.dart';
 import 'regimen_model.dart';
@@ -33,12 +35,11 @@ class C25KRegimenModel extends RegimenModel {
     ).build();
     const description =
         "Brisk five-minute warmup walk. Then alternate 60 seconds of jogging and 90 seconds of walking for a total of 20 minutes.";
-    return Iterable<int>.generate(2).map((index) => WorkoutModel(
-          ordinalDayOfWeekNumber: index + 1,
-          ordinalWeekNumber: 1,
-          description: description,
-          exercises: exercises,
-        ));
+    return _getAsCopies(
+      description: description,
+      exercises: exercises,
+      ordinalWeekNumber: 1,
+    );
   }
 
   static Iterable<WorkoutModel> _getWeekTwoWorkouts() {
@@ -58,12 +59,11 @@ class C25KRegimenModel extends RegimenModel {
     ).build();
     const description =
         "Brisk five-minute warmup walk. Then alternate 90 seconds of jogging and two minutes of walking for a total of 21 minutes.";
-    return Iterable<int>.generate(2).map((index) => WorkoutModel(
-          ordinalDayOfWeekNumber: index + 1,
-          ordinalWeekNumber: 2,
-          description: description,
-          exercises: exercises,
-        ));
+    return _getAsCopies(
+      description: description,
+      exercises: exercises,
+      ordinalWeekNumber: 2,
+    );
   }
 
   static Iterable<WorkoutModel> _getWeekThreeWorkouts() {
@@ -91,12 +91,11 @@ class C25KRegimenModel extends RegimenModel {
     ).build();
     const description =
         "Brisk five-minute warmup walk, then do two repetitions of the following: Jog for 90 secs; Walk for 90 secs; Jog for 3 mins; Walk for 3 mins.";
-    return Iterable<int>.generate(2).map((index) => WorkoutModel(
-          ordinalDayOfWeekNumber: index + 1,
-          ordinalWeekNumber: 3,
-          description: description,
-          exercises: exercises,
-        ));
+    return _getAsCopies(
+      description: description,
+      exercises: exercises,
+      ordinalWeekNumber: 3,
+    );
   }
 
   static Iterable<WorkoutModel> _getWeekFourWorkouts() {
@@ -133,12 +132,11 @@ class C25KRegimenModel extends RegimenModel {
     ]).build();
     const description =
         "Brisk five-minute warmup walk, then: Jog for 3 mins; Walk for 90 secs; Jog for 5 mins; Walk for 2.5 mins; Jog for 3 mins; Walk for 90 secs; Jog for 5 mins.";
-    return Iterable<int>.generate(2).map((index) => WorkoutModel(
-          ordinalDayOfWeekNumber: index + 1,
-          ordinalWeekNumber: 4,
-          description: description,
-          exercises: exercises,
-        ));
+    return _getAsCopies(
+      description: description,
+      exercises: exercises,
+      ordinalWeekNumber: 4,
+    );
   }
 
   static Iterable<WorkoutModel> _getWeekFiveWorkouts() {
@@ -308,12 +306,11 @@ class C25KRegimenModel extends RegimenModel {
         .build();
     const description =
         "Brisk five-minute warmup walk, then jog 2.5 miles (or 25 minutes).";
-    return Iterable<int>.generate(2).map((index) => WorkoutModel(
-          ordinalDayOfWeekNumber: index + 1,
-          ordinalWeekNumber: 7,
-          description: description,
-          exercises: exercises,
-        ));
+    return _getAsCopies(
+      ordinalWeekNumber: 7,
+      description: description,
+      exercises: exercises,
+    );
   }
 
   static Iterable<WorkoutModel> _getWeekEightWorkouts() {
@@ -329,13 +326,12 @@ class C25KRegimenModel extends RegimenModel {
         .build();
     const firstTwoDaysDescription =
         "Brisk five-minute warmup walk, then jog 2.75 miles (or 28 minutes).";
-    final firstTwoDaysWorkouts =
-        Iterable<int>.generate(1).map((index) => WorkoutModel(
-              ordinalDayOfWeekNumber: index + 1,
-              ordinalWeekNumber: 8,
-              description: firstTwoDaysDescription,
-              exercises: firstTwoDaysExercises,
-            ));
+    final firstTwoDaysWorkouts = _getAsCopies(
+      description: firstTwoDaysDescription,
+      exercises: firstTwoDaysExercises,
+      ordinalWeekNumber: 8,
+      numCopies: 2,
+    );
 
     final dayThreeExercises = ExerciseBuilder()
         .withWarmup(300)
@@ -357,4 +353,17 @@ class C25KRegimenModel extends RegimenModel {
     );
     return [...firstTwoDaysWorkouts, dayThreeWorkout];
   }
+
+  static Iterable<WorkoutModel> _getAsCopies({
+    int numCopies = 3,
+    @required int ordinalWeekNumber,
+    @required String description,
+    @required List<ExerciseModel> exercises,
+  }) =>
+      Iterable<int>.generate(numCopies).map((index) => WorkoutModel(
+            ordinalDayOfWeekNumber: index + 1,
+            ordinalWeekNumber: ordinalWeekNumber,
+            description: description,
+            exercises: exercises,
+          ));
 }
