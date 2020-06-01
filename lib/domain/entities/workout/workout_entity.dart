@@ -1,10 +1,13 @@
-import 'package:better_c25k/domain/entities/exercise/exercise.dart';
 import 'package:flutter/material.dart';
 
-const _defaultDescription = "An exercise! What does it mean?";
+import '../../../constant/completion_status.dart';
+import '../exercise/exercise.dart';
+
+const _defaultDescription = "A workout! What does it mean?";
 
 /// A workout is a collection of exercises that occur in a single day.
 class WorkoutEntity {
+  final int workoutId;
   final List<ExerciseEntity> exercises;
 
   /// The time at which the workout occurs. Only omit initializing this
@@ -22,16 +25,21 @@ class WorkoutEntity {
   /// A description of the workout.
   final String description;
 
+  final CompletionStatus completionStatus;
+
   ///The total duration of all the exercises in a workout in seconds.
   int get totalDuration => exercises
       .map((exercise) => exercise.durationInSeconds)
       .reduce((totalDuration, durationInSeconds) =>
           totalDuration + durationInSeconds);
 
-  WorkoutEntity(
-      {@required this.exercises,
-      @required this.ordinalDayOfWeekNumber,
-      @required this.ordinalWeekNumber,
-      this.time,
-      this.description = _defaultDescription});
+  WorkoutEntity({
+    @required this.workoutId,
+    @required this.exercises,
+    @required this.ordinalDayOfWeekNumber,
+    @required this.ordinalWeekNumber,
+    this.time,
+    this.description = _defaultDescription,
+    this.completionStatus = CompletionStatus.notStarted,
+  });
 }
