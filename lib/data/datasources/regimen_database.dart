@@ -1,6 +1,10 @@
-import 'package:better_c25k/constant/completion_status.dart';
-import 'package:better_c25k/constant/exercise_action.dart';
+import 'package:better_c25k/data/repository/workout_repository_dao.dart';
 import 'package:moor/moor.dart';
+import 'package:moor_flutter/moor_flutter.dart';
+
+import '../../constant/completion_status.dart';
+import '../../constant/exercise_action.dart';
+import '../repository/repository.dart';
 
 part 'regimen_database.g.dart';
 
@@ -43,5 +47,16 @@ class Exercises extends Table {
   IntColumn get exerciseAction => intEnum<ExerciseAction>()();
 }
 
-@UseMoor(tables: [Regimens, Workouts, Exercises])
-class MyDatabase {}
+@UseMoor(
+    tables: [Regimens, Workouts, Exercises],
+    daos: [RegimenRepositoryDao, WorkoutRepositoryDao])
+class RegimenDatabase extends _$RegimenDatabase {
+  RegimenDatabase()
+      : super(FlutterQueryExecutor.inDatabaseFolder(
+          path: "db.sqlite",
+          logStatements: true,
+        ));
+
+  @override
+  int get schemaVersion => 1;
+}

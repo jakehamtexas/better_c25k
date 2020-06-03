@@ -1,5 +1,4 @@
-import 'package:better_c25k/domain/entities/regimen/regimen.dart';
-import 'package:better_c25k/domain/entities/workout/workout.dart';
+import 'package:better_c25k/domain/entities/common/name_and_id.dart';
 import 'package:better_c25k/domain/repository/regimen_repository.dart';
 import 'package:better_c25k/domain/usecases/get_regimens.dart';
 import 'package:dartz/dartz.dart';
@@ -8,16 +7,7 @@ import 'package:mockito/mockito.dart';
 
 class MockRegimenRepository extends Mock implements RegimenRepository {}
 
-final _tWorkout = WorkoutEntity(
-  exercises: [],
-  description: "tDescription",
-  ordinalDayOfWeekNumber: 0,
-  ordinalWeekNumber: 0,
-  workoutId: 0,
-);
-final List<RegimenEntity> tRegimens = [
-  RegimenEntity(name: "tName", workouts: [_tWorkout])
-];
+const _tNameAndIds = [NameAndId(id: 0, name: "tName")];
 void main() {
   GetRegimens usecase;
   MockRegimenRepository mockRegimenRepository;
@@ -29,15 +19,15 @@ void main() {
 
   test('should get regimens from the repository', () async {
     // arrange
-    when(mockRegimenRepository.getAllRegimens())
-        .thenAnswer((_) async => Right(tRegimens));
+    when(mockRegimenRepository.getAllRegimenNamesAndIds())
+        .thenAnswer((_) async => Right(_tNameAndIds));
 
     // act
     final result = await usecase.execute();
 
     // assert
-    expect(result, Right(tRegimens));
-    verify(mockRegimenRepository.getAllRegimens());
+    expect(result, Right(_tNameAndIds));
+    verify(mockRegimenRepository.getAllRegimenNamesAndIds());
     verifyNoMoreInteractions(mockRegimenRepository);
   });
 }

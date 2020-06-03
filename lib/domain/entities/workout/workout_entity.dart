@@ -40,6 +40,6 @@ class WorkoutEntity {
     @required this.ordinalWeekNumber,
     this.time,
     this.description = _defaultDescription,
-    this.completionStatus = CompletionStatus.notStarted,
+    this.completionStatus = CompletionStatus.notStarted, int id,
   });
 }

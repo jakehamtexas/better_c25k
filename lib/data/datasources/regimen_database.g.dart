@@ -1041,14 +1041,20 @@ class $ExercisesTable extends Exercises
       const EnumIndexConverter<ExerciseAction>(ExerciseAction.values);
 }
 
-abstract class _$MyDatabase extends GeneratedDatabase {
-  _$MyDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+abstract class _$RegimenDatabase extends GeneratedDatabase {
+  _$RegimenDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $RegimensTable _regimens;
   $RegimensTable get regimens => _regimens ??= $RegimensTable(this);
   $WorkoutsTable _workouts;
   $WorkoutsTable get workouts => _workouts ??= $WorkoutsTable(this);
   $ExercisesTable _exercises;
   $ExercisesTable get exercises => _exercises ??= $ExercisesTable(this);
+  RegimenRepositoryDao _regimenRepositoryDao;
+  RegimenRepositoryDao get regimenRepositoryDao =>
+      _regimenRepositoryDao ??= RegimenRepositoryDao(this as RegimenDatabase);
+  WorkoutRepositoryDao _workoutRepositoryDao;
+  WorkoutRepositoryDao get workoutRepositoryDao =>
+      _workoutRepositoryDao ??= WorkoutRepositoryDao(this as RegimenDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
