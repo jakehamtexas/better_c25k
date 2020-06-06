@@ -1,11 +1,10 @@
 import 'package:better_c25k/domain/entities/common/name_and_id.dart';
-import 'package:better_c25k/domain/repository/regimen_repository.dart';
 import 'package:better_c25k/domain/usecases/get_regimens.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-class MockRegimenRepository extends Mock implements RegimenRepository {}
+import '../../mock/domain/repository/repository.dart';
 
 const _tNameAndIds = [NameAndId(id: 0, name: "tName")];
 void main() {
@@ -23,7 +22,7 @@ void main() {
         .thenAnswer((_) async => Right(_tNameAndIds));
 
     // act
-    final result = await usecase.execute();
+    final result = await usecase();
 
     // assert
     expect(result, Right(_tNameAndIds));
