@@ -1,11 +1,9 @@
-import 'package:better_c25k/data/repository/workout_repository_dao.dart';
 import 'package:moor/moor.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 
 import '../../constant/completion_status.dart';
 import '../../constant/exercise_action.dart';
-import '../repository/repository.dart';
-
+import '../repository/moor/moor.dart';
 part 'regimen_database.g.dart';
 
 int _getIntForEnumValue<TEnum>(List<TEnum> values, TEnum matchValue) =>
@@ -49,7 +47,7 @@ class Exercises extends Table {
 
 @UseMoor(
     tables: [Regimens, Workouts, Exercises],
-    daos: [RegimenRepositoryDao, WorkoutRepositoryDao])
+    daos: [RegimenRepository, WorkoutRepository, ExerciseRepository])
 class RegimenDatabase extends _$RegimenDatabase {
   RegimenDatabase()
       : super(FlutterQueryExecutor.inDatabaseFolder(

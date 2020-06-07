@@ -12,4 +12,8 @@ abstract class WorkoutRepository {
     @required int workoutId,
     @required CompletionStatus completionStatus,
   });
+  Future<Either<Failure, List<int>>> insertWorkouts({
+    @required List<WorkoutEntity> workoutEntities,
+    @required int regimenId,
+  });
 }

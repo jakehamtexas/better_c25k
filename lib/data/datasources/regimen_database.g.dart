@@ -1049,12 +1049,15 @@ abstract class _$RegimenDatabase extends GeneratedDatabase {
   $WorkoutsTable get workouts => _workouts ??= $WorkoutsTable(this);
   $ExercisesTable _exercises;
   $ExercisesTable get exercises => _exercises ??= $ExercisesTable(this);
-  RegimenRepositoryDao _regimenRepositoryDao;
-  RegimenRepositoryDao get regimenRepositoryDao =>
-      _regimenRepositoryDao ??= RegimenRepositoryDao(this as RegimenDatabase);
-  WorkoutRepositoryDao _workoutRepositoryDao;
-  WorkoutRepositoryDao get workoutRepositoryDao =>
-      _workoutRepositoryDao ??= WorkoutRepositoryDao(this as RegimenDatabase);
+  RegimenRepository _regimenRepository;
+  RegimenRepository get regimenRepository =>
+      _regimenRepository ??= RegimenRepository(this as RegimenDatabase);
+  WorkoutRepository _workoutRepository;
+  WorkoutRepository get workoutRepository =>
+      _workoutRepository ??= WorkoutRepository(this as RegimenDatabase);
+  ExerciseRepository _exerciseRepository;
+  ExerciseRepository get exerciseRepository =>
+      _exerciseRepository ??= ExerciseRepository(this as RegimenDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override

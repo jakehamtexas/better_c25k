@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'workout_repository_dao.dart';
+part of 'workout_repository.dart';
 
 // **************************************************************************
 // DaoGenerator
 // **************************************************************************
 
-mixin _$WorkoutRepositoryDaoMixin on DatabaseAccessor<RegimenDatabase> {
+mixin _$WorkoutRepositoryMixin on DatabaseAccessor<RegimenDatabase> {
   $WorkoutsTable get workouts => attachedDatabase.workouts;
   $ExercisesTable get exercises => attachedDatabase.exercises;
 }
