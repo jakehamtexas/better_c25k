@@ -17,22 +17,29 @@ class ExpandedWorkoutCard extends WorkoutCardBase {
   @override
   Widget build(BuildContext context) {
     final workoutTitleWidget = super.getWorkoutTitleWidget(workoutTitle);
-    return AnimatedContainer(
-      duration: super.duration,
-      height: 155,
+    return Container(
+      height: 200,
       child: super.getCard(
-        Wrap(
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: super.paddingAmount,
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: super.paddingAmount,
+                    ),
+                    child: workoutTitleWidget,
                   ),
-                  child: workoutTitleWidget,
-                ),
-                Text(workoutDescription),
-              ],
+                  Text(
+                    workoutDescription,
+                    textAlign: TextAlign.left,
+                    softWrap: true,
+                  ),
+                ],
+              ),
             ),
             TileButtonBarFactory()(
               workoutTitle: workoutTitle,

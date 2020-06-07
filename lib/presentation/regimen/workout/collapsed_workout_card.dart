@@ -16,10 +16,8 @@ class CollapsedWorkoutCard extends WorkoutCardBase {
   @override
   Widget build(BuildContext context) {
     final workoutTitleWidget = super.getWorkoutTitleWidget(workoutTitle);
-
     //TODO: Fix broken animated container transition
-    return AnimatedContainer(
-      duration: super.duration,
+    return Container(
       height: 72,
       child: super.getCard(
         Column(

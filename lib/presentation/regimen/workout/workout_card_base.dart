@@ -4,7 +4,6 @@ abstract class WorkoutCardBase extends StatelessWidget {
   final int workoutId;
   final String workoutTitle;
   final String workoutDescription;
-  final duration = Duration(milliseconds: 350);
 
   WorkoutCardBase({
     @required this.workoutId,

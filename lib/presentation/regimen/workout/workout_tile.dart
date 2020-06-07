@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/workout/workout.dart';
+import 'animated_workout_card_switcher.dart';
 import 'bloc/workout_bloc.dart';
 import 'collapsed_workout_card.dart';
 import 'expanded_workout_card.dart';
+import 'workout_card_base.dart';
 
 class WorkoutTile extends StatelessWidget {
   final WorkoutPresentationEntity _workout;
@@ -27,8 +29,9 @@ class WorkoutTile extends StatelessWidget {
       child: Center(
         child: BlocBuilder<WorkoutBloc, WorkoutState>(
           builder: (BuildContext context, state) {
+            WorkoutCardBase workoutCard;
             if (state is WorkoutExpandToggledOnState) {
-              return ExpandedWorkoutCard(
+              workoutCard = ExpandedWorkoutCard(
                 workoutId: _workout.workoutId,
                 workoutDescription: _workoutDescription,
                 workoutTitle: _workoutTitle,
@@ -36,13 +39,15 @@ class WorkoutTile extends StatelessWidget {
             }
 
             if (state is WorkoutExpandToggledOffState) {
-              return CollapsedWorkoutCard(
+              workoutCard = CollapsedWorkoutCard(
                 workoutId: _workout.workoutId,
                 workoutDescription: _workoutDescription,
                 workoutTitle: _workoutTitle,
               );
             }
-            return null;
+            return AnimatedWorkoutCardSwitcher(
+              workoutCard,
+            );
           },
         ),
       ),
