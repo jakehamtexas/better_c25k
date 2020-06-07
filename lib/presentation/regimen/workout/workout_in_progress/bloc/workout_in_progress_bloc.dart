@@ -33,12 +33,9 @@ class WorkoutInProgressBloc
   ) async* {
     if (event is WorkoutInProgressInitializedEvent) {
       final exercisesOrFailure = await event.usecase(event.workoutId);
-      yield exercisesOrFailure.fold(
-        LeftNavigateToDefaultErrorPage()(event.context),
-        (exercises) {
-          _exercises = exercises;
-        },
-      );
+      _exercises = exercisesOrFailure.fold(
+          LeftNavigateToDefaultErrorPage()(event.context),
+          (exercises) => exercises);
       yield ExercisesRetrievalSuccessState(_exercises.first);
     } else if (event is StartEvent) {
       _currentCountdownTime = _exercises[0].durationInSeconds;

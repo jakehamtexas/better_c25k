@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'bloc/workout_bloc.dart';
 
 abstract class WorkoutCardBase extends StatelessWidget {
   final int workoutId;

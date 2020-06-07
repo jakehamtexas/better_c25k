@@ -1,9 +1,8 @@
-import 'package:better_c25k/data/datasources/datasources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../domain/repository/repository.dart';
+import '../../data/datasources/datasources.dart';
 import '../../domain/usecases/get_workouts.dart';
 import 'bloc/regimen_bloc.dart';
 import 'workouts_list.dart';

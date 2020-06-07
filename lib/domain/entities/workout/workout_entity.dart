@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../constant/completion_status.dart';
 import '../exercise/exercise.dart';
 
-const _defaultDescription = "A workout! What does it mean?";
-
 /// A workout is a collection of exercises that occur in a single day.
 class WorkoutEntity extends WorkoutPresentationEntity {
   final List<ExerciseEntity> exercises;

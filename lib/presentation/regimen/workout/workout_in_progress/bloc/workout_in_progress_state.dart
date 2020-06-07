@@ -14,7 +14,6 @@ class ExercisesRetrievalSuccessState extends WorkoutInProgressState {
 
   ExercisesRetrievalSuccessState(this.firstExercise);
   @override
-  // TODO: implement props
   List<Object> get props => [firstExercise];
 }
 

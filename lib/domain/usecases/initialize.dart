@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../core/error/error.dart';
 import '../entities/common/common.dart';
-import '../entities/regimen/regimen.dart';
 import '../entities/regimen/static/c25k_regimen_static_entity.dart';
 import '../repository/repository.dart';
 import 'insert_regimen.dart';

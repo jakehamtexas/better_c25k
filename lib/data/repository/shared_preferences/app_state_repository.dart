@@ -1,11 +1,9 @@
-import 'package:better_c25k/core/error/error.dart';
-import 'package:better_c25k/core/error/failure.dart';
-
 import 'package:dartz/dartz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/error/error.dart';
+import '../../../core/error/failure.dart';
 import '../../../domain/repository/repository.dart' as domain;
-import '../../../core/extension/map_left_to_failure_task_extension.dart';
 
 class AppStateRepository implements domain.AppStateRepository {
   Future<SharedPreferences> get _gettingSharedPreferences async =>

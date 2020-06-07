@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../presentation/router/route_generator.dart';
 import 'services.dart';
 
+// TODO: Add DI
+// TODO: Add env configuration (InheritedWidget?)
 void main() {
   Services.register();
   runApp(BetterC25K());
