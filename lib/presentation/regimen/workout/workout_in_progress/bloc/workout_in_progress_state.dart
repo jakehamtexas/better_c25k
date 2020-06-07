@@ -9,6 +9,15 @@ class WorkoutInProgressInitialState extends WorkoutInProgressState {
   List<Object> get props => [];
 }
 
+class ExercisesRetrievalSuccessState extends WorkoutInProgressState {
+  final ExerciseEntity firstExercise;
+
+  ExercisesRetrievalSuccessState(this.firstExercise);
+  @override
+  // TODO: implement props
+  List<Object> get props => [firstExercise];
+}
+
 class WorkoutCompletedState extends WorkoutInProgressState {
   @override
   List<Object> get props => [];

@@ -46,4 +46,18 @@ class ExerciseRepository extends DatabaseAccessor<RegimenDatabase>
       return List.generate(companions.length, (i) => lastRowId - i);
     }).attempt().mapLeftToFailure().run();
   }
+
+  @override
+  Future<Either<Failure, List<ExerciseEntity>>> getExercisesForWorkoutId(
+    int workoutId,
+  ) async {
+    final query = select(exercises)
+      ..where((exercise) => exercise.workoutId.equals(workoutId));
+    return await Task(() async => await query
+        .map((exercise) => ExerciseEntity(
+              durationInSeconds: exercise.durationInSeconds,
+              exerciseAction: exercise.exerciseAction,
+            ))
+        .get()).attempt().mapLeftToFailure().run();
+  }
 }

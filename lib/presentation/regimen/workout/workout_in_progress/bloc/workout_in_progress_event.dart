@@ -4,6 +4,20 @@ abstract class WorkoutInProgressEvent extends Equatable {
   const WorkoutInProgressEvent();
 }
 
+class WorkoutInProgressInitializedEvent extends WorkoutInProgressEvent {
+  final int workoutId;
+  final GetExercises usecase;
+  final BuildContext context;
+  WorkoutInProgressInitializedEvent({
+    @required this.context,
+    @required this.workoutId,
+    @required this.usecase,
+  });
+
+  @override
+  List<Object> get props => [workoutId];
+}
+
 class PauseEvent extends WorkoutInProgressEvent {
   @override
   List<Object> get props => [];
@@ -15,13 +29,8 @@ class UnpauseEvent extends WorkoutInProgressEvent {
 }
 
 class StartEvent extends WorkoutInProgressEvent {
-  final List<ExerciseEntity> exercises;
-  StartEvent({
-    @required this.exercises,
-  });
-
   @override
-  List<Object> get props => [...exercises];
+  List<Object> get props => [];
 }
 
 class DecrementRemainingTimeEvent extends WorkoutInProgressEvent {

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:better_c25k/domain/usecases/get_exercises.dart';
+import 'package:better_c25k/presentation/error/error.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +31,17 @@ class WorkoutInProgressBloc
   Stream<WorkoutInProgressState> mapEventToState(
     WorkoutInProgressEvent event,
   ) async* {
-    if (event is StartEvent) {
-      _exercises = event.exercises;
-      _currentCountdownTime = event.exercises[0].durationInSeconds;
+    if (event is WorkoutInProgressInitializedEvent) {
+      final exercisesOrFailure = await event.usecase(event.workoutId);
+      yield exercisesOrFailure.fold(
+        LeftNavigateToDefaultErrorPage()(event.context),
+        (exercises) {
+          _exercises = exercises;
+        },
+      );
+      yield ExercisesRetrievalSuccessState(_exercises.first);
+    } else if (event is StartEvent) {
+      _currentCountdownTime = _exercises[0].durationInSeconds;
 
       startTimer();
 
