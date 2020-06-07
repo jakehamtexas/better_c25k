@@ -38,7 +38,7 @@ class WorkoutTile extends StatelessWidget {
       child: Center(
         child: BlocBuilder<WorkoutBloc, WorkoutState>(
           builder: (BuildContext context, state) {
-            if (state is WorkoutExpandToggledOn) {
+            if (state is WorkoutExpandToggledOnState) {
               return AnimatedContainer(
                 duration: duration,
                 height: 155,
@@ -50,7 +50,7 @@ class WorkoutTile extends StatelessWidget {
               );
             }
 
-            if (state is WorkoutExpandToggledOff) {
+            if (state is WorkoutExpandToggledOffState) {
               return AnimatedContainer(
                 duration: duration,
                 height: 72,

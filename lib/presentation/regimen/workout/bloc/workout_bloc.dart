@@ -8,7 +8,7 @@ part 'workout_state.dart';
 
 class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   @override
-  WorkoutState get initialState => WorkoutExpandToggledOff();
+  WorkoutState get initialState => WorkoutExpandToggledOffState();
 
   bool _isExpanded = false;
   @override
@@ -16,7 +16,9 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     WorkoutEvent event,
   ) async* {
     if (event is WorkoutExpandToggledEvent) {
-      yield _isExpanded ? WorkoutExpandToggledOff() : WorkoutExpandToggledOn();
+      yield _isExpanded
+          ? WorkoutExpandToggledOffState()
+          : WorkoutExpandToggledOnState();
       _isExpanded = !_isExpanded;
     }
   }
