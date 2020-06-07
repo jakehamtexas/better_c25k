@@ -6,8 +6,8 @@ import '../entities/workout/workout.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class WorkoutRepository {
-  Future<Either<Failure, List<WorkoutEntity>>> getWorkoutsForRegimenId(
-      int regimenId);
+  Future<Either<Failure, List<WorkoutPresentationEntity>>>
+      getWorkoutsForRegimenId(int regimenId);
   Future<Either<Failure, int>> setCompletionStatusForWorkout({
     @required int workoutId,
     @required CompletionStatus completionStatus,

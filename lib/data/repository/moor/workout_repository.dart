@@ -1,11 +1,10 @@
-import 'dart:collection';
-
 import 'package:dartz/dartz.dart';
 import 'package:moor/moor.dart';
 
 import '../../../constant/completion_status.dart';
 import '../../../core/error/failure.dart';
 import '../../../core/extension/map_left_to_failure_task_extension.dart';
+import '../../../domain/entities/workout/workout.dart';
 import '../../../domain/entities/workout/workout_entity.dart';
 import '../../../domain/repository/workout_repository.dart' as domain;
 import '../../datasources/datasources.dart';
@@ -19,20 +18,13 @@ class WorkoutRepository extends DatabaseAccessor<RegimenDatabase>
   WorkoutRepository(RegimenDatabase db) : super(db);
 
   @override
-  Future<Either<Failure, List<WorkoutEntity>>> getWorkoutsForRegimenId(
-      int regimenId) async {
-    final exercisesByWorkoutId = HashMap.fromIterable(
-      await select(exercises).get(),
-      key: (exercise) => exercise.id,
-      value: (exercise) => exercise,
-    );
-
+  Future<Either<Failure, List<WorkoutPresentationEntity>>>
+      getWorkoutsForRegimenId(int regimenId) async {
     final workoutsMatchedQuery = select(workouts)
       ..where((workout) => workout.regimenId.equals(regimenId));
     return await Task(() async => await workoutsMatchedQuery
-        .map((workout) => WorkoutEntity(
+        .map((workout) => WorkoutPresentationEntity(
               workoutId: workout.id,
-              exercises: exercisesByWorkoutId[workout.id],
               ordinalDayOfWeekNumber: workout.dayNumber,
               ordinalWeekNumber: workout.weekNumber,
             ))
