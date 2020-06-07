@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 import './router/route_generator.dart';
+import 'services.dart';
 
-void main() => runApp(BetterC25K());
+void main() {
+  Services.register();
+  runApp(BetterC25K());
+}
 
 class BetterC25K extends StatelessWidget {
   @override
