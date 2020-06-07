@@ -5,7 +5,8 @@ import '../../../domain/entities/workout/workout.dart';
 import '../../../domain/entities/workout_in_progress/workout_in_progress.dart';
 import '../../router/routes.dart';
 import 'bloc/workout_bloc.dart';
-import 'workout_card.dart';
+import 'collapsed_workout_card.dart';
+import 'expanded_workout_card.dart';
 
 class WorkoutTile extends StatelessWidget {
   final WorkoutEntity _workout;
