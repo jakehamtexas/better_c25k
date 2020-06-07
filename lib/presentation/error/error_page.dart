@@ -1,3 +1,5 @@
+import '../router/routes.dart';
+
 import '../../core/error/error.dart';
 import 'package:flutter/material.dart';
 
@@ -15,4 +17,12 @@ class ErrorPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class ErrorPageLeft {
+  static Null Function(Failure) call(BuildContext context) =>
+      (failure) => Navigator.of(context).pushNamed(
+            Routes.error,
+            arguments: failure,
+          );
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:better_c25k/presentation/error/error_page.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +26,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (event is AppStartedEvent) {
       final regimenNameAndIdsOrFailure = await initializeUsecase();
       yield regimenNameAndIdsOrFailure.fold(
-        (failure) => Navigator.of(event.context).pushNamed(
-          Routes.error,
-          arguments: failure,
-        ),
+        LeftNavigateToDefaultErrorPage()(event.context),
         (namesAndIds) => RegimenRetrievalSuccessState(namesAndIds),
-      ) as RegimenRetrievalSuccessState;
+      );
     }
     if (event is RegimenSelectedEvent) {
       Navigator.of(event.context).pushNamed(
