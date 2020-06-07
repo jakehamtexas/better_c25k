@@ -20,34 +20,37 @@ class ExpandedWorkoutCard extends WorkoutCardBase {
     return Container(
       height: 200,
       child: super.getCard(
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: super.paddingAmount,
+        Padding(
+          padding: const EdgeInsets.only(top: 12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: super.paddingAmount,
+                      ),
+                      child: workoutTitleWidget,
                     ),
-                    child: workoutTitleWidget,
-                  ),
-                  Text(
-                    workoutDescription,
-                    textAlign: TextAlign.left,
-                    softWrap: true,
-                  ),
-                ],
+                    Text(
+                      workoutDescription,
+                      textAlign: TextAlign.left,
+                      softWrap: true,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            TileButtonBarFactory()(
-              workoutTitle: workoutTitle,
-              context: context,
-              workoutId: workoutId,
-              expandCollapseText: "Collapse",
-            ),
-          ],
+              TileButtonBarFactory()(
+                workoutTitle: workoutTitle,
+                context: context,
+                workoutId: workoutId,
+                expandCollapseText: "Collapse",
+              ),
+            ],
+          ),
         ),
       ),
     );
