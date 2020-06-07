@@ -10,7 +10,7 @@ class RegimenInitial extends RegimenState {
 }
 
 class WorkoutsRetrievalSuccessState extends RegimenState {
-  final List<WorkoutEntity> workouts;
+  final List<WorkoutPresentationEntity> workouts;
 
   WorkoutsRetrievalSuccessState(this.workouts);
 

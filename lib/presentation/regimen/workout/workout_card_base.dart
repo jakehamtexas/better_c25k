@@ -4,23 +4,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/workout_bloc.dart';
 
 abstract class WorkoutCardBase extends StatelessWidget {
-  final Function startFunc;
+  final int workoutId;
   final String workoutTitle;
   final String workoutDescription;
+  final duration = Duration(milliseconds: 350);
 
   WorkoutCardBase({
-    @required this.startFunc,
+    @required this.workoutId,
     @required this.workoutTitle,
     @required this.workoutDescription,
   });
 
-  static const double paddingAmount = 10;
-  static Function getToggleExpand(BuildContext context) => () {
-        BlocProvider.of<WorkoutBloc>(context).add(WorkoutExpandToggledEvent());
-      };
-
-  static Widget getWorkoutTitleWidget(String workoutTitle) => Text(
+  final double paddingAmount = 10;
+  Widget getWorkoutTitleWidget(String workoutTitle) => Text(
         workoutTitle,
         style: TextStyle(fontWeight: FontWeight.bold),
+      );
+  Card getCard(Widget child) => Card(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: paddingAmount,
+          ),
+          child: child,
+        ),
       );
 }

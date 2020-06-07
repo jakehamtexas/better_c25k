@@ -13,7 +13,7 @@ class WorkoutInProgressPage extends StatelessWidget {
   final WorkoutInProgressEntity _entity;
 
   String get _workoutTitle => _entity.workoutTitle;
-  List<ExerciseEntity> get _exercises => _entity.exercises;
+  List<ExerciseEntity> get _exercises => [];
 
   WorkoutInProgressPage(this._entity);
 

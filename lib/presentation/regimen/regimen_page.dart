@@ -1,3 +1,4 @@
+import 'package:better_c25k/data/datasources/datasources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -16,7 +17,7 @@ class RegimenPage extends StatelessWidget {
     return BlocProvider<RegimenBloc>(
       create: (BuildContext context) {
         final getIt = GetIt.I;
-        final workoutRepository = getIt<WorkoutRepository>();
+        final workoutRepository = getIt<RegimenDatabase>().workoutRepository;
         final usecase = GetWorkouts(workoutRepository);
         return RegimenBloc()
           ..add(RegimenInitializedEvent(

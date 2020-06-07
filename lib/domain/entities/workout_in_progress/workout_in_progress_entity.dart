@@ -1,8 +1,8 @@
 import '../exercise/exercise.dart';
 
 class WorkoutInProgressEntity {
-  final List<ExerciseEntity> exercises;
+  final int workoutId;
   final String workoutTitle;
 
-  WorkoutInProgressEntity({this.exercises, this.workoutTitle});
+  WorkoutInProgressEntity({this.workoutId, this.workoutTitle});
 }

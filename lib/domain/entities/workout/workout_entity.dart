@@ -22,8 +22,8 @@ class WorkoutEntity extends WorkoutPresentationEntity {
     @required int ordinalDayOfWeekNumber,
     @required int ordinalWeekNumber,
     DateTime time,
-    String description = _defaultDescription,
-    CompletionStatus completionStatus = CompletionStatus.notStarted,
+    String description,
+    CompletionStatus completionStatus,
   }) : super(
           workoutId: workoutId,
           ordinalDayOfWeekNumber: ordinalDayOfWeekNumber,

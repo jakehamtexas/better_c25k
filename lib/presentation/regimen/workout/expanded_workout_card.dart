@@ -1,55 +1,45 @@
 import 'package:flutter/material.dart';
 
+import 'title_button_bar_factory.dart';
 import 'workout_card_base.dart';
 
 class ExpandedWorkoutCard extends WorkoutCardBase {
   ExpandedWorkoutCard({
-    @required startFunc,
-    @required workoutTitle,
-    @required workoutDescription,
+    @required int workoutId,
+    @required String workoutTitle,
+    @required String workoutDescription,
   }) : super(
-          startFunc: startFunc,
+          workoutId: workoutId,
           workoutDescription: workoutDescription,
           workoutTitle: workoutTitle,
         );
 
   @override
   Widget build(BuildContext context) {
-    final workoutTitleWidget =
-        WorkoutCardBase.getWorkoutTitleWidget(workoutTitle);
-    final workoutDescriptionWidget = Text(workoutDescription);
-    final toggleExpand = WorkoutCardBase.getToggleExpand(context);
-    final expandedButtonBar = ButtonBar(
-      children: <Widget>[
-        RaisedButton(
-          child: Text("Collapse"),
-          onPressed: toggleExpand,
-        ),
-        RaisedButton(
-          child: Text("Start"),
-          onPressed: startFunc,
-        )
-      ],
-    );
-    return Card(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: WorkoutCardBase.paddingAmount,
-        ),
-        child: Wrap(
+    final workoutTitleWidget = super.getWorkoutTitleWidget(workoutTitle);
+    return AnimatedContainer(
+      duration: super.duration,
+      height: 155,
+      child: super.getCard(
+        Wrap(
           children: [
             Column(
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    vertical: WorkoutCardBase.paddingAmount,
+                    vertical: super.paddingAmount,
                   ),
                   child: workoutTitleWidget,
                 ),
-                workoutDescriptionWidget,
+                Text(workoutDescription),
               ],
             ),
-            expandedButtonBar,
+            TileButtonBarFactory()(
+              workoutTitle: workoutTitle,
+              context: context,
+              workoutId: workoutId,
+              expandCollapseText: "Collapse",
+            ),
           ],
         ),
       ),

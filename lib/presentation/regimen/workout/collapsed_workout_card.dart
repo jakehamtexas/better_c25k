@@ -1,47 +1,37 @@
 import 'package:flutter/material.dart';
 
+import 'title_button_bar_factory.dart';
 import 'workout_card_base.dart';
 
 class CollapsedWorkoutCard extends WorkoutCardBase {
   CollapsedWorkoutCard({
-    @required startFunc,
-    @required workoutDescription,
-    @required workoutTitle,
+    @required int workoutId,
+    @required String workoutDescription,
+    @required String workoutTitle,
   }) : super(
-          startFunc: startFunc,
+          workoutId: workoutId,
           workoutTitle: workoutTitle,
           workoutDescription: workoutDescription,
         );
   @override
   Widget build(BuildContext context) {
-    final workoutTitleWidget =
-        WorkoutCardBase.getWorkoutTitleWidget(workoutTitle);
-    final toggleExpand = WorkoutCardBase.getToggleExpand(context);
-    final collapsedButtonBar = ButtonBar(
-      children: <Widget>[
-        RaisedButton(
-          child: Text("Expand"),
-          onPressed: toggleExpand,
-        ),
-        RaisedButton(
-          child: Text("Start"),
-          onPressed: startFunc,
-        )
-      ],
-    );
-
-    return Card(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: WorkoutCardBase.paddingAmount,
-        ),
-        child: Column(
+    final workoutTitleWidget = super.getWorkoutTitleWidget(workoutTitle);
+    return AnimatedContainer(
+      duration: super.duration,
+      height: 72,
+      child: super.getCard(
+        Column(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 workoutTitleWidget,
-                collapsedButtonBar,
+                TileButtonBarFactory()(
+                  workoutTitle: workoutTitle,
+                  context: context,
+                  workoutId: workoutId,
+                  expandCollapseText: "Expand",
+                ),
               ],
             ),
           ],

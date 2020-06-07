@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/workout/workout_entity.dart';
+import '../../domain/entities/workout/workout.dart';
 import 'workout/workout_tile.dart';
 
 class WorkoutsList extends StatelessWidget {
-  final List<WorkoutEntity> workouts;
+  final List<WorkoutPresentationEntity> workouts;
   WorkoutsList(this.workouts);
 
   @override

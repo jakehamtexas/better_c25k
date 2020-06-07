@@ -19,8 +19,8 @@ class ErrorPage extends StatelessWidget {
   }
 }
 
-class ErrorPageLeft {
-  static Null Function(Failure) call(BuildContext context) =>
+class LeftNavigateToDefaultErrorPage {
+  Null Function(Failure) call(BuildContext context) =>
       (failure) => Navigator.of(context).pushNamed(
             Routes.error,
             arguments: failure,
