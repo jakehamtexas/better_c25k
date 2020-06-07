@@ -4,8 +4,10 @@ import '../../presentation/home/home.dart';
 import '../../presentation/regimen/regimen.dart';
 import '../../presentation/regimen/workout/workout_in_progress/workout_completed/workout_completed.dart';
 import '../../presentation/regimen/workout/workout_in_progress/workout_in_progress.dart';
+import '../error/error.dart';
 import 'routes.dart';
 
+final _error = (Object _args) => (BuildContext _) => ErrorPage(_args);
 final _home = (Object _args) => (BuildContext _) => Home();
 final _regimen = (Object args) => (BuildContext _) => RegimenPage(args);
 final _doWorkout =
@@ -15,6 +17,7 @@ final _workoutComplete =
 
 final Map<String, Widget Function(BuildContext) Function(Object)>
     routeBuilders = {
+  Routes.error: _error,
   Routes.home: _home,
   Routes.regimen: _regimen,
   Routes.doWorkout: _doWorkout,

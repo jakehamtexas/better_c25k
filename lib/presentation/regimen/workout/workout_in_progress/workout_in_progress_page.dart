@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../app/router/routes.dart';
 import '../../../../domain/entities/exercise/exercise.dart';
 import '../../../../domain/entities/workout_in_progress/workout_in_progress.dart';
+import '../../../router/routes.dart';
 import 'bloc/workout_in_progress_bloc.dart';
 import 'workout_in_progress_initial_viewport.dart';
 import 'workout_in_progress_paused_viewport.dart';

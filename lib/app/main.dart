@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './router/route_generator.dart';
+import '../presentation/router/route_generator.dart';
 import 'services.dart';
 
 void main() {
