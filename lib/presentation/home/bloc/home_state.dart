@@ -8,3 +8,14 @@ class HomeInitial extends HomeState {
   @override
   List<Object> get props => [];
 }
+
+class RegimenRetrievalFailureState extends HomeState {
+  List<Object> get props => [];
+}
+
+class RegimenRetrievalSuccessState extends HomeState {
+  final List<NameAndId<int>> regimenNameAndIds;
+
+  RegimenRetrievalSuccessState(this.regimenNameAndIds);
+  List<Object> get props => [regimenNameAndIds];
+}

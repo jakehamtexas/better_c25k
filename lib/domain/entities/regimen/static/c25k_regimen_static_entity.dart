@@ -6,8 +6,13 @@ import '../../workout/workout.dart';
 import '../regimen.dart';
 
 class C25KRegimenStaticEntity extends RegimenEntity {
+  static const c25kName = "C25K";
   static final c25kWorkouts = _getC25kWorkouts();
-  C25KRegimenStaticEntity() : super(workouts: c25kWorkouts, name: "C25K");
+  C25KRegimenStaticEntity()
+      : super(
+          workouts: c25kWorkouts,
+          name: c25kName,
+        );
 
   static Iterable<WorkoutEntity> _getC25kWorkouts() => [
         ..._getWeekOneWorkouts(),

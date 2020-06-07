@@ -4,18 +4,16 @@ import '../../domain/entities/regimen/regimen.dart';
 import 'workout/workout.dart';
 
 class RegimenPage extends StatelessWidget {
-  final RegimenEntity regimen;
-  RegimenPage(this.regimen);
+  final int regimenId;
+  RegimenPage(this.regimenId);
 
   @override
   Widget build(BuildContext context) {
-    final exerciseWidgets =
-        regimen.workouts.map((workout) => WorkoutTile(workout)).toList();
     return Scaffold(
-      appBar: AppBar(title: Text(regimen.name)),
+      appBar: AppBar(title: Text(regimenId.toString())),
       body: ListView(
-        children: exerciseWidgets,
-      ),
+          // children: exerciseWidgets,
+          ),
     );
   }
 }

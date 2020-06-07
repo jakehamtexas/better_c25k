@@ -9,6 +9,8 @@ import '../../domain/repository/app_state_repository.dart';
 import '../../domain/usecases/initialize.dart';
 import '../debug/view_database_button.dart';
 import 'bloc/home_bloc.dart';
+import 'failed_to_retrieve_regimens.dart';
+import 'regimen_selection.dart';
 
 class HomeBody extends StatelessWidget {
   @override
@@ -28,19 +30,13 @@ class HomeBody extends StatelessWidget {
       },
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          return Container(
-            child: Column(
-              children: <Widget>[
-                RaisedButton(
-                  child: Text("Go To C25k"),
-                  onPressed: () => Navigator.of(context).pushNamed(
-                      Routes.regimen,
-                      arguments: C25KRegimenStaticEntity()),
-                ),
-                ViewDatabaseButton()
-              ],
-            ),
-          );
+          if (state is RegimenRetrievalSuccessState) {
+            return RegimenSelection(state.regimenNameAndIds);
+          }
+          if (state is RegimenRetrievalFailureState) {
+            return FailedToRetrieveRegimens();
+          }
+          return null;
         },
       ),
     );
