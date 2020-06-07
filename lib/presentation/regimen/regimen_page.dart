@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
-import '../../domain/entities/regimen/regimen.dart';
-import 'workout/workout.dart';
+import '../../domain/repository/repository.dart';
+import '../../domain/usecases/get_workouts.dart';
+import 'bloc/regimen_bloc.dart';
+import 'workouts_list.dart';
 
 class RegimenPage extends StatelessWidget {
   final int regimenId;
@@ -9,11 +13,29 @@ class RegimenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(regimenId.toString())),
-      body: ListView(
-          // children: exerciseWidgets,
-          ),
+    return BlocProvider<RegimenBloc>(
+      create: (BuildContext context) {
+        final getIt = GetIt.I;
+        final workoutRepository = getIt<WorkoutRepository>();
+        final usecase = GetWorkouts(workoutRepository);
+        return RegimenBloc()
+          ..add(RegimenInitializedEvent(
+            regimenId: regimenId,
+            context: context,
+            usecase: usecase,
+          ));
+      },
+      child: Scaffold(
+        appBar: AppBar(title: Text(regimenId.toString())),
+        body: BlocBuilder<RegimenBloc, RegimenState>(
+          builder: (BuildContext context, RegimenState state) {
+            if (state is WorkoutsRetrievalSuccessState) {
+              return WorkoutsList(state.workouts);
+            }
+            return null;
+          },
+        ),
+      ),
     );
   }
 }
