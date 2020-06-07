@@ -34,7 +34,7 @@ class WorkoutTile extends StatelessWidget {
     };
     final duration = Duration(milliseconds: 350);
     return BlocProvider<WorkoutBloc>(
-      builder: (_) => WorkoutBloc(),
+      create: (_) => WorkoutBloc(),
       child: Center(
         child: BlocBuilder<WorkoutBloc, WorkoutState>(
           builder: (BuildContext context, state) {

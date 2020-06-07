@@ -33,7 +33,7 @@ class WorkoutInProgressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<WorkoutInProgressBloc>(
-      builder: (_) => WorkoutInProgressBloc(),
+      create: (_) => WorkoutInProgressBloc(),
       child: BlocBuilder<WorkoutInProgressBloc, WorkoutInProgressState>(
         builder: (context, state) {
           if (state is WorkoutCompletedState) {
