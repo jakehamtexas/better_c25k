@@ -8,6 +8,11 @@ import '../workout/workout.dart';
 class RegimenEntity {
   final List<WorkoutEntity> workouts;
   final String name;
+  final String description;
 
-  RegimenEntity({@required this.workouts, this.name = "My Regimen"});
+  RegimenEntity({
+    @required this.workouts,
+    this.name = "My Regimen",
+    this.description = "MyDescription",
+  });
 }
