@@ -5,6 +5,9 @@ abstract class HomeEvent extends Equatable {
 }
 
 class AppStartedEvent extends HomeEvent {
+  final BuildContext context;
+
+  AppStartedEvent(this.context);
   @override
   List<Object> get props => [];
 }

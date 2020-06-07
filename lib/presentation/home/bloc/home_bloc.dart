@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-import '../../../app/router/routes.dart';
 import '../../../domain/entities/common/common.dart';
 import '../../../domain/usecases/initialize.dart';
+import '../../router/routes.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -26,9 +25,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (event is AppStartedEvent) {
       final regimenNameAndIdsOrFailure = await initializeUsecase();
       yield regimenNameAndIdsOrFailure.fold(
-        (failure) => RegimenRetrievalFailureState(),
+        (failure) => Navigator.of(event.context).pushNamed(
+          Routes.error,
+          arguments: failure,
+        ),
         (namesAndIds) => RegimenRetrievalSuccessState(namesAndIds),
-      );
+      ) as RegimenRetrievalSuccessState;
     }
     if (event is RegimenSelectedEvent) {
       Navigator.of(event.context).pushNamed(
