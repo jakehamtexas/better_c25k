@@ -27,6 +27,8 @@ class WorkoutRepository extends DatabaseAccessor<RegimenDatabase>
               workoutId: workout.id,
               ordinalDayOfWeekNumber: workout.dayNumber,
               ordinalWeekNumber: workout.weekNumber,
+              description: workout.description,
+              completionStatus: workout.completionStatus,
             ))
         .get()).attempt().mapLeftToFailure().run();
   }
