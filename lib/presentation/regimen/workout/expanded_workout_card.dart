@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'title_button_bar_factory.dart';
+import 'bloc/workout_bloc.dart';
 import 'workout_card_base.dart';
 
 class ExpandedWorkoutCard extends WorkoutCardBase {
@@ -17,39 +18,63 @@ class ExpandedWorkoutCard extends WorkoutCardBase {
   @override
   Widget build(BuildContext context) {
     final workoutTitleWidget = super.getWorkoutTitleWidget(workoutTitle);
-    return Container(
-      height: 200,
-      child: super.getCard(
-        Padding(
-          padding: const EdgeInsets.only(top: 12.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: super.paddingAmount,
+    return GestureDetector(
+      onTap: () => BlocProvider.of<WorkoutBloc>(context)
+          .add(WorkoutExpandToggledEvent()),
+      child: Container(
+        height: 200,
+        child: super.getCard(
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: super.paddingAmount,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            workoutTitleWidget,
+                            Icon(
+                              Icons.arrow_drop_up,
+                              color: Colors.grey,
+                            )
+                          ],
+                        ),
                       ),
-                      child: workoutTitleWidget,
-                    ),
-                    Text(
-                      workoutDescription,
-                      textAlign: TextAlign.left,
-                      softWrap: true,
-                    ),
-                  ],
+                      Text(
+                        workoutDescription,
+                        textAlign: TextAlign.left,
+                        softWrap: true,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              TileButtonBarFactory()(
-                workoutTitle: workoutTitle,
-                context: context,
-                workoutId: workoutId,
-                expandCollapseText: "Collapse",
-              ),
-            ],
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RaisedButton(
+                      child: Text("Start"),
+                      onPressed: () =>
+                          BlocProvider.of<WorkoutBloc>(context).add(
+                        WorkoutStartedEvent(
+                          workoutId: workoutId,
+                          context: context,
+                          workoutTitle: workoutTitle,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

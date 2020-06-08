@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'title_button_bar_factory.dart';
+import 'bloc/workout_bloc.dart';
 import 'workout_card_base.dart';
 
 class CollapsedWorkoutCard extends WorkoutCardBase {
@@ -16,25 +17,20 @@ class CollapsedWorkoutCard extends WorkoutCardBase {
   @override
   Widget build(BuildContext context) {
     final workoutTitleWidget = super.getWorkoutTitleWidget(workoutTitle);
-    //TODO: Fix broken animated container transition
-    return Container(
-      height: 72,
-      child: super.getCard(
-        Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                workoutTitleWidget,
-                TileButtonBarFactory()(
-                  workoutTitle: workoutTitle,
-                  context: context,
-                  workoutId: workoutId,
-                  expandCollapseText: "Expand",
-                ),
-              ],
-            ),
-          ],
+    return GestureDetector(
+      onTap: () => BlocProvider.of<WorkoutBloc>(context)
+          .add(WorkoutExpandToggledEvent()),
+      child: Container(
+        height: 72,
+        child: super.getCard(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              workoutTitleWidget,
+              Icon(Icons.arrow_drop_down, color: Colors.grey)
+            ],
+          ),
         ),
       ),
     );
