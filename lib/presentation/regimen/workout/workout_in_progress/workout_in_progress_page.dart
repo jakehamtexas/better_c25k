@@ -41,7 +41,10 @@ class WorkoutInProgressPage extends StatelessWidget {
         final usecase = GetExercises(exerciseRepository);
         return WorkoutInProgressBloc()
           ..add(WorkoutInProgressInitializedEvent(
-              workoutId: _workoutId, context: context, usecase: usecase));
+            workoutId: _workoutId,
+            context: context,
+            usecase: usecase,
+          ));
       },
       child: BlocBuilder<WorkoutInProgressBloc, WorkoutInProgressState>(
         builder: (context, state) {

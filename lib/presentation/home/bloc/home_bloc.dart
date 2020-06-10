@@ -33,7 +33,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (event is RegimenSelectedEvent) {
       Navigator.of(event.context).pushNamed(
         Routes.regimen,
-        arguments: event.id,
+        arguments: event.regimenNameAndId,
       );
     }
   }

@@ -1,3 +1,4 @@
+import 'package:better_c25k/domain/entities/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -8,8 +9,12 @@ import 'bloc/regimen_bloc.dart';
 import 'workouts_list.dart';
 
 class RegimenPage extends StatelessWidget {
-  final int regimenId;
-  RegimenPage(this.regimenId);
+  final NameAndId regimenNameAndId;
+
+  int get regimenId => regimenNameAndId.id;
+  String get regimenName => regimenNameAndId.name;
+
+  RegimenPage(this.regimenNameAndId);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ class RegimenPage extends StatelessWidget {
           ));
       },
       child: Scaffold(
-        appBar: AppBar(title: Text(regimenId.toString())),
+        appBar: AppBar(title: Text(regimenName)),
         body: BlocBuilder<RegimenBloc, RegimenState>(
           builder: (BuildContext context, RegimenState state) {
             if (state is WorkoutsRetrievalSuccessState) {

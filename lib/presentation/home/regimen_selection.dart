@@ -6,7 +6,7 @@ import '../debug/view_database_button.dart';
 import 'bloc/home_bloc.dart';
 
 class RegimenSelection extends StatelessWidget {
-  final List<NameAndId> regimenNamesAndIds;
+  final List<NameAndId<int>> regimenNamesAndIds;
   RegimenSelection(this.regimenNamesAndIds);
 
   @override
@@ -16,7 +16,7 @@ class RegimenSelection extends StatelessWidget {
         child: Text(nameAndId.name),
         onPressed: () =>
             BlocProvider.of<HomeBloc>(context).add(RegimenSelectedEvent(
-          id: nameAndId.id,
+          regimenNameAndId: nameAndId,
           context: context,
         )),
       ),

@@ -13,11 +13,10 @@ class AppStartedEvent extends HomeEvent {
 }
 
 class RegimenSelectedEvent extends HomeEvent {
-  final int id;
   final BuildContext context;
-  RegimenSelectedEvent({this.id, this.context});
+  final NameAndId regimenNameAndId;
+  RegimenSelectedEvent({this.regimenNameAndId, this.context});
 
   @override
-  // TODO: implement props
-  List<Object> get props => [id];
+  List<Object> get props => [regimenNameAndId];
 }
