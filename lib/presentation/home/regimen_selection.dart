@@ -21,7 +21,10 @@ class RegimenSelection extends StatelessWidget {
         )),
       ),
     );
-    final children = <Widget>[...regimenSelectionButtons, ViewDatabaseButton()];
+    final children = <Widget>[
+      ...regimenSelectionButtons,
+      ViewDatabaseButton(),
+    ];
     return Container(
       child: Column(
         children: children,

@@ -1,3 +1,4 @@
+import 'package:better_c25k/core/error/database_insertion_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
@@ -18,18 +19,26 @@ class InsertRegimen {
 
   Future<Either<Failure, int>> call(RegimenEntity entity) async {
     final regimenIdOrFailure = await regimenRepository.insertRegimen(entity);
-    // TODO: Use either properly, instead of doing this lazy getOrElse
-    final regimenId = regimenIdOrFailure.getOrElse(() => null);
-    final workoutIds = (await workoutRepository.insertWorkouts(
-      workoutEntities: entity.workouts,
-      regimenId: regimenId,
-    ))
-        .getOrElse(() => null);
+    if (regimenIdOrFailure.isRight()) {
+      final regimenId = regimenIdOrFailure.getOrElse(() => null);
+      final workoutIdsOrFailure = (await workoutRepository.insertWorkouts(
+        workoutEntities: entity.workouts,
+        regimenId: regimenId,
+      ));
 
-    final exercisesByWorkoutId = entity.workouts.asMap().map(
-        (index, workout) => MapEntry(workoutIds[index], workout.exercises));
-    await exerciseRepository.insertExercisesByMap(exercisesByWorkoutId);
+      if (workoutIdsOrFailure.isRight()) {
+        final workoutIds = workoutIdsOrFailure.getOrElse(() => null);
+        final exercisesByWorkoutId = entity.workouts.asMap().map(
+            (index, workout) => MapEntry(workoutIds[index], workout.exercises));
+        final exerciseIdsOrFailure =
+            await exerciseRepository.insertExercisesByMap(exercisesByWorkoutId);
 
-    return regimenIdOrFailure;
+        if (exerciseIdsOrFailure.isRight()) {
+          return right<DatabaseInsertionFailure, int>(regimenId);
+        }
+      }
+    }
+
+    return left<DatabaseInsertionFailure, int>(DatabaseInsertionFailure());
   }
 }
