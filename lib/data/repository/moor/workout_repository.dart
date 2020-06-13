@@ -3,7 +3,7 @@ import 'package:moor/moor.dart';
 
 import '../../../constant/completion_status.dart';
 import '../../../core/error/failure.dart';
-import '../../../core/extension/map_left_to_failure_task_extension.dart';
+import '../../../core/extension/dartz/dartz.dart';
 import '../../../domain/entities/workout/workout.dart';
 import '../../../domain/entities/workout/workout_entity.dart';
 import '../../../domain/repository/workout_repository.dart' as domain;

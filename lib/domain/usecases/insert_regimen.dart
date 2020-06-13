@@ -1,10 +1,12 @@
-import 'package:better_c25k/core/error/database_insertion_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/error/database_insertion_failure.dart';
 import '../../core/error/error.dart';
+import '../../core/extension/dartz/dartz.dart';
 import '../../domain/repository/repository.dart';
 import '../entities/regimen/regimen.dart';
+import '../entities/workout/workout.dart';
 
 class InsertRegimen {
   final RegimenRepository regimenRepository;
@@ -18,27 +20,91 @@ class InsertRegimen {
   });
 
   Future<Either<Failure, int>> call(RegimenEntity entity) async {
-    final regimenIdOrFailure = await regimenRepository.insertRegimen(entity);
-    if (regimenIdOrFailure.isRight()) {
-      final regimenId = regimenIdOrFailure.getOrElse(() => null);
-      final workoutIdsOrFailure = (await workoutRepository.insertWorkouts(
-        workoutEntities: entity.workouts,
-        regimenId: regimenId,
-      ));
+    final engine = InsertRegimenEngine(
+      exerciseRepository: exerciseRepository,
+      regimenRepository: regimenRepository,
+      workoutRepository: workoutRepository,
+    );
 
-      if (workoutIdsOrFailure.isRight()) {
-        final workoutIds = workoutIdsOrFailure.getOrElse(() => null);
-        final exercisesByWorkoutId = entity.workouts.asMap().map(
-            (index, workout) => MapEntry(workoutIds[index], workout.exercises));
-        final exerciseIdsOrFailure =
-            await exerciseRepository.insertExercisesByMap(exercisesByWorkoutId);
+    await engine.insertRegimen(entity);
+    await engine.insertWorkouts(entity.workouts);
+    await engine.insertExercises(entity.workouts);
 
-        if (exerciseIdsOrFailure.isRight()) {
-          return right<DatabaseInsertionFailure, int>(regimenId);
-        }
-      }
+    return engine.result;
+  }
+}
+
+class InsertRegimenEngine {
+  final RegimenRepository regimenRepository;
+  final ExerciseRepository exerciseRepository;
+  final WorkoutRepository workoutRepository;
+
+  Either<DatabaseInsertionFailure, int> regimenIdOrFailure;
+  Either<DatabaseInsertionFailure, List<int>> workoutIdsOrFailure;
+  Either<DatabaseInsertionFailure, List<int>> exerciseIdsOrFailure;
+
+  Either<DatabaseInsertionFailure, int> get result {
+    final eithers = [
+      regimenIdOrFailure,
+      workoutIdsOrFailure,
+      exerciseIdsOrFailure,
+    ];
+    if (eithers.any((either) => either == null)) {
+      return left(DatabaseInsertionFailure.operationsOutOfOrderFailure());
     }
+    final failure = eithers
+        .firstWhere(
+          (either) => either.isLeft(),
+          orElse: () => null,
+        )
+        ?.foldWithValueRight(0);
+    return failure ?? regimenIdOrFailure;
+  }
 
-    return left<DatabaseInsertionFailure, int>(DatabaseInsertionFailure());
+  InsertRegimenEngine({
+    @required this.regimenRepository,
+    @required this.exerciseRepository,
+    @required this.workoutRepository,
+  });
+
+  Future insertRegimen(
+    RegimenEntity entity,
+  ) async {
+    final _regimenIdOrFailure = await regimenRepository.insertRegimen(entity);
+    regimenIdOrFailure = _regimenIdOrFailure.foldWithValueLeft(
+      DatabaseInsertionFailure.regimenInsertionFailure(),
+    );
+  }
+
+  Future insertWorkouts(
+    List<WorkoutEntity> workoutEntities,
+  ) async {
+    workoutIdsOrFailure =
+        await regimenIdOrFailure.foldWithAsyncFunctionRight<List<int>>(
+      (regimenId) async => (await workoutRepository.insertWorkouts(
+        workoutEntities: workoutEntities,
+        regimenId: regimenId,
+      ))
+          .foldWithValueLeft(
+        DatabaseInsertionFailure.workoutsInsertionFailure(),
+      ),
+    );
+  }
+
+  Future insertExercises(
+    List<WorkoutEntity> workoutEntities,
+  ) async {
+    exerciseIdsOrFailure =
+        await workoutIdsOrFailure.foldWithAsyncFunctionRight<List<int>>(
+      (workoutIds) async {
+        final exercisesByWorkoutId = workoutEntities.asMap().map(
+            (index, workout) => MapEntry(workoutIds[index], workout.exercises));
+        return (await exerciseRepository
+                .insertExercisesByMap(exercisesByWorkoutId))
+            .foldWithValueLeft(
+          DatabaseInsertionFailure.exercisesInsertionFailure(),
+        );
+      },
+    );
   }
 }

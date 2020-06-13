@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:moor/moor.dart';
 
 import '../../../core/error/failure.dart';
-import '../../../core/extension/map_left_to_failure_task_extension.dart';
+import '../../../core/extension/dartz/dartz.dart';
 import '../../../domain/entities/exercise/exercise_entity.dart';
 import '../../../domain/repository/exercise_repository.dart' as domain;
 import '../../datasources/datasources.dart';
