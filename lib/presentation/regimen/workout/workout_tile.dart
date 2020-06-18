@@ -1,3 +1,4 @@
+import 'package:better_c25k/presentation/regimen/workout/workout_card_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,8 +29,9 @@ class WorkoutTile extends StatelessWidget {
       child: Center(
         child: BlocBuilder<WorkoutBloc, WorkoutState>(
           builder: (BuildContext context, state) {
+            WorkoutCardBase child;
             if (state is WorkoutExpandToggledOnState) {
-              return ExpandedWorkoutCard(
+              child = ExpandedWorkoutCard(
                 workoutId: _workout.workoutId,
                 workoutDescription: _workoutDescription,
                 workoutTitle: _workoutTitle,
@@ -37,12 +39,14 @@ class WorkoutTile extends StatelessWidget {
             }
 
             if (state is WorkoutExpandToggledOffState) {
-              return CollapsedWorkoutCard(
+              child = CollapsedWorkoutCard(
                 workoutId: _workout.workoutId,
                 workoutDescription: _workoutDescription,
                 workoutTitle: _workoutTitle,
               );
             }
+
+            return WorkoutCardAnimation(child);
           },
         ),
       ),
