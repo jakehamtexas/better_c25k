@@ -29,7 +29,7 @@ class WorkoutInProgressPage extends StatelessWidget {
     if (state is IsStartedState || state is PauseToggledOffState) {
       return WorkoutInProgressUnpausedViewport(state);
     }
-    return null;
+    return Container();
   }
 
   @override

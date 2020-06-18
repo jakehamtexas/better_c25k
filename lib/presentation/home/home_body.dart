@@ -29,7 +29,7 @@ class HomeBody extends StatelessWidget {
           if (state is RegimenRetrievalSuccessState) {
             return RegimenSelection(state.regimenNameAndIds);
           }
-          return null;
+          return Container();
         },
       ),
     );

@@ -37,7 +37,7 @@ class RegimenPage extends StatelessWidget {
             if (state is WorkoutsRetrievalSuccessState) {
               return WorkoutsList(state.workouts);
             }
-            return null;
+            return Container();
           },
         ),
       ),
