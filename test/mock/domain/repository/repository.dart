@@ -8,3 +8,7 @@ class MockRegimenRepository extends Mock implements RegimenRepository {}
 class MockWorkoutRepository extends Mock implements WorkoutRepository {}
 
 class MockExerciseRepository extends Mock implements ExerciseRepository {}
+
+class MockLocationService extends Mock implements LocationService {}
+
+class MockLocationRepository extends Mock implements LocationRepository {}
