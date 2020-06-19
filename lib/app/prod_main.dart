@@ -4,6 +4,7 @@ import 'app_config.dart';
 import 'better_c25k.dart';
 
 // TODO: Add DI
+// TODO: Add usage of appconfig throughout presentation
 
 void main() => runApp(
       AppConfig(

@@ -15,7 +15,7 @@ class Regimens extends Table {
   TextColumn get name =>
       text().withLength(max: 50).customConstraint("UNIQUE")();
   TextColumn get description => text().withLength(max: 200).nullable()();
-  BoolColumn get isCompleted => boolean().withDefault(Constant(false))();
+  BoolColumn get isCompleted => boolean().withDefault(const Constant(false))();
   DateTimeColumn get dateCreated =>
       dateTime().withDefault(currentDateAndTime)();
 }

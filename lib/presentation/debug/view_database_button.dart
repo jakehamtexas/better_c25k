@@ -8,7 +8,6 @@ class ViewDatabaseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      child: Text("View Database"),
       onPressed: () {
         final database = GetIt.I<RegimenDatabase>();
         Navigator.of(context).push(
@@ -19,6 +18,7 @@ class ViewDatabaseButton extends StatelessWidget {
           ),
         );
       },
+      child: const Text("View Database"),
     );
   }
 }

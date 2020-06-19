@@ -7,28 +7,26 @@ import 'bloc/home_bloc.dart';
 
 class RegimenSelection extends StatelessWidget {
   final List<NameAndId<int>> regimenNamesAndIds;
-  RegimenSelection(this.regimenNamesAndIds);
+  const RegimenSelection(this.regimenNamesAndIds);
 
   @override
   Widget build(BuildContext context) {
     final regimenSelectionButtons = regimenNamesAndIds.map(
       (nameAndId) => RaisedButton(
-        child: Text(nameAndId.name),
         onPressed: () =>
             BlocProvider.of<HomeBloc>(context).add(RegimenSelectedEvent(
           regimenNameAndId: nameAndId,
           context: context,
         )),
+        child: Text(nameAndId.name),
       ),
     );
     final children = <Widget>[
       ...regimenSelectionButtons,
       ViewDatabaseButton(),
     ];
-    return Container(
-      child: Column(
-        children: children,
-      ),
+    return Column(
+      children: children,
     );
   }
 }

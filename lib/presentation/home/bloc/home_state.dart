@@ -9,13 +9,19 @@ class HomeInitial extends HomeState {
   List<Object> get props => [];
 }
 
-class RegimenRetrievalFailureState extends HomeState {
+class RegimenRetrievalFailureState extends HomeState implements FailureState {
+  const RegimenRetrievalFailureState(this.failure);
+  @override
   List<Object> get props => [];
+
+  @override
+  final Failure failure;
 }
 
 class RegimenRetrievalSuccessState extends HomeState {
   final List<NameAndId<int>> regimenNameAndIds;
 
-  RegimenRetrievalSuccessState(this.regimenNameAndIds);
+  const RegimenRetrievalSuccessState(this.regimenNameAndIds);
+  @override
   List<Object> get props => [regimenNameAndIds];
 }

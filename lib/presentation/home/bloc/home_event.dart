@@ -7,7 +7,7 @@ abstract class HomeEvent extends Equatable {
 class AppStartedEvent extends HomeEvent {
   final BuildContext context;
 
-  AppStartedEvent(this.context);
+  const AppStartedEvent(this.context);
   @override
   List<Object> get props => [];
 }
@@ -15,7 +15,7 @@ class AppStartedEvent extends HomeEvent {
 class RegimenSelectedEvent extends HomeEvent {
   final BuildContext context;
   final NameAndId regimenNameAndId;
-  RegimenSelectedEvent({this.regimenNameAndId, this.context});
+  const RegimenSelectedEvent({this.regimenNameAndId, this.context});
 
   @override
   List<Object> get props => [regimenNameAndId];

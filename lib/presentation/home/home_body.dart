@@ -1,3 +1,4 @@
+import 'package:better_c25k/presentation/error/error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -24,12 +25,17 @@ class HomeBody extends StatelessWidget {
         );
         return HomeBloc(usecase)..add(AppStartedEvent(context));
       },
-      child: BlocBuilder<HomeBloc, HomeState>(
+      child: BlocConsumer<HomeBloc, HomeState>(
         builder: (context, state) {
           if (state is RegimenRetrievalSuccessState) {
             return RegimenSelection(state.regimenNameAndIds);
           }
           return Container();
+        },
+        listener: (context, state) {
+          if (state is RegimenRetrievalFailureState) {
+            NavigateToDefaultErrorPage()(context)(state.failure);
+          }
         },
       ),
     );

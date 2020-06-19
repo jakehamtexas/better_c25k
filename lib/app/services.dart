@@ -5,14 +5,14 @@ import '../data/repository/shared_preferences/app_state_repository.dart';
 import '../domain/repository/repository.dart' as domain;
 
 class Services {
-  static register() {
+  static GetIt register() {
     final getIt = GetIt.instance;
     getIt.registerSingleton<RegimenDatabase>(RegimenDatabase());
     getIt.registerSingleton<domain.AppStateRepository>(AppStateRepository());
     return getIt;
   }
 
-  static unregister() {
+  static void unregister() {
     final getIt = GetIt.instance;
     getIt.unregister<RegimenDatabase>(disposingFunction: (db) => db.close());
   }

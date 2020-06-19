@@ -7,14 +7,13 @@ import '../regimen.dart';
 
 class C25KRegimenStaticEntity extends RegimenEntity {
   static const c25kName = "C25K";
-  static final c25kWorkouts = _getC25kWorkouts();
   C25KRegimenStaticEntity()
       : super(
-          workouts: c25kWorkouts,
+          workouts: _getC25kWorkouts(),
           name: c25kName,
         );
 
-  static Iterable<WorkoutEntity> _getC25kWorkouts() => [
+  static List<WorkoutEntity> _getC25kWorkouts() => [
         ..._getWeekOneWorkouts(),
         ..._getWeekTwoWorkouts(),
         ..._getWeekThreeWorkouts(),
@@ -23,16 +22,16 @@ class C25KRegimenStaticEntity extends RegimenEntity {
         ..._getWeekSixWorkouts(),
         ..._getWeekSevenWorkouts(),
         ..._getWeekEightWorkouts(),
-      ];
+      ].toList();
   static Iterable<WorkoutEntity> _getWeekOneWorkouts() {
     final exercises =
         ExerciseBuilder().withWarmup(300).withCooldown(300).repeat(
       [
-        ExerciseEntity(
+        const ExerciseEntity(
           durationInSeconds: 60,
           exerciseAction: ExerciseAction.run,
         ),
-        ExerciseEntity(
+        const ExerciseEntity(
           durationInSeconds: 90,
           exerciseAction: ExerciseAction.walk,
         ),
@@ -52,11 +51,11 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     final exercises =
         ExerciseBuilder().withWarmup(300).withCooldown(300).repeat(
       [
-        ExerciseEntity(
+        const ExerciseEntity(
           durationInSeconds: 90,
           exerciseAction: ExerciseAction.run,
         ),
-        ExerciseEntity(
+        const ExerciseEntity(
           durationInSeconds: 120,
           exerciseAction: ExerciseAction.walk,
         ),
@@ -76,19 +75,19 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     final exercises =
         ExerciseBuilder().withWarmup(300).withCooldown(300).repeat(
       [
-        ExerciseEntity(
+        const ExerciseEntity(
           durationInSeconds: 90,
           exerciseAction: ExerciseAction.run,
         ),
-        ExerciseEntity(
+        const ExerciseEntity(
           durationInSeconds: 90,
           exerciseAction: ExerciseAction.walk,
         ),
-        ExerciseEntity(
+        const ExerciseEntity(
           durationInSeconds: 180,
           exerciseAction: ExerciseAction.run,
         ),
-        ExerciseEntity(
+        const ExerciseEntity(
           durationInSeconds: 180,
           exerciseAction: ExerciseAction.walk,
         ),
@@ -107,31 +106,31 @@ class C25KRegimenStaticEntity extends RegimenEntity {
   static Iterable<WorkoutEntity> _getWeekFourWorkouts() {
     final exercises =
         ExerciseBuilder().withWarmup(300).withCooldown(300).addRangeInOrder([
-      ExerciseEntity(
+      const ExerciseEntity(
         durationInSeconds: 180,
         exerciseAction: ExerciseAction.run,
       ),
-      ExerciseEntity(
+      const ExerciseEntity(
         durationInSeconds: 90,
         exerciseAction: ExerciseAction.walk,
       ),
-      ExerciseEntity(
+      const ExerciseEntity(
         durationInSeconds: 300,
         exerciseAction: ExerciseAction.run,
       ),
-      ExerciseEntity(
+      const ExerciseEntity(
         durationInSeconds: 150,
         exerciseAction: ExerciseAction.walk,
       ),
-      ExerciseEntity(
+      const ExerciseEntity(
         durationInSeconds: 180,
         exerciseAction: ExerciseAction.run,
       ),
-      ExerciseEntity(
+      const ExerciseEntity(
         durationInSeconds: 90,
         exerciseAction: ExerciseAction.walk,
       ),
-      ExerciseEntity(
+      const ExerciseEntity(
         durationInSeconds: 300,
         exerciseAction: ExerciseAction.walk,
       ),
@@ -151,18 +150,18 @@ class C25KRegimenStaticEntity extends RegimenEntity {
         .withCooldown(300)
         .repeat(
           [
-            ExerciseEntity(
+            const ExerciseEntity(
               durationInSeconds: 300,
               exerciseAction: ExerciseAction.run,
             ),
-            ExerciseEntity(
+            const ExerciseEntity(
               durationInSeconds: 180,
               exerciseAction: ExerciseAction.walk,
             ),
           ],
           1,
         )
-        .addInOrder(ExerciseEntity(
+        .addInOrder(const ExerciseEntity(
             durationInSeconds: 300, exerciseAction: ExerciseAction.run))
         .build();
     const dayOneDescription =
@@ -178,15 +177,15 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     final dayTwoExercises = ExerciseBuilder()
         .withWarmup(300)
         .withCooldown(300)
-        .addInOrder(ExerciseEntity(
+        .addInOrder(const ExerciseEntity(
           durationInSeconds: 8 * 60,
           exerciseAction: ExerciseAction.run,
         ))
-        .addInOrder(ExerciseEntity(
+        .addInOrder(const ExerciseEntity(
           durationInSeconds: 5 * 60,
           exerciseAction: ExerciseAction.walk,
         ))
-        .addInOrder(ExerciseEntity(
+        .addInOrder(const ExerciseEntity(
           durationInSeconds: 8 * 60,
           exerciseAction: ExerciseAction.run,
         ))
@@ -205,7 +204,7 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     final dayThreeExercises = ExerciseBuilder()
         .withWarmup(300)
         .withCooldown(300)
-        .addInOrder(ExerciseEntity(
+        .addInOrder(const ExerciseEntity(
           durationInSeconds: 20 * 60,
           exerciseAction: ExerciseAction.run,
         ))
@@ -227,23 +226,23 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     final dayOneExercises = ExerciseBuilder()
         .withWarmup(300)
         .withCooldown(300)
-        .addInOrder(ExerciseEntity(
+        .addInOrder(const ExerciseEntity(
           durationInSeconds: 5 * 60,
           exerciseAction: ExerciseAction.run,
         ))
-        .addInOrder(ExerciseEntity(
+        .addInOrder(const ExerciseEntity(
           durationInSeconds: 3 * 60,
           exerciseAction: ExerciseAction.walk,
         ))
-        .addInOrder(ExerciseEntity(
+        .addInOrder(const ExerciseEntity(
           durationInSeconds: 8 * 60,
           exerciseAction: ExerciseAction.run,
         ))
-        .addInOrder(ExerciseEntity(
+        .addInOrder(const ExerciseEntity(
           durationInSeconds: 5 * 60,
           exerciseAction: ExerciseAction.walk,
         ))
-        .addInOrder(ExerciseEntity(
+        .addInOrder(const ExerciseEntity(
           durationInSeconds: 8 * 60,
           exerciseAction: ExerciseAction.run,
         ))
@@ -260,15 +259,15 @@ class C25KRegimenStaticEntity extends RegimenEntity {
 
     final dayTwoExercises =
         ExerciseBuilder().withWarmup(300).withCooldown(300).addRangeInOrder([
-      ExerciseEntity(
+      const ExerciseEntity(
         durationInSeconds: 10 * 60,
         exerciseAction: ExerciseAction.run,
       ),
-      ExerciseEntity(
+      const ExerciseEntity(
         durationInSeconds: 3 * 60,
         exerciseAction: ExerciseAction.walk,
       ),
-      ExerciseEntity(
+      const ExerciseEntity(
         durationInSeconds: 10 * 60,
         exerciseAction: ExerciseAction.run,
       )
@@ -287,7 +286,7 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     final dayThreeExercises = ExerciseBuilder()
         .withWarmup(300)
         .withCooldown(300)
-        .addInOrder(ExerciseEntity(
+        .addInOrder(const ExerciseEntity(
           durationInSeconds: 22 * 60,
           exerciseAction: ExerciseAction.run,
         ))
@@ -310,7 +309,7 @@ class C25KRegimenStaticEntity extends RegimenEntity {
         .withWarmup(300)
         .withCooldown(300)
         .addInOrder(
-          ExerciseEntity(
+          const ExerciseEntity(
             durationInSeconds: 25 * 60,
             exerciseAction: ExerciseAction.run,
           ),
@@ -330,7 +329,7 @@ class C25KRegimenStaticEntity extends RegimenEntity {
         .withWarmup(300)
         .withCooldown(300)
         .addInOrder(
-          ExerciseEntity(
+          const ExerciseEntity(
             durationInSeconds: 28 * 60,
             exerciseAction: ExerciseAction.run,
           ),
@@ -349,7 +348,7 @@ class C25KRegimenStaticEntity extends RegimenEntity {
         .withWarmup(300)
         .withCooldown(300)
         .addInOrder(
-          ExerciseEntity(
+          const ExerciseEntity(
             durationInSeconds: 30 * 60,
             exerciseAction: ExerciseAction.run,
           ),

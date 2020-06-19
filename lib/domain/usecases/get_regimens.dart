@@ -8,7 +8,7 @@ class GetRegimens {
   final RegimenRepository _repository;
   GetRegimens(this._repository);
 
-  Future<Either<Failure, List<NameAndId<int>>>> call() async {
-    return await _repository.getAllRegimenNamesAndIds();
+  Future<Either<Failure, List<NameAndId<int>>>> call() {
+    return _repository.getAllRegimenNamesAndIds();
   }
 }

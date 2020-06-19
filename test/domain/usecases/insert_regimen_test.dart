@@ -11,11 +11,11 @@ import '../../mock/domain/repository/repository.dart';
 
 const tName = "tName";
 const tDescription = "tDescription";
-final tExercise = ExerciseEntity(
+const tExercise = ExerciseEntity(
   durationInSeconds: 0,
   exerciseAction: ExerciseAction.cooldown,
 );
-final tWorkouts = [
+final List<WorkoutEntity> tWorkouts = [
   WorkoutEntity(
     ordinalDayOfWeekNumber: 0,
     ordinalWeekNumber: 0,
@@ -23,9 +23,9 @@ final tWorkouts = [
     exercises: <ExerciseEntity>[tExercise],
   )
 ];
-final tRegimensCompanion =
+final RegimenEntity tRegimensCompanion =
     RegimenEntity(name: tName, description: tDescription, workouts: tWorkouts);
-final tExercisesByWorkoutId = {
+final Map<int, List<ExerciseEntity>> tExercisesByWorkoutId = {
   0: [tExercise]
 };
 
@@ -50,18 +50,18 @@ void main() {
   test('should insert a regimen into the respository', () async {
     // arrange
     when(mockRegimenRepository.insertRegimen(tRegimensCompanion))
-        .thenAnswer((_) async => Right(0));
+        .thenAnswer((_) async => const Right(0));
     when(mockWorkoutRepository.insertWorkouts(
             workoutEntities: tWorkouts, regimenId: 0))
-        .thenAnswer((_) async => Right([0, 1]));
+        .thenAnswer((_) async => const Right([0, 1]));
     when(mockExerciseRepository.insertExercisesByMap(tExercisesByWorkoutId))
-        .thenAnswer((_) async => Right([0, 1]));
+        .thenAnswer((_) async => const Right([0, 1]));
 
     // act
     final result = await usecase(tRegimensCompanion);
 
     // assert
-    expect(result, Right(0));
+    expect(result, const Right(0));
     verify(mockRegimenRepository.insertRegimen(tRegimensCompanion));
     verify(mockWorkoutRepository.insertWorkouts(
         workoutEntities: tWorkouts, regimenId: 0));

@@ -19,12 +19,13 @@ class RegimenRepository extends DatabaseAccessor<RegimenDatabase>
   @override
   Future<Either<Failure, List<NameAndId<int>>>>
       getAllRegimenNamesAndIds() async {
-    return await Task(() async => await select(regimens)
-        .map((regimen) => NameAndId(
-              id: regimen.id,
-              name: regimen.name,
-            ))
-        .get()).attempt().mapLeftToFailure().run();
+    return await Task(() => select(regimens)
+            .map((regimen) => NameAndId(
+                  id: regimen.id,
+                  name: regimen.name,
+                ))
+            .get()).attempt().mapLeftToFailure().run()
+        as Either<Failure, List<NameAndId<int>>>;
   }
 
   @override
@@ -33,9 +34,9 @@ class RegimenRepository extends DatabaseAccessor<RegimenDatabase>
       description: Value(entity.description),
       name: Value(entity.name),
     );
-    return await Task(() async => await into(regimens).insert(companion))
+    return await Task(() => into(regimens).insert(companion))
         .attempt()
         .mapLeftToFailure()
-        .run();
+        .run() as Either<Failure, int>;
   }
 }

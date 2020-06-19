@@ -19,13 +19,13 @@ void main() {
   test('should get regimens from the repository', () async {
     // arrange
     when(mockRegimenRepository.getAllRegimenNamesAndIds())
-        .thenAnswer((_) async => Right(_tNameAndIds));
+        .thenAnswer((_) async => const Right(_tNameAndIds));
 
     // act
     final result = await usecase();
 
     // assert
-    expect(result, Right(_tNameAndIds));
+    expect(result, const Right(_tNameAndIds));
     verify(mockRegimenRepository.getAllRegimenNamesAndIds());
     verifyNoMoreInteractions(mockRegimenRepository);
   });

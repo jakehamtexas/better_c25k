@@ -5,7 +5,7 @@ import 'bloc/workout_bloc.dart';
 import 'workout_card_base.dart';
 
 class ExpandedWorkoutCard extends WorkoutCardBase {
-  ExpandedWorkoutCard({
+  const ExpandedWorkoutCard({
     @required int workoutId,
     @required String workoutTitle,
     @required String workoutDescription,
@@ -29,39 +29,36 @@ class ExpandedWorkoutCard extends WorkoutCardBase {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: super.paddingAmount,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            workoutTitleWidget,
-                            Icon(
-                              Icons.arrow_drop_up,
-                              color: Colors.grey,
-                            )
-                          ],
-                        ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: super.paddingAmount,
                       ),
-                      Text(
-                        workoutDescription,
-                        textAlign: TextAlign.left,
-                        softWrap: true,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          workoutTitleWidget,
+                          Icon(
+                            Icons.arrow_drop_up,
+                            color: Colors.grey,
+                          )
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Text(
+                      workoutDescription,
+                      textAlign: TextAlign.left,
+                      softWrap: true,
+                    ),
+                  ],
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
-                      child: Text("Start"),
                       onPressed: () =>
                           BlocProvider.of<WorkoutBloc>(context).add(
                         WorkoutStartedEvent(
@@ -70,6 +67,7 @@ class ExpandedWorkoutCard extends WorkoutCardBase {
                           workoutTitle: workoutTitle,
                         ),
                       ),
+                      child: const Text("Start"),
                     ),
                   ),
                 ),

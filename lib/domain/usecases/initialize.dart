@@ -20,16 +20,15 @@ class Initialize {
   });
 
   Future<Either<Failure, List<NameAndId<int>>>> call() async {
-    return (await appStateRepository.getHasBeenInitialized()).fold(
-        (failure) async {
+    return (await appStateRepository.getHasBeenInitialized()).fold((failure) {
       if (failure is KeyNotFoundFailure) {
-        return await _initialize();
+        return _initialize();
       } else {
         return left(failure);
       }
     }, (hasBeenInitialized) async {
-      if (!hasBeenInitialized) return await _initialize();
-      return await regimenRepository.getAllRegimenNamesAndIds();
+      if (!hasBeenInitialized) return _initialize();
+      return regimenRepository.getAllRegimenNamesAndIds();
     });
   }
 

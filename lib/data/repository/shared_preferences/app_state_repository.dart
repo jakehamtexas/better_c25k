@@ -6,8 +6,8 @@ import '../../../core/error/failure.dart';
 import '../../../domain/repository/repository.dart' as domain;
 
 class AppStateRepository implements domain.AppStateRepository {
-  Future<SharedPreferences> get _gettingSharedPreferences async =>
-      await SharedPreferences.getInstance();
+  Future<SharedPreferences> get _gettingSharedPreferences =>
+      SharedPreferences.getInstance();
   static const String _initKey = 'init';
   @override
   Future<Either<Failure, bool>> getHasBeenInitialized() async {
@@ -16,7 +16,7 @@ class AppStateRepository implements domain.AppStateRepository {
 
     return hasBeenInitialized != null
         ? right(hasBeenInitialized)
-        : left(KeyNotFoundFailure());
+        : left(const KeyNotFoundFailure());
   }
 
   @override

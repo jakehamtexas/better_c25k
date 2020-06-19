@@ -1,13 +1,14 @@
 import 'dart:async';
 
-import 'package:better_c25k/domain/usecases/get_exercises.dart';
-import 'package:better_c25k/presentation/error/error.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constant/exercise_action.dart';
+import '../../../../../core/error/error.dart';
+import '../../../../../core/extension/dartz/dartz.dart';
 import '../../../../../domain/entities/exercise/exercise.dart';
+import '../../../../../domain/usecases/get_exercises.dart';
 
 part 'workout_in_progress_event.dart';
 part 'workout_in_progress_state.dart';
@@ -33,10 +34,13 @@ class WorkoutInProgressBloc
   ) async* {
     if (event is WorkoutInProgressInitializedEvent) {
       final exercisesOrFailure = await event.usecase(event.workoutId);
-      _exercises = exercisesOrFailure.fold(
-          LeftNavigateToDefaultErrorPage()(event.context),
-          (exercises) => exercises);
-      yield ExercisesRetrievalSuccessState(_exercises.first);
+      if (exercisesOrFailure.isRight()) {
+        _exercises = exercisesOrFailure.getOrThrow();
+      }
+      yield exercisesOrFailure.fold(
+        (failure) => ExercisesRetrievalFailureState(failure),
+        (exercises) => ExercisesRetrievalSuccessState(exercises.first),
+      );
     } else if (event is StartEvent) {
       _currentCountdownTime = _exercises[0].durationInSeconds;
 
@@ -82,7 +86,7 @@ class WorkoutInProgressBloc
 
   void startTimer() {
     _stopwatch = Stopwatch()..start();
-    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (_currentCountdownTime <= 0) {
         add(IncrementExerciseEvent());
         timer.cancel();

@@ -20,7 +20,7 @@ class WorkoutTile extends StatelessWidget {
     return "$week $day";
   }
 
-  WorkoutTile(this._workout);
+  const WorkoutTile(this._workout);
 
   @override
   Widget build(BuildContext context) {

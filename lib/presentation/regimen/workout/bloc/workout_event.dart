@@ -14,7 +14,7 @@ class WorkoutStartedEvent extends WorkoutEvent {
   final String workoutTitle;
   final BuildContext context;
 
-  WorkoutStartedEvent({
+  const WorkoutStartedEvent({
     @required this.workoutId,
     @required this.workoutTitle,
     @required this.context,

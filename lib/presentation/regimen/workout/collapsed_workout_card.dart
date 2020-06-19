@@ -5,7 +5,7 @@ import 'bloc/workout_bloc.dart';
 import 'workout_card_base.dart';
 
 class CollapsedWorkoutCard extends WorkoutCardBase {
-  CollapsedWorkoutCard({
+  const CollapsedWorkoutCard({
     @required int workoutId,
     @required String workoutDescription,
     @required String workoutTitle,

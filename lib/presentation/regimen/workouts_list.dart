@@ -5,7 +5,7 @@ import 'workout/workout_tile.dart';
 
 class WorkoutsList extends StatelessWidget {
   final List<WorkoutPresentationEntity> workouts;
-  WorkoutsList(this.workouts);
+  const WorkoutsList(this.workouts);
 
   @override
   Widget build(BuildContext context) {

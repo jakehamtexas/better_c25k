@@ -9,12 +9,11 @@ class WorkoutCardAnimation extends StatelessWidget {
 
   bool get isCollapsed => child is CollapsedWorkoutCard;
 
-  WorkoutCardAnimation(this.child) : super();
+  const WorkoutCardAnimation(this.child) : super();
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-      child: child,
       duration: duration,
       transitionBuilder: (widget, animation) {
         final sizeTween = Tween<double>(begin: 0, end: 1).animate(
@@ -32,6 +31,7 @@ class WorkoutCardAnimation extends StatelessWidget {
           child: widget,
         );
       },
+      child: child,
     );
   }
 }

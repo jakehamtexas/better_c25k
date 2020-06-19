@@ -10,6 +10,6 @@ class GetWorkouts {
 
   Future<Either<Failure, List<WorkoutPresentationEntity>>> call(
       int regimenId) async {
-    return await _repository.getWorkoutsForRegimenId(regimenId);
+    return _repository.getWorkoutsForRegimenId(regimenId);
   }
 }

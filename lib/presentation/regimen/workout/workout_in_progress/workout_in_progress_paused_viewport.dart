@@ -5,7 +5,7 @@ import 'bloc/workout_in_progress_bloc.dart';
 import 'workout_in_progress_viewport.dart';
 
 class WorkoutInProgressPausedViewport extends WorkoutInProgressViewport {
-  WorkoutInProgressPausedViewport(WorkoutInProgressStateDTO _state)
+  const WorkoutInProgressPausedViewport(WorkoutInProgressStateDTO _state)
       : super(_state);
 
   @override

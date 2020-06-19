@@ -44,7 +44,7 @@ class ExerciseRepository extends DatabaseAccessor<RegimenDatabase>
             .first as int;
       });
       return List.generate(companions.length, (i) => lastRowId - i);
-    }).attempt().mapLeftToFailure().run();
+    }).attempt().mapLeftToFailure().run() as Either<Failure, List<int>>;
   }
 
   @override
@@ -53,11 +53,12 @@ class ExerciseRepository extends DatabaseAccessor<RegimenDatabase>
   ) async {
     final query = select(exercises)
       ..where((exercise) => exercise.workoutId.equals(workoutId));
-    return await Task(() async => await query
-        .map((exercise) => ExerciseEntity(
-              durationInSeconds: exercise.durationInSeconds,
-              exerciseAction: exercise.exerciseAction,
-            ))
-        .get()).attempt().mapLeftToFailure().run();
+    return await Task(() => query
+            .map((exercise) => ExerciseEntity(
+                  durationInSeconds: exercise.durationInSeconds,
+                  exerciseAction: exercise.exerciseAction,
+                ))
+            .get()).attempt().mapLeftToFailure().run()
+        as Either<Failure, List<ExerciseEntity>>;
   }
 }

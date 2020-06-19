@@ -7,7 +7,7 @@ abstract class WorkoutInProgressViewport extends StatelessWidget {
   int get _currentCountdownTime => _state.currentCountdownTime;
   String get _exerciseMessage => _state.exerciseActionMessage;
 
-  WorkoutInProgressViewport(this._state);
+  const WorkoutInProgressViewport(this._state);
   Widget buildViewport({
     @required Null Function() onPressedHandler,
     @required String buttonMessage,

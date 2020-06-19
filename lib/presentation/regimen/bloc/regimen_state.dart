@@ -12,8 +12,18 @@ class RegimenInitial extends RegimenState {
 class WorkoutsRetrievalSuccessState extends RegimenState {
   final List<WorkoutPresentationEntity> workouts;
 
-  WorkoutsRetrievalSuccessState(this.workouts);
+  const WorkoutsRetrievalSuccessState(this.workouts);
 
   @override
   List<Object> get props => [workouts];
+}
+
+class WorkoutRetrievalFailureState extends RegimenState
+    implements FailureState {
+  const WorkoutRetrievalFailureState(this.failure);
+  @override
+  List<Object> get props => [failure];
+
+  @override
+  final Failure failure;
 }

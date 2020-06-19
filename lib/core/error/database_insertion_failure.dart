@@ -3,7 +3,7 @@ import 'error.dart';
 class DatabaseInsertionFailure extends Failure {
   static const _baseMessage =
       "An error occured when attempting to insert into the database!";
-  DatabaseInsertionFailure([String message = _baseMessage])
+  const DatabaseInsertionFailure([String message = _baseMessage])
       : super(
           message,
         );

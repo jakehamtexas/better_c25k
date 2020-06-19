@@ -1,3 +1,4 @@
+import 'package:better_c25k/presentation/error/error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -17,7 +18,7 @@ class WorkoutInProgressPage extends StatelessWidget {
   String get _workoutTitle => _entity.workoutTitle;
   int get _workoutId => _entity.workoutId;
 
-  WorkoutInProgressPage(this._entity);
+  const WorkoutInProgressPage(this._entity);
 
   Widget bodyBuilder(WorkoutInProgressState state) {
     if (state is ExercisesRetrievalSuccessState) {
@@ -27,7 +28,13 @@ class WorkoutInProgressPage extends StatelessWidget {
       return WorkoutInProgressPausedViewport(state);
     }
     if (state is IsStartedState || state is PauseToggledOffState) {
-      return WorkoutInProgressUnpausedViewport(state);
+      switch (state.runtimeType) {
+        case IsStartedState:
+          return WorkoutInProgressUnpausedViewport(state as IsStartedState);
+        case PauseToggledOffState:
+          return WorkoutInProgressUnpausedViewport(
+              state as PauseToggledOffState);
+      }
     }
     return Container();
   }
@@ -46,7 +53,7 @@ class WorkoutInProgressPage extends StatelessWidget {
             usecase: usecase,
           ));
       },
-      child: BlocBuilder<WorkoutInProgressBloc, WorkoutInProgressState>(
+      child: BlocConsumer<WorkoutInProgressBloc, WorkoutInProgressState>(
         builder: (context, state) {
           if (state is WorkoutCompletedState) {
             Navigator.of(context).pushReplacementNamed(
@@ -62,6 +69,11 @@ class WorkoutInProgressPage extends StatelessWidget {
               state,
             ),
           );
+        },
+        listener: (context, state) {
+          if (state is ExercisesRetrievalFailureState) {
+            NavigateToDefaultErrorPage()(context)(state.failure);
+          }
         },
       ),
     );

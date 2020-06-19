@@ -8,7 +8,7 @@ class WorkoutInProgressInitializedEvent extends WorkoutInProgressEvent {
   final int workoutId;
   final GetExercises usecase;
   final BuildContext context;
-  WorkoutInProgressInitializedEvent({
+  const WorkoutInProgressInitializedEvent({
     @required this.context,
     @required this.workoutId,
     @required this.usecase,
@@ -44,5 +44,6 @@ class IncrementExerciseEvent extends WorkoutInProgressEvent {
 }
 
 class WorkoutCompletedEvent extends WorkoutInProgressEvent {
+  @override
   List<Object> get props => [];
 }

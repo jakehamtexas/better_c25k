@@ -5,13 +5,13 @@ abstract class WorkoutCardBase extends StatelessWidget {
   final String workoutTitle;
   final String workoutDescription;
 
-  WorkoutCardBase({
+  const WorkoutCardBase({
     @required this.workoutId,
     @required this.workoutTitle,
     @required this.workoutDescription,
   });
 
-  final double paddingAmount = 10;
+  double get paddingAmount => 10;
   Widget getWorkoutTitleWidget(String workoutTitle) => Text(
         workoutTitle,
         style: TextStyle(fontWeight: FontWeight.bold),

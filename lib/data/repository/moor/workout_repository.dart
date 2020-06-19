@@ -22,27 +22,28 @@ class WorkoutRepository extends DatabaseAccessor<RegimenDatabase>
       getWorkoutsForRegimenId(int regimenId) async {
     final workoutsMatchedQuery = select(workouts)
       ..where((workout) => workout.regimenId.equals(regimenId));
-    return await Task(() async => await workoutsMatchedQuery
-        .map((workout) => WorkoutPresentationEntity(
-              workoutId: workout.id,
-              ordinalDayOfWeekNumber: workout.dayNumber,
-              ordinalWeekNumber: workout.weekNumber,
-              description: workout.description,
-              completionStatus: workout.completionStatus,
-            ))
-        .get()).attempt().mapLeftToFailure().run();
+    return await Task(() => workoutsMatchedQuery
+            .map((workout) => WorkoutPresentationEntity(
+                  workoutId: workout.id,
+                  ordinalDayOfWeekNumber: workout.dayNumber,
+                  ordinalWeekNumber: workout.weekNumber,
+                  description: workout.description,
+                  completionStatus: workout.completionStatus,
+                ))
+            .get()).attempt().mapLeftToFailure().run()
+        as Either<Failure, List<WorkoutPresentationEntity>>;
   }
 
   @override
   Future<Either<Failure, int>> setCompletionStatusForWorkout(
       {int workoutId, CompletionStatus completionStatus}) async {
-    return await Task(() async => await (update(workouts)
+    return await Task(() => (update(workouts)
               ..where((workout) => workout.id.equals(workoutId)))
             .write(
           WorkoutsCompanion(
             completionStatus: Value(completionStatus),
           ),
-        )).attempt().mapLeftToFailure().run();
+        )).attempt().mapLeftToFailure().run() as Either<Failure, int>;
   }
 
   @override
@@ -72,6 +73,6 @@ class WorkoutRepository extends DatabaseAccessor<RegimenDatabase>
             .first as int;
       });
       return List.generate(companions.length, (i) => lastRowId - i);
-    }).attempt().mapLeftToFailure().run();
+    }).attempt().mapLeftToFailure().run() as Either<Failure, List<int>>;
   }
 }

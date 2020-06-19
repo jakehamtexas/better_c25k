@@ -1,2 +1,2 @@
-export 'exercise_entity.dart';
 export 'exercise_builder.dart';
+export 'exercise_entity.dart';

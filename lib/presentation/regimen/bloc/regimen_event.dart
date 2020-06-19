@@ -9,7 +9,7 @@ class RegimenInitializedEvent extends RegimenEvent {
   final BuildContext context;
   final GetWorkouts usecase;
 
-  RegimenInitializedEvent({
+  const RegimenInitializedEvent({
     @required this.regimenId,
     @required this.context,
     @required this.usecase,

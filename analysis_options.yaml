@@ -1,0 +1,15 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    - parameter_assignments
+analyzer:
+  exclude:
+    - "lib/**/*.g.dart" #This is broken if you open any file with this pattern, thus making it a "priority file" in VS Code.
+  errors:
+    missing_required_param: error
+    parameter_assignments: error
+    missing_return: error
+    avoid_implementing_value_types: ignore
+    must_be_immutable: error
+    prefer_relative_imports: warning

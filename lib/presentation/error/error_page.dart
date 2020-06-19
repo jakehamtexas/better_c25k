@@ -1,16 +1,16 @@
-import '../router/routes.dart';
+import 'package:flutter/material.dart';
 
 import '../../core/error/error.dart';
-import 'package:flutter/material.dart';
+import '../router/routes.dart';
 
 class ErrorPage extends StatelessWidget {
   final Failure _failure;
-  ErrorPage(this._failure);
+  const ErrorPage(this._failure);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ERROR'),
+        title: const Text('ERROR'),
       ),
       body: Center(
         child: Text(_failure.message),
@@ -19,8 +19,8 @@ class ErrorPage extends StatelessWidget {
   }
 }
 
-class LeftNavigateToDefaultErrorPage {
-  Null Function(Failure) call(BuildContext context) =>
+class NavigateToDefaultErrorPage {
+  Future<Object> Function(Failure) call(BuildContext context) =>
       (failure) => Navigator.of(context).pushNamed(
             Routes.error,
             arguments: failure,

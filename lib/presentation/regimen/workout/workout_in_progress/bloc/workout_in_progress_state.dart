@@ -12,9 +12,19 @@ class WorkoutInProgressInitialState extends WorkoutInProgressState {
 class ExercisesRetrievalSuccessState extends WorkoutInProgressState {
   final ExerciseEntity firstExercise;
 
-  ExercisesRetrievalSuccessState(this.firstExercise);
+  const ExercisesRetrievalSuccessState(this.firstExercise);
   @override
   List<Object> get props => [firstExercise];
+}
+
+class ExercisesRetrievalFailureState extends WorkoutInProgressState
+    implements FailureState {
+  @override
+  final Failure failure;
+  const ExercisesRetrievalFailureState(this.failure);
+
+  @override
+  List<Object> get props => [failure];
 }
 
 class WorkoutCompletedState extends WorkoutInProgressState {
@@ -23,7 +33,7 @@ class WorkoutCompletedState extends WorkoutInProgressState {
 }
 
 class PauseToggledOnState extends WorkoutInProgressStateDTO {
-  PauseToggledOnState({
+  const PauseToggledOnState({
     @required String exerciseActionMessage,
     @required int currentCountdownTime,
   }) : super(
@@ -36,8 +46,8 @@ class PauseToggledOnState extends WorkoutInProgressStateDTO {
 }
 
 class PauseToggledOffState extends WorkoutInProgressStateDTO {
-  final buttonMessage = "Pause";
-  PauseToggledOffState({
+  String get buttonMessage => "Pause";
+  const PauseToggledOffState({
     @required String exerciseActionMessage,
     @required int currentCountdownTime,
   }) : super(
@@ -50,9 +60,9 @@ class PauseToggledOffState extends WorkoutInProgressStateDTO {
 }
 
 class IsStartedState extends WorkoutInProgressStateDTO {
-  final buttonMessage = "Start";
+  String get buttonMessage => "Start";
 
-  IsStartedState({
+  const IsStartedState({
     @required String exerciseActionMessage,
     @required int currentCountdownTime,
   }) : super(
@@ -65,7 +75,7 @@ class WorkoutInProgressStateDTO extends WorkoutInProgressState {
   final String exerciseActionMessage;
   final int currentCountdownTime;
 
-  WorkoutInProgressStateDTO({
+  const WorkoutInProgressStateDTO({
     @required this.exerciseActionMessage,
     @required this.currentCountdownTime,
   });
