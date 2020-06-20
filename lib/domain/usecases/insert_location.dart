@@ -1,3 +1,4 @@
+import 'package:better_c25k/domain/entities/location/user_location_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ import '../../core/extension/dartz/dartz.dart';
 import '../repository/repository.dart';
 
 class InsertLocation {
-  final LocationRepository locationRepository;
+  final UserLocationsRepository locationRepository;
   final LocationService locationService;
   const InsertLocation({
     @required this.locationRepository,
@@ -20,8 +21,8 @@ class InsertLocation {
     }
     final userLocation = userLocationOrFailure.getOrThrow();
     final locationIdOrFailure = await locationRepository.insertLocation(
-      userLocation: userLocation,
-      workoutId: workoutId,
+      UserLocationEntity.fromModel(userLocation),
+      workoutId,
     );
 
     if (locationIdOrFailure.isLeft()) {

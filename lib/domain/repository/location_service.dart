@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 
 import '../../core/error/error.dart';
-import '../entities/location/user_location.dart';
+import '../../data/model/user_location_model.dart';
 
 abstract class LocationService {
-  Future<Either<Failure, UserLocation>> getLocation();
+  Future<Either<Failure, UserLocationModel>> getLocation();
 }

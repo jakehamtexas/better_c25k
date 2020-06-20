@@ -255,7 +255,7 @@ class $RegimensTable extends Regimens
       _isCompleted ??= _constructIsCompleted();
   GeneratedBoolColumn _constructIsCompleted() {
     return GeneratedBoolColumn('is_completed', $tableName, false,
-        defaultValue: Constant(false));
+        defaultValue: const Constant(false));
   }
 
   final VerificationMeta _dateCreatedMeta =
@@ -1041,6 +1041,392 @@ class $ExercisesTable extends Exercises
       const EnumIndexConverter<ExerciseAction>(ExerciseAction.values);
 }
 
+class UserLocationModel extends DataClass
+    implements Insertable<UserLocationModel> {
+  final int id;
+  final int workoutId;
+  final double latitude;
+  final double longitude;
+  final double speedInMetersPerSecond;
+  final DateTime time;
+  UserLocationModel(
+      {@required this.id,
+      @required this.workoutId,
+      @required this.latitude,
+      @required this.longitude,
+      @required this.speedInMetersPerSecond,
+      @required this.time});
+  factory UserLocationModel.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final doubleType = db.typeSystem.forDartType<double>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    return UserLocationModel(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      workoutId:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}workout_id']),
+      latitude: doubleType
+          .mapFromDatabaseResponse(data['${effectivePrefix}latitude']),
+      longitude: doubleType
+          .mapFromDatabaseResponse(data['${effectivePrefix}longitude']),
+      speedInMetersPerSecond: doubleType.mapFromDatabaseResponse(
+          data['${effectivePrefix}speed_in_meters_per_second']),
+      time:
+          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}time']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || workoutId != null) {
+      map['workout_id'] = Variable<int>(workoutId);
+    }
+    if (!nullToAbsent || latitude != null) {
+      map['latitude'] = Variable<double>(latitude);
+    }
+    if (!nullToAbsent || longitude != null) {
+      map['longitude'] = Variable<double>(longitude);
+    }
+    if (!nullToAbsent || speedInMetersPerSecond != null) {
+      map['speed_in_meters_per_second'] =
+          Variable<double>(speedInMetersPerSecond);
+    }
+    if (!nullToAbsent || time != null) {
+      map['time'] = Variable<DateTime>(time);
+    }
+    return map;
+  }
+
+  UserLocationsCompanion toCompanion(bool nullToAbsent) {
+    return UserLocationsCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      workoutId: workoutId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(workoutId),
+      latitude: latitude == null && nullToAbsent
+          ? const Value.absent()
+          : Value(latitude),
+      longitude: longitude == null && nullToAbsent
+          ? const Value.absent()
+          : Value(longitude),
+      speedInMetersPerSecond: speedInMetersPerSecond == null && nullToAbsent
+          ? const Value.absent()
+          : Value(speedInMetersPerSecond),
+      time: time == null && nullToAbsent ? const Value.absent() : Value(time),
+    );
+  }
+
+  factory UserLocationModel.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return UserLocationModel(
+      id: serializer.fromJson<int>(json['id']),
+      workoutId: serializer.fromJson<int>(json['workoutId']),
+      latitude: serializer.fromJson<double>(json['latitude']),
+      longitude: serializer.fromJson<double>(json['longitude']),
+      speedInMetersPerSecond:
+          serializer.fromJson<double>(json['speedInMetersPerSecond']),
+      time: serializer.fromJson<DateTime>(json['time']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'workoutId': serializer.toJson<int>(workoutId),
+      'latitude': serializer.toJson<double>(latitude),
+      'longitude': serializer.toJson<double>(longitude),
+      'speedInMetersPerSecond':
+          serializer.toJson<double>(speedInMetersPerSecond),
+      'time': serializer.toJson<DateTime>(time),
+    };
+  }
+
+  UserLocationModel copyWith(
+          {int id,
+          int workoutId,
+          double latitude,
+          double longitude,
+          double speedInMetersPerSecond,
+          DateTime time}) =>
+      UserLocationModel(
+        id: id ?? this.id,
+        workoutId: workoutId ?? this.workoutId,
+        latitude: latitude ?? this.latitude,
+        longitude: longitude ?? this.longitude,
+        speedInMetersPerSecond:
+            speedInMetersPerSecond ?? this.speedInMetersPerSecond,
+        time: time ?? this.time,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('UserLocationModel(')
+          ..write('id: $id, ')
+          ..write('workoutId: $workoutId, ')
+          ..write('latitude: $latitude, ')
+          ..write('longitude: $longitude, ')
+          ..write('speedInMetersPerSecond: $speedInMetersPerSecond, ')
+          ..write('time: $time')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(
+          workoutId.hashCode,
+          $mrjc(
+              latitude.hashCode,
+              $mrjc(longitude.hashCode,
+                  $mrjc(speedInMetersPerSecond.hashCode, time.hashCode))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is UserLocationModel &&
+          other.id == this.id &&
+          other.workoutId == this.workoutId &&
+          other.latitude == this.latitude &&
+          other.longitude == this.longitude &&
+          other.speedInMetersPerSecond == this.speedInMetersPerSecond &&
+          other.time == this.time);
+}
+
+class UserLocationsCompanion extends UpdateCompanion<UserLocationModel> {
+  final Value<int> id;
+  final Value<int> workoutId;
+  final Value<double> latitude;
+  final Value<double> longitude;
+  final Value<double> speedInMetersPerSecond;
+  final Value<DateTime> time;
+  const UserLocationsCompanion({
+    this.id = const Value.absent(),
+    this.workoutId = const Value.absent(),
+    this.latitude = const Value.absent(),
+    this.longitude = const Value.absent(),
+    this.speedInMetersPerSecond = const Value.absent(),
+    this.time = const Value.absent(),
+  });
+  UserLocationsCompanion.insert({
+    this.id = const Value.absent(),
+    @required int workoutId,
+    @required double latitude,
+    @required double longitude,
+    @required double speedInMetersPerSecond,
+    @required DateTime time,
+  })  : workoutId = Value(workoutId),
+        latitude = Value(latitude),
+        longitude = Value(longitude),
+        speedInMetersPerSecond = Value(speedInMetersPerSecond),
+        time = Value(time);
+  static Insertable<UserLocationModel> custom({
+    Expression<int> id,
+    Expression<int> workoutId,
+    Expression<double> latitude,
+    Expression<double> longitude,
+    Expression<double> speedInMetersPerSecond,
+    Expression<DateTime> time,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (workoutId != null) 'workout_id': workoutId,
+      if (latitude != null) 'latitude': latitude,
+      if (longitude != null) 'longitude': longitude,
+      if (speedInMetersPerSecond != null)
+        'speed_in_meters_per_second': speedInMetersPerSecond,
+      if (time != null) 'time': time,
+    });
+  }
+
+  UserLocationsCompanion copyWith(
+      {Value<int> id,
+      Value<int> workoutId,
+      Value<double> latitude,
+      Value<double> longitude,
+      Value<double> speedInMetersPerSecond,
+      Value<DateTime> time}) {
+    return UserLocationsCompanion(
+      id: id ?? this.id,
+      workoutId: workoutId ?? this.workoutId,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+      speedInMetersPerSecond:
+          speedInMetersPerSecond ?? this.speedInMetersPerSecond,
+      time: time ?? this.time,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (workoutId.present) {
+      map['workout_id'] = Variable<int>(workoutId.value);
+    }
+    if (latitude.present) {
+      map['latitude'] = Variable<double>(latitude.value);
+    }
+    if (longitude.present) {
+      map['longitude'] = Variable<double>(longitude.value);
+    }
+    if (speedInMetersPerSecond.present) {
+      map['speed_in_meters_per_second'] =
+          Variable<double>(speedInMetersPerSecond.value);
+    }
+    if (time.present) {
+      map['time'] = Variable<DateTime>(time.value);
+    }
+    return map;
+  }
+}
+
+class $UserLocationsTable extends UserLocations
+    with TableInfo<$UserLocationsTable, UserLocationModel> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $UserLocationsTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _workoutIdMeta = const VerificationMeta('workoutId');
+  GeneratedIntColumn _workoutId;
+  @override
+  GeneratedIntColumn get workoutId => _workoutId ??= _constructWorkoutId();
+  GeneratedIntColumn _constructWorkoutId() {
+    return GeneratedIntColumn('workout_id', $tableName, false,
+        $customConstraints: 'REFERENCES workouts(id)');
+  }
+
+  final VerificationMeta _latitudeMeta = const VerificationMeta('latitude');
+  GeneratedRealColumn _latitude;
+  @override
+  GeneratedRealColumn get latitude => _latitude ??= _constructLatitude();
+  GeneratedRealColumn _constructLatitude() {
+    return GeneratedRealColumn(
+      'latitude',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _longitudeMeta = const VerificationMeta('longitude');
+  GeneratedRealColumn _longitude;
+  @override
+  GeneratedRealColumn get longitude => _longitude ??= _constructLongitude();
+  GeneratedRealColumn _constructLongitude() {
+    return GeneratedRealColumn(
+      'longitude',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _speedInMetersPerSecondMeta =
+      const VerificationMeta('speedInMetersPerSecond');
+  GeneratedRealColumn _speedInMetersPerSecond;
+  @override
+  GeneratedRealColumn get speedInMetersPerSecond =>
+      _speedInMetersPerSecond ??= _constructSpeedInMetersPerSecond();
+  GeneratedRealColumn _constructSpeedInMetersPerSecond() {
+    return GeneratedRealColumn(
+      'speed_in_meters_per_second',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _timeMeta = const VerificationMeta('time');
+  GeneratedDateTimeColumn _time;
+  @override
+  GeneratedDateTimeColumn get time => _time ??= _constructTime();
+  GeneratedDateTimeColumn _constructTime() {
+    return GeneratedDateTimeColumn(
+      'time',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, workoutId, latitude, longitude, speedInMetersPerSecond, time];
+  @override
+  $UserLocationsTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'user_locations';
+  @override
+  final String actualTableName = 'user_locations';
+  @override
+  VerificationContext validateIntegrity(Insertable<UserLocationModel> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('workout_id')) {
+      context.handle(_workoutIdMeta,
+          workoutId.isAcceptableOrUnknown(data['workout_id'], _workoutIdMeta));
+    } else if (isInserting) {
+      context.missing(_workoutIdMeta);
+    }
+    if (data.containsKey('latitude')) {
+      context.handle(_latitudeMeta,
+          latitude.isAcceptableOrUnknown(data['latitude'], _latitudeMeta));
+    } else if (isInserting) {
+      context.missing(_latitudeMeta);
+    }
+    if (data.containsKey('longitude')) {
+      context.handle(_longitudeMeta,
+          longitude.isAcceptableOrUnknown(data['longitude'], _longitudeMeta));
+    } else if (isInserting) {
+      context.missing(_longitudeMeta);
+    }
+    if (data.containsKey('speed_in_meters_per_second')) {
+      context.handle(
+          _speedInMetersPerSecondMeta,
+          speedInMetersPerSecond.isAcceptableOrUnknown(
+              data['speed_in_meters_per_second'], _speedInMetersPerSecondMeta));
+    } else if (isInserting) {
+      context.missing(_speedInMetersPerSecondMeta);
+    }
+    if (data.containsKey('time')) {
+      context.handle(
+          _timeMeta, time.isAcceptableOrUnknown(data['time'], _timeMeta));
+    } else if (isInserting) {
+      context.missing(_timeMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  UserLocationModel map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return UserLocationModel.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $UserLocationsTable createAlias(String alias) {
+    return $UserLocationsTable(_db, alias);
+  }
+}
+
 abstract class _$RegimenDatabase extends GeneratedDatabase {
   _$RegimenDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $RegimensTable _regimens;
@@ -1049,6 +1435,9 @@ abstract class _$RegimenDatabase extends GeneratedDatabase {
   $WorkoutsTable get workouts => _workouts ??= $WorkoutsTable(this);
   $ExercisesTable _exercises;
   $ExercisesTable get exercises => _exercises ??= $ExercisesTable(this);
+  $UserLocationsTable _userLocations;
+  $UserLocationsTable get userLocations =>
+      _userLocations ??= $UserLocationsTable(this);
   RegimenRepository _regimenRepository;
   RegimenRepository get regimenRepository =>
       _regimenRepository ??= RegimenRepository(this as RegimenDatabase);
@@ -1058,9 +1447,13 @@ abstract class _$RegimenDatabase extends GeneratedDatabase {
   ExerciseRepository _exerciseRepository;
   ExerciseRepository get exerciseRepository =>
       _exerciseRepository ??= ExerciseRepository(this as RegimenDatabase);
+  UserLocationsRepository _userLocationsRepository;
+  UserLocationsRepository get userLocationsRepository =>
+      _userLocationsRepository ??=
+          UserLocationsRepository(this as RegimenDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [regimens, workouts, exercises];
+      [regimens, workouts, exercises, userLocations];
 }

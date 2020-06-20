@@ -45,9 +45,28 @@ class Exercises extends Table {
   IntColumn get exerciseAction => intEnum<ExerciseAction>()();
 }
 
-@UseMoor(
-    tables: [Regimens, Workouts, Exercises],
-    daos: [RegimenRepository, WorkoutRepository, ExerciseRepository])
+@DataClassName("UserLocationModel")
+class UserLocations extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get workoutId =>
+      integer().customConstraint("REFERENCES workouts(id)")();
+  RealColumn get latitude => real()();
+  RealColumn get longitude => real()();
+  RealColumn get speedInMetersPerSecond => real()();
+  DateTimeColumn get time => dateTime()();
+}
+
+@UseMoor(tables: [
+  Regimens,
+  Workouts,
+  Exercises,
+  UserLocations
+], daos: [
+  RegimenRepository,
+  WorkoutRepository,
+  ExerciseRepository,
+  UserLocationsRepository
+])
 class RegimenDatabase extends _$RegimenDatabase {
   RegimenDatabase()
       : super(FlutterQueryExecutor.inDatabaseFolder(
@@ -56,5 +75,5 @@ class RegimenDatabase extends _$RegimenDatabase {
         ));
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 }
