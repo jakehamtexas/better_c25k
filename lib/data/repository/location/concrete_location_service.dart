@@ -5,11 +5,17 @@ import 'package:location/location.dart';
 import 'package:dartz/dartz.dart';
 import '../../../core/extension/dartz/dartz.dart';
 
-class LocationRepository implements LocationService {
+class ConcreteLocationService implements LocationService {
+  @override
+  Location location;
+
+  ConcreteLocationService() {
+    location = Location();
+  }
   @override
   Future<Either<Failure, UserLocationModel>> getLocation() async {
     return Task(() async {
-      final locationData = await Location().getLocation();
+      final locationData = await location.getLocation();
       return UserLocationModel(
         latitude: locationData.latitude,
         longitude: locationData.longitude,
