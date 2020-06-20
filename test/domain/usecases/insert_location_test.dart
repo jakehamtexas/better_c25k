@@ -30,9 +30,12 @@ void main() {
     when(locationService.getLocation()).thenAnswer(
       (_) async => const Right(UserLocation(0, 0)),
     );
-    when(locationRepository.insertLocation(
-            userLocation: const UserLocation(0, 0)))
-        .thenAnswer((_) async => const Right(locationId));
+    when(
+      locationRepository.insertLocation(
+        userLocation: const UserLocation(0, 0),
+        workoutId: workoutId,
+      ),
+    ).thenAnswer((_) async => const Right(locationId));
 
     // act
     final result = await usecase(workoutId);
