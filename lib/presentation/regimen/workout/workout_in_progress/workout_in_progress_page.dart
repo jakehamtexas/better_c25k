@@ -1,4 +1,3 @@
-import 'package:better_c25k/presentation/error/error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -6,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import '../../../../data/datasources/datasources.dart';
 import '../../../../domain/entities/workout_in_progress/workout_in_progress.dart';
 import '../../../../domain/usecases/get_exercises.dart';
+import '../../../error/error.dart';
 import '../../../router/routes.dart';
 import 'bloc/workout_in_progress_bloc.dart';
 import 'workout_in_progress_initial_viewport.dart';
@@ -43,24 +43,17 @@ class WorkoutInProgressPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<WorkoutInProgressBloc>(
       create: (context) {
-        final exerciseRepository =
-            GetIt.I<RegimenDatabase>().exerciseRepository;
+        final database = GetIt.I<RegimenDatabase>();
+        final exerciseRepository = database.exerciseRepository;
         final usecase = GetExercises(exerciseRepository);
-        return WorkoutInProgressBloc()
+        return WorkoutInProgressBloc(_workoutId)
           ..add(WorkoutInProgressInitializedEvent(
             workoutId: _workoutId,
-            context: context,
             usecase: usecase,
           ));
       },
       child: BlocConsumer<WorkoutInProgressBloc, WorkoutInProgressState>(
         builder: (context, state) {
-          if (state is WorkoutCompletedState) {
-            Navigator.of(context).pushReplacementNamed(
-              Routes.workoutComplete,
-              arguments: "",
-            );
-          }
           return Scaffold(
             appBar: AppBar(
               title: Text(_workoutTitle),
@@ -71,6 +64,12 @@ class WorkoutInProgressPage extends StatelessWidget {
           );
         },
         listener: (context, state) {
+          if (state is WorkoutCompletedState) {
+            Navigator.of(context).pushReplacementNamed(
+              Routes.workoutComplete,
+              arguments: "",
+            );
+          }
           if (state is ExercisesRetrievalFailureState) {
             NavigateToDefaultErrorPage()(context)(state.failure);
           }

@@ -7,9 +7,7 @@ abstract class WorkoutInProgressEvent extends Equatable {
 class WorkoutInProgressInitializedEvent extends WorkoutInProgressEvent {
   final int workoutId;
   final GetExercises usecase;
-  final BuildContext context;
   const WorkoutInProgressInitializedEvent({
-    @required this.context,
     @required this.workoutId,
     @required this.usecase,
   });

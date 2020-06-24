@@ -1,27 +1,38 @@
-import 'package:better_c25k/core/error/failure.dart';
-import 'package:better_c25k/data/model/user_location_model.dart';
-import 'package:better_c25k/domain/repository/location_service.dart';
-import 'package:location/location.dart';
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
-import '../../../core/extension/dartz/dartz.dart';
+import 'package:location/location.dart';
+import 'package:location_platform_interface/location_platform_interface.dart';
+
+import '../../../core/error/error.dart';
+import '../../../domain/repository/location_service.dart';
 
 class ConcreteLocationService implements LocationService {
-  @override
   Location location;
-
   ConcreteLocationService() {
     location = Location();
   }
+
   @override
-  Future<Either<Failure, UserLocationModel>> getLocation() async {
-    return Task(() async {
-      final locationData = await location.getLocation();
-      return UserLocationModel(
-        latitude: locationData.latitude,
-        longitude: locationData.longitude,
-        time: DateTime.fromMillisecondsSinceEpoch(locationData.time.toInt()),
-        speedInMetersPerSecond: locationData.speed,
-      );
-    }).attempt().mapLeftToFailure().run() as Either<Failure, UserLocationModel>;
+  Future<Either<Failure, StreamSubscription<LocationData>>>
+      getSubscribtionToOnLoctionChangedStreamOrPermissionDeniedFailure(
+          Future Function(LocationData) listenerCallback) async {
+    var permissionStatus = await hasPermission();
+    final subscription = location.onLocationChanged.listen(listenerCallback);
+    if (permissionStatus == PermissionStatus.granted) {
+      return right(subscription);
+    } else if (permissionStatus == PermissionStatus.denied) {
+      permissionStatus = await requestPermission();
+      if (permissionStatus == PermissionStatus.granted) {
+        return right(subscription);
+      }
+    }
+    return left(LocationFailure.permissionDenied());
   }
+
+  @override
+  Future<PermissionStatus> hasPermission() => location.hasPermission();
+
+  @override
+  Future<PermissionStatus> requestPermission() => location.requestPermission();
 }

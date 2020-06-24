@@ -1,10 +1,14 @@
-import 'package:dartz/dartz.dart';
+import 'dart:async';
 
-import '../../core/error/error.dart';
-import '../../data/model/user_location_model.dart';
+import 'package:better_c25k/core/error/error.dart';
+import 'package:dartz/dartz.dart';
 import 'package:location/location.dart';
 
 abstract class LocationService {
-  Location location;
-  Future<Either<Failure, UserLocationModel>> getLocation();
+  Future<PermissionStatus> requestPermission();
+  Future<PermissionStatus> hasPermission();
+  Future<Either<Failure, StreamSubscription<LocationData>>>
+      getSubscribtionToOnLoctionChangedStreamOrPermissionDeniedFailure(
+    Future Function(LocationData) listenerCallback,
+  );
 }

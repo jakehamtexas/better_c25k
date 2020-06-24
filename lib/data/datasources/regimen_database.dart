@@ -75,5 +75,5 @@ class RegimenDatabase extends _$RegimenDatabase {
         ));
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 1;
 }

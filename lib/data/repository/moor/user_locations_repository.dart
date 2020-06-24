@@ -23,6 +23,8 @@ class UserLocationsRepository extends DatabaseAccessor<RegimenDatabase>
     final userLocationCompanion = UserLocationsCompanion(
       latitude: Value(userLocation.latitude),
       longitude: Value(userLocation.longitude),
+      speedInMetersPerSecond: Value(userLocation.speedInMetersPerSecond),
+      time: Value(userLocation.time),
       workoutId: Value(workoutId),
     );
     return await Task(() => into(userLocations).insert(userLocationCompanion))

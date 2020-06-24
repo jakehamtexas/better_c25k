@@ -12,3 +12,5 @@ class MockExerciseRepository extends Mock implements ExerciseRepository {}
 class MockLocationService extends Mock implements LocationService {}
 
 class MockLocationRepository extends Mock implements UserLocationsRepository {}
+
+class MockAppStateRepository extends Mock implements AppStateRepository {}
