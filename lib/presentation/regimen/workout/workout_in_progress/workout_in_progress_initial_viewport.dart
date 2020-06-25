@@ -15,7 +15,7 @@ class WorkoutInProgressInitialViewport extends WorkoutInProgressViewport {
 
   @override
   Widget build(BuildContext context) => super.buildViewport(
-        buttonMessage: "Start",
+        buttonIcon: Icons.play_circle_outline,
         onPressedHandler: () {
           BlocProvider.of<WorkoutInProgressBloc>(context).add(StartEvent());
         },

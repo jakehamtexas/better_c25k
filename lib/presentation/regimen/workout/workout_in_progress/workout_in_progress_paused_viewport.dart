@@ -10,8 +10,9 @@ class WorkoutInProgressPausedViewport extends WorkoutInProgressViewport {
 
   @override
   Widget build(BuildContext context) => super.buildViewport(
-      onPressedHandler: () {
-        BlocProvider.of<WorkoutInProgressBloc>(context).add(UnpauseEvent());
-      },
-      buttonMessage: "Resume");
+        onPressedHandler: () {
+          BlocProvider.of<WorkoutInProgressBloc>(context).add(UnpauseEvent());
+        },
+        buttonIcon: Icons.play_circle_outline,
+      );
 }
