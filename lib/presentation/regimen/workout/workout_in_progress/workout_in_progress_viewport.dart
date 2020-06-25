@@ -1,10 +1,12 @@
+import 'package:better_c25k/domain/usecases/usecases.dart';
 import 'package:flutter/material.dart';
 
 import 'bloc/workout_in_progress_bloc.dart';
 
 abstract class WorkoutInProgressViewport extends StatelessWidget {
   final WorkoutInProgressStateDTO _state;
-  int get _currentCountdownTime => _state.currentCountdownTime;
+  String get _currentCountdownTime =>
+      TimeDisplay.timeRemaining(_state.currentCountdownTime);
   String get _exerciseMessage => _state.exerciseActionMessage;
 
   const WorkoutInProgressViewport(this._state);
@@ -18,7 +20,7 @@ abstract class WorkoutInProgressViewport extends StatelessWidget {
             onPressed: onPressedHandler,
             child: Text(buttonMessage),
           ),
-          Text("Time Remaining: $_currentCountdownTime"),
+          Text(_currentCountdownTime),
           Text(_exerciseMessage),
         ],
       );
