@@ -34,7 +34,7 @@ class ContinuouslyInsertLocation {
   }
 
   Future<void> cancel() async {
-    await subscription.cancel();
+    await subscription?.cancel();
     subscription = null;
   }
 
