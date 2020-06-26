@@ -11,8 +11,12 @@ class WorkoutInProgressInitialState extends WorkoutInProgressState {
 
 class ExercisesRetrievalSuccessState extends WorkoutInProgressState {
   final ExerciseEntity firstExercise;
+  final bool hasNextExercise;
 
-  const ExercisesRetrievalSuccessState(this.firstExercise);
+  const ExercisesRetrievalSuccessState({
+    @required this.firstExercise,
+    @required this.hasNextExercise,
+  });
   @override
   List<Object> get props => [firstExercise];
 }
@@ -36,9 +40,13 @@ class PauseToggledOnState extends WorkoutInProgressStateDTO {
   const PauseToggledOnState({
     @required String exerciseActionMessage,
     @required int currentCountdownTime,
+    @required bool hasPreviousExercise,
+    @required bool hasNextExercise,
   }) : super(
           exerciseActionMessage: exerciseActionMessage,
           currentCountdownTime: currentCountdownTime,
+          hasPreviousExercise: hasPreviousExercise,
+          hasNextExercise: hasNextExercise,
         );
 
   @override
@@ -46,38 +54,45 @@ class PauseToggledOnState extends WorkoutInProgressStateDTO {
 }
 
 class PauseToggledOffState extends WorkoutInProgressStateDTO {
-  String get buttonMessage => "Pause";
   const PauseToggledOffState({
     @required String exerciseActionMessage,
     @required int currentCountdownTime,
+    @required bool hasPreviousExercise,
+    @required bool hasNextExercise,
   }) : super(
           exerciseActionMessage: exerciseActionMessage,
           currentCountdownTime: currentCountdownTime,
+          hasPreviousExercise: hasPreviousExercise,
+          hasNextExercise: hasNextExercise,
         );
   @override
-  List<Object> get props =>
-      [buttonMessage, exerciseActionMessage, currentCountdownTime];
+  List<Object> get props => [exerciseActionMessage, currentCountdownTime];
 }
 
 class IsStartedState extends WorkoutInProgressStateDTO {
-  String get buttonMessage => "Start";
-
   const IsStartedState({
     @required String exerciseActionMessage,
     @required int currentCountdownTime,
+    @required bool hasNextExercise,
   }) : super(
           exerciseActionMessage: exerciseActionMessage,
           currentCountdownTime: currentCountdownTime,
+          hasPreviousExercise: false,
+          hasNextExercise: hasNextExercise,
         );
 }
 
 class WorkoutInProgressStateDTO extends WorkoutInProgressState {
   final String exerciseActionMessage;
   final int currentCountdownTime;
+  final bool hasPreviousExercise;
+  final bool hasNextExercise;
 
   const WorkoutInProgressStateDTO({
     @required this.exerciseActionMessage,
     @required this.currentCountdownTime,
+    @required this.hasPreviousExercise,
+    @required this.hasNextExercise,
   });
 
   @override

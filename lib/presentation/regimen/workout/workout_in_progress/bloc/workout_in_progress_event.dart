@@ -36,7 +36,22 @@ class DecrementRemainingTimeEvent extends WorkoutInProgressEvent {
   List<Object> get props => [];
 }
 
-class IncrementExerciseEvent extends WorkoutInProgressEvent {
+abstract class ChangeExerciseEvent extends WorkoutInProgressEvent {
+  final bool shouldPause;
+
+  const ChangeExerciseEvent({@required this.shouldPause});
+}
+
+class IncrementExerciseEvent extends ChangeExerciseEvent {
+  const IncrementExerciseEvent({@required bool shouldPause})
+      : super(shouldPause: shouldPause);
+  @override
+  List<Object> get props => [];
+}
+
+class DecrementExerciseEvent extends ChangeExerciseEvent {
+  const DecrementExerciseEvent({@required bool shouldPause})
+      : super(shouldPause: shouldPause);
   @override
   List<Object> get props => [];
 }

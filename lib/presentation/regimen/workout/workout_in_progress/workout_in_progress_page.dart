@@ -22,7 +22,10 @@ class WorkoutInProgressPage extends StatelessWidget {
 
   Widget bodyBuilder(WorkoutInProgressState state) {
     if (state is ExercisesRetrievalSuccessState) {
-      return WorkoutInProgressInitialViewport(state.firstExercise);
+      return WorkoutInProgressInitialViewport(
+        firstExercise: state.firstExercise,
+        hasNextExercise: state.hasNextExercise,
+      );
     }
     if (state is PauseToggledOnState) {
       return WorkoutInProgressPausedViewport(state);

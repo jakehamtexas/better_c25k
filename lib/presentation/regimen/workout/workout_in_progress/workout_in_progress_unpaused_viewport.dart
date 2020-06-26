@@ -13,5 +13,7 @@ class WorkoutInProgressUnpausedViewport extends WorkoutInProgressViewport {
           BlocProvider.of<WorkoutInProgressBloc>(context).add(PauseEvent());
         },
         buttonIcon: Icons.pause_circle_outline,
+        context: context,
+        shouldPause: false,
       );
 }

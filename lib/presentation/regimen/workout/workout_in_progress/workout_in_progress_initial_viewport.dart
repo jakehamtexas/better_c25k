@@ -7,11 +7,14 @@ import 'bloc/workout_in_progress_bloc.dart';
 import 'workout_in_progress_viewport.dart';
 
 class WorkoutInProgressInitialViewport extends WorkoutInProgressViewport {
-  WorkoutInProgressInitialViewport(ExerciseEntity firstExercise)
-      : super(WorkoutInProgressStateDTO(
-          currentCountdownTime: firstExercise.durationInSeconds,
-          exerciseActionMessage: firstExercise.exerciseAction.message,
-        ));
+  WorkoutInProgressInitialViewport({
+    @required ExerciseEntity firstExercise,
+    @required bool hasNextExercise,
+  }) : super(WorkoutInProgressStateDTO(
+            currentCountdownTime: firstExercise.durationInSeconds,
+            exerciseActionMessage: firstExercise.exerciseAction.message,
+            hasPreviousExercise: false,
+            hasNextExercise: hasNextExercise));
 
   @override
   Widget build(BuildContext context) => super.buildViewport(
@@ -19,5 +22,7 @@ class WorkoutInProgressInitialViewport extends WorkoutInProgressViewport {
         onPressedHandler: () {
           BlocProvider.of<WorkoutInProgressBloc>(context).add(StartEvent());
         },
+        context: context,
+        shouldPause: true,
       );
 }
