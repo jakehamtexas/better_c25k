@@ -13,7 +13,8 @@ import 'routes.dart';
 ErrorPage Function(BuildContext _) _error(Object failure) =>
     (BuildContext _) => ErrorPage(failure as Failure);
 
-Home Function(BuildContext _) _home(Object _args) => (BuildContext _) => Home();
+HomePage Function(BuildContext _) _home(Object _args) =>
+    (BuildContext _) => HomePage();
 
 RegimenPage Function(BuildContext _) _regimen(Object nameAndId) =>
     (BuildContext _) => RegimenPage(nameAndId as NameAndId<int>);
