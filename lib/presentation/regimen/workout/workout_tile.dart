@@ -1,11 +1,13 @@
-import 'package:better_c25k/presentation/regimen/workout/workout_card_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../constant/completion_status.dart';
 import '../../../domain/entities/workout/workout.dart';
 import 'bloc/workout_bloc.dart';
+import 'card_icon.dart';
 import 'collapsed_workout_card.dart';
 import 'expanded_workout_card.dart';
+import 'workout_card_animation.dart';
 import 'workout_card_base.dart';
 
 class WorkoutTile extends StatelessWidget {
@@ -19,6 +21,8 @@ class WorkoutTile extends StatelessWidget {
     final day = "Day $dayNumber";
     return "$week $day";
   }
+
+  CompletionStatus get _completionStatus => _workout.completionStatus;
 
   const WorkoutTile(this._workout);
 
@@ -35,6 +39,9 @@ class WorkoutTile extends StatelessWidget {
                 workoutId: _workout.workoutId,
                 workoutDescription: _workoutDescription,
                 workoutTitle: _workoutTitle,
+                icon: CardIcon.expanded(
+                  _completionStatus,
+                ),
               );
             }
 
@@ -43,6 +50,9 @@ class WorkoutTile extends StatelessWidget {
                 workoutId: _workout.workoutId,
                 workoutDescription: _workoutDescription,
                 workoutTitle: _workoutTitle,
+                icon: CardIcon.collapsed(
+                  _completionStatus,
+                ),
               );
             }
 

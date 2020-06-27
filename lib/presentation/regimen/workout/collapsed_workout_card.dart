@@ -9,29 +9,32 @@ class CollapsedWorkoutCard extends WorkoutCardBase {
     @required int workoutId,
     @required String workoutDescription,
     @required String workoutTitle,
+    @required Icon icon,
   }) : super(
           workoutId: workoutId,
           workoutTitle: workoutTitle,
           workoutDescription: workoutDescription,
+          icon: icon,
         );
   @override
   Widget build(BuildContext context) {
     final workoutTitleWidget = super.getWorkoutTitleWidget(workoutTitle);
+    final child = super.getCard(
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          workoutTitleWidget,
+          icon,
+        ],
+      ),
+    );
     return GestureDetector(
       onTap: () => BlocProvider.of<WorkoutBloc>(context)
           .add(WorkoutExpandToggledEvent()),
       child: Container(
         height: 72,
-        child: super.getCard(
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              workoutTitleWidget,
-              Icon(Icons.arrow_drop_down, color: Colors.grey)
-            ],
-          ),
-        ),
+        child: child,
       ),
     );
   }

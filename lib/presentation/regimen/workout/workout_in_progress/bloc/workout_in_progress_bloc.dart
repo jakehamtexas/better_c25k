@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../../../constant/completion_status.dart';
 import '../../../../../constant/exercise_action.dart';
 import '../../../../../core/error/error.dart';
 import '../../../../../core/extension/dartz/dartz.dart';
@@ -73,8 +74,13 @@ class WorkoutInProgressBloc
     } else if (event is DecrementExerciseEvent) {
       yield* _decrementExercise(event.shouldPause);
     } else if (event is WorkoutCompletedEvent) {
-      yield WorkoutCompletedState();
+      yield* _workoutCompleted();
     }
+  }
+
+  Stream<WorkoutInProgressState> _workoutCompleted() async* {
+    await _updateWorkoutStatus(CompletionStatus.completed);
+    yield WorkoutCompletedState();
   }
 
   Stream<WorkoutInProgressState> _decrementExercise(bool shouldPause) async* {
@@ -125,6 +131,7 @@ class WorkoutInProgressBloc
   Stream<WorkoutInProgressState> _start() async* {
     _currentCountdownTime = _exercises[0].durationInSeconds;
 
+    await _updateWorkoutStatus(CompletionStatus.inProgress);
     _startTimer();
 
     yield IsStartedState(
@@ -154,17 +161,23 @@ class WorkoutInProgressBloc
     _stopwatch = Stopwatch()..start();
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (_currentCountdownTime <= 0) {
-        add(const IncrementExerciseEvent(shouldPause: false));
-        timer.cancel();
-        if (_exerciseIndex != _exercises.length) {
-          _startTimer();
-        } else {
+        final isLastExercise = _exerciseIndex == _exercises.length - 1;
+        if (isLastExercise) {
           add(WorkoutCompletedEvent());
+        } else {
+          add(const IncrementExerciseEvent(shouldPause: false));
+          timer.cancel();
+          _startTimer();
         }
       } else if (_stopwatch.isRunning) {
         add(DecrementRemainingTimeEvent());
       }
     });
+  }
+
+  Future _updateWorkoutStatus(CompletionStatus completionStatus) async {
+    final usecase = GetIt.I<UpdateCompletionStatusForWorkout>();
+    await usecase(_workoutId, completionStatus);
   }
 
   @override

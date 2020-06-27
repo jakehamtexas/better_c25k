@@ -26,6 +26,9 @@ class DatabaseInsertionFailure extends Failure {
       DatabaseInsertionFailure(
         _getExtendedMessage("Some insertion operations were not completed."),
       );
+  factory DatabaseInsertionFailure.workoutCompletionStatusUpdateFailure() =>
+      DatabaseInsertionFailure(
+          _getExtendedMessage("Completion status not set for workout."));
 
   static String _getExtendedMessage(String message) =>
       "$_baseMessage \n $message";

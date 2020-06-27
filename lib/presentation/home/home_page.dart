@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import './home_body.dart';
 
-class Home extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appConfig = AppConfig.of(context);

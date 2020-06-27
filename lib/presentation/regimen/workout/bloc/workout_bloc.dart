@@ -26,7 +26,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       _isExpanded = !_isExpanded;
     }
     if (event is WorkoutStartedEvent) {
-      Navigator.of(event.context).pushNamed(
+      Navigator.of(event.context).pushReplacementNamed(
         Routes.doWorkout,
         arguments: WorkoutInProgressEntity(
           workoutId: event.workoutId,

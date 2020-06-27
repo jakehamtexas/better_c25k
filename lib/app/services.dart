@@ -10,16 +10,41 @@ class Services {
   static GetIt register() {
     final getIt = GetIt.instance;
     getIt.registerSingleton<RegimenDatabase>(RegimenDatabase());
+    getIt.registerSingleton<domain.RegimenRepository>(
+        getIt<RegimenDatabase>().regimenRepository);
+    getIt.registerSingleton<domain.WorkoutRepository>(
+        getIt<RegimenDatabase>().workoutRepository);
+    getIt.registerSingleton<domain.ExerciseRepository>(
+        getIt<RegimenDatabase>().exerciseRepository);
+    getIt.registerSingleton<domain.UserLocationsRepository>(
+        getIt<RegimenDatabase>().userLocationsRepository);
+
     getIt.registerSingleton<domain.AppStateRepository>(AppStateRepository());
     getIt.registerSingleton<domain.LocationService>(ConcreteLocationService());
 
+    getIt.registerFactory<GetWorkouts>(
+        () => GetWorkouts(getIt<domain.WorkoutRepository>()));
+
     getIt.registerFactory<ContinuouslyInsertLocation>(() {
       final locationService = getIt<domain.LocationService>();
-      final userLocationRepository =
-          getIt<RegimenDatabase>().userLocationsRepository;
+      final userLocationRepository = getIt<domain.UserLocationsRepository>();
       return ContinuouslyInsertLocation(
         locationService: locationService,
         locationRepository: userLocationRepository,
+      );
+    });
+    getIt.registerFactory<UpdateCompletionStatusForWorkout>(() {
+      final workoutRepository = getIt<domain.WorkoutRepository>();
+      return UpdateCompletionStatusForWorkout(workoutRepository);
+    });
+    getIt.registerFactory<InsertRegimen>(() {
+      final exerciseRepository = getIt<domain.ExerciseRepository>();
+      final workoutRepository = getIt<domain.WorkoutRepository>();
+      final regimenRepository = getIt<domain.RegimenRepository>();
+      return InsertRegimen(
+        exerciseRepository: exerciseRepository,
+        regimenRepository: regimenRepository,
+        workoutRepository: workoutRepository,
       );
     });
     return getIt;
