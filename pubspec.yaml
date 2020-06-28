@@ -47,6 +47,7 @@ dev_dependencies:
   location: ^3.0.2
   auto_size_text: ^2.1.0
   soundpool: ^1.1.1
+  flutter_tts: ^1.2.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

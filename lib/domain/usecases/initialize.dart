@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 
 import '../../app/app_config.dart';
 import '../../core/error/error.dart';
@@ -12,15 +11,26 @@ import '../entities/regimen/static/static.dart';
 import 'insert_regimen.dart';
 
 class Initialize {
-  AppStateRepository get appStateRepository => GetIt.I<AppStateRepository>();
-  RegimenRepository get regimenRepository => GetIt.I<RegimenRepository>();
-  WorkoutRepository get workoutRepository => GetIt.I<WorkoutRepository>();
-  ExerciseRepository get exerciseRepository => GetIt.I<ExerciseRepository>();
+  final AppStateRepository appStateRepository;
+  final RegimenRepository regimenRepository;
+  final WorkoutRepository workoutRepository;
+  final ExerciseRepository exerciseRepository;
+  final SoundPlayingService soundPlayingService;
+  Initialize({
+    @required this.appStateRepository,
+    @required this.regimenRepository,
+    @required this.workoutRepository,
+    @required this.exerciseRepository,
+    @required this.soundPlayingService,
+  });
 
   Future<Either<Failure, List<NameAndId<int>>>> call(
     BuildContext context,
   ) async {
-    return (await appStateRepository.getHasBeenInitialized()).fold((failure) {
+    final hasBeenInitializedOrFailure =
+        await appStateRepository.getHasBeenInitialized();
+    final namesAndIdsOrFailure =
+        await hasBeenInitializedOrFailure.fold((failure) async {
       if (failure is KeyNotFoundFailure) {
         return _initialize(context);
       } else {
@@ -29,7 +39,9 @@ class Initialize {
     }, (hasBeenInitialized) async {
       if (!hasBeenInitialized) return _initialize(context);
       return regimenRepository.getAllRegimenNamesAndIds();
-    });
+    }) as Either<Failure, List<NameAndId<int>>>;
+    await soundPlayingService.initialize(context);
+    return namesAndIdsOrFailure;
   }
 
   Future<Either<Failure, List<NameAndId<int>>>> _initialize(

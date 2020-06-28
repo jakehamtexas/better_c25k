@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../../core/error/error.dart';
 import '../../../domain/entities/common/common.dart';
@@ -21,7 +22,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeEvent event,
   ) async* {
     if (event is AppStartedEvent) {
-      final initializeUsecase = Initialize();
+      final initializeUsecase = GetIt.I<Initialize>();
       final regimenNameAndIdsOrFailure = await initializeUsecase(event.context);
       yield regimenNameAndIdsOrFailure.fold(
         (failure) => RegimenRetrievalFailureState(failure),

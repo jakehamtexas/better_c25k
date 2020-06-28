@@ -72,6 +72,9 @@ class WorkoutInProgressPage extends StatelessWidget {
           );
         },
         listener: (context, state) {
+          if (state is ExercisesRetrievalSuccessState) {
+            BlocProvider.of(context).add(StartEvent());
+          }
           if (state is WorkoutCompletedState) {
             final regimenNameAndIdByWorkoutId =
                 MapEntry(state.workoutId, state.regimenNameAndId);

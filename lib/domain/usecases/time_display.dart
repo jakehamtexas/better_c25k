@@ -1,6 +1,7 @@
 import 'dart:core';
 
 class TimeDisplay {
+  static const String timePartDelimiter = ':';
   static const int _secondsInOneMinute = 60;
 
   static String timeRemaining(int timeInSeconds) {
@@ -8,10 +9,11 @@ class TimeDisplay {
     final minutes = _getMinutes(timeInSeconds);
     final seconds = _getSeconds(timeInSeconds);
 
-    final minutesAndSeconds = '$minutes:$seconds';
+    final minutesAndSeconds = '$minutes$timePartDelimiter$seconds';
     final hasHours = hours > 0;
-    final timeRemaining =
-        hasHours ? "$hours:$minutesAndSeconds" : minutesAndSeconds;
+    final timeRemaining = hasHours
+        ? "$hours$timePartDelimiter$minutesAndSeconds"
+        : minutesAndSeconds;
 
     return timeRemaining;
   }

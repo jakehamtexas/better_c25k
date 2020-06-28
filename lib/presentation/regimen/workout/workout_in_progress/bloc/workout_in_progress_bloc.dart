@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:soundpool/soundpool.dart';
 
 import '../../../../../constant/completion_status.dart';
 import '../../../../../constant/exercise_action.dart';
@@ -35,7 +34,8 @@ class WorkoutInProgressBloc
   int _exerciseIndex = 0;
 
   ExerciseEntity get _currentExercise => _exercises[_exerciseIndex];
-  String get _exerciseActionMessage => _currentExercise.exerciseAction.message;
+  ExerciseAction get _exerciseAction => _currentExercise.exerciseAction;
+  String get _exerciseActionMessage => _exerciseAction.message;
   bool get _hasPreviousExercise =>
       _exercises.asMap().containsKey(_exerciseIndex - 1);
   bool get _hasNextExercise =>
@@ -58,8 +58,6 @@ class WorkoutInProgressBloc
         hasPreviousExercise: _hasPreviousExercise,
         hasNextExercise: _hasNextExercise,
       );
-
-  Future<int> _dingSoundId;
 
   @override
   Stream<WorkoutInProgressState> mapEventToState(
@@ -94,11 +92,27 @@ class WorkoutInProgressBloc
   Stream<WorkoutInProgressState> _workoutCompleted() async* {
     await _updateWorkoutStatus(CompletionStatus.completed);
     final regimenNameAndId = await _getRegimenNameAndId();
-    GetIt.I<Soundpool>().play(await _dingSoundId);
+    await _playWorkoutCompletedPieces();
     yield WorkoutCompletedState(
       regimenNameAndId: regimenNameAndId,
       workoutId: _workoutId,
     );
+  }
+
+  Future<void> _playWorkoutCompletedPieces() async {
+    await _playDingWithDelay();
+    await GetIt.I<SayWorkoutCompleted>()();
+  }
+
+  Future _playExerciseTransitionPieces() async {
+    await _playDingWithDelay();
+    await GetIt.I<SayWorkoutMeta>()(
+        _exerciseAction, _currentExercise.durationInSeconds);
+  }
+
+  Future _playDingWithDelay() async {
+    await GetIt.I<PlayDing>()();
+    await Future.delayed(const Duration(seconds: 1));
   }
 
   Stream<WorkoutInProgressState> _decrementExercise(bool shouldPause) async* {
@@ -118,7 +132,7 @@ class WorkoutInProgressBloc
     if (shouldPause) {
       _stopwatch?.stop();
     } else {
-      GetIt.I<Soundpool>().play(await _dingSoundId);
+      await _playExerciseTransitionPieces();
     }
 
     yield shouldPause ? _pauseToggledOnState : _pauseToggledOffState;
@@ -167,9 +181,8 @@ class WorkoutInProgressBloc
     final exercisesOrFailure = await event.usecase(event.workoutId);
     if (exercisesOrFailure.isRight()) {
       _exercises = exercisesOrFailure.getOrThrow();
+      await _playExerciseTransitionPieces();
     }
-    final soundPath = await rootBundle.load("assets/android/sound/ding.wav");
-    _dingSoundId = GetIt.I<Soundpool>().load(soundPath);
 
     yield exercisesOrFailure.fold(
       (failure) => ExercisesRetrievalFailureState(failure),
@@ -178,6 +191,9 @@ class WorkoutInProgressBloc
         hasNextExercise: _hasNextExercise,
       ),
     );
+    if (exercisesOrFailure.isRight()) {
+      add(StartEvent());
+    }
   }
 
   void _startTimer() {
