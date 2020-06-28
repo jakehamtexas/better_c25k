@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:soundpool/soundpool.dart';
 
 import '../../../../../constant/completion_status.dart';
 import '../../../../../constant/exercise_action.dart';
@@ -57,6 +59,8 @@ class WorkoutInProgressBloc
         hasNextExercise: _hasNextExercise,
       );
 
+  Future<int> _dingSoundId;
+
   @override
   Stream<WorkoutInProgressState> mapEventToState(
     WorkoutInProgressEvent event,
@@ -90,6 +94,7 @@ class WorkoutInProgressBloc
   Stream<WorkoutInProgressState> _workoutCompleted() async* {
     await _updateWorkoutStatus(CompletionStatus.completed);
     final regimenNameAndId = await _getRegimenNameAndId();
+    GetIt.I<Soundpool>().play(await _dingSoundId);
     yield WorkoutCompletedState(
       regimenNameAndId: regimenNameAndId,
       workoutId: _workoutId,
@@ -112,6 +117,8 @@ class WorkoutInProgressBloc
     _currentCountdownTime = _currentExercise.durationInSeconds;
     if (shouldPause) {
       _stopwatch?.stop();
+    } else {
+      GetIt.I<Soundpool>().play(await _dingSoundId);
     }
 
     yield shouldPause ? _pauseToggledOnState : _pauseToggledOffState;
@@ -155,11 +162,14 @@ class WorkoutInProgressBloc
   }
 
   Stream<WorkoutInProgressState> _initialize(
-      WorkoutInProgressInitializedEvent event) async* {
+    WorkoutInProgressInitializedEvent event,
+  ) async* {
     final exercisesOrFailure = await event.usecase(event.workoutId);
     if (exercisesOrFailure.isRight()) {
       _exercises = exercisesOrFailure.getOrThrow();
     }
+    final soundPath = await rootBundle.load("assets/android/sound/ding.wav");
+    _dingSoundId = GetIt.I<Soundpool>().load(soundPath);
 
     yield exercisesOrFailure.fold(
       (failure) => ExercisesRetrievalFailureState(failure),

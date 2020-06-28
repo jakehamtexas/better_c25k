@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:soundpool/soundpool.dart';
 
 import '../data/datasources/datasources.dart';
 import '../data/repository/location/concrete_location_service.dart';
@@ -9,6 +11,9 @@ import '../domain/usecases/usecases.dart';
 class Services {
   static GetIt register() {
     final getIt = GetIt.instance;
+    WidgetsFlutterBinding.ensureInitialized();
+    getIt.registerSingleton<Soundpool>(Soundpool());
+
     getIt.registerSingleton<RegimenDatabase>(RegimenDatabase());
     getIt.registerSingleton<domain.RegimenRepository>(
         getIt<RegimenDatabase>().regimenRepository);
