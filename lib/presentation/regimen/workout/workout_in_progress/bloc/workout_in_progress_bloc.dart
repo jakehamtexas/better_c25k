@@ -7,8 +7,10 @@ import 'package:get_it/get_it.dart';
 
 import '../../../../../constant/completion_status.dart';
 import '../../../../../constant/exercise_action.dart';
+import '../../../../../core/bloc/bloc.dart';
 import '../../../../../core/error/error.dart';
 import '../../../../../core/extension/dartz/dartz.dart';
+import '../../../../../domain/entities/common/common.dart';
 import '../../../../../domain/entities/exercise/exercise.dart';
 import '../../../../../domain/usecases/usecases.dart';
 
@@ -75,12 +77,23 @@ class WorkoutInProgressBloc
       yield* _decrementExercise(event.shouldPause);
     } else if (event is WorkoutCompletedEvent) {
       yield* _workoutCompleted();
+    } else if (event is GoBackToWorkoutsEvent) {
+      yield* _goBackToWorkouts();
     }
+  }
+
+  Stream<WorkoutInProgressState> _goBackToWorkouts() async* {
+    final regimenNameAndId = await _getRegimenNameAndId();
+    yield GoBackToWorkoutsState(regimenNameAndId);
   }
 
   Stream<WorkoutInProgressState> _workoutCompleted() async* {
     await _updateWorkoutStatus(CompletionStatus.completed);
-    yield WorkoutCompletedState();
+    final regimenNameAndId = await _getRegimenNameAndId();
+    yield WorkoutCompletedState(
+      regimenNameAndId: regimenNameAndId,
+      workoutId: _workoutId,
+    );
   }
 
   Stream<WorkoutInProgressState> _decrementExercise(bool shouldPause) async* {
@@ -178,6 +191,16 @@ class WorkoutInProgressBloc
   Future _updateWorkoutStatus(CompletionStatus completionStatus) async {
     final usecase = GetIt.I<UpdateCompletionStatusForWorkout>();
     await usecase(_workoutId, completionStatus);
+  }
+
+  Future<NameAndId<int>> _getRegimenNameAndId() async {
+    final regimenNameAndIdOrFailure =
+        await GetIt.I<GetRegimenNameAndIdForWorkoutId>()(_workoutId);
+    if (regimenNameAndIdOrFailure.isLeft()) {
+      /// TODO: Handle failure to retrieve case
+      throw UnimplementedError();
+    }
+    return regimenNameAndIdOrFailure.getOrThrow();
   }
 
   @override

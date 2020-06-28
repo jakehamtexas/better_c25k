@@ -75,4 +75,15 @@ class WorkoutRepository extends DatabaseAccessor<RegimenDatabase>
       return List.generate(companions.length, (i) => lastRowId - i);
     }).attempt().mapLeftToFailure().run() as Either<Failure, List<int>>;
   }
+
+  @override
+  Future<Either<Failure, int>> getRegimenIdForWorkoutId(int workoutId) async {
+    final query = select(workouts)
+      ..where((workout) => workout.id.equals(workoutId));
+    return await Task(
+            () => query.map((workout) => workout.regimenId).getSingle())
+        .attempt()
+        .mapLeftToFailure()
+        .run() as Either<Failure, int>;
+  }
 }

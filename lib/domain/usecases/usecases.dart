@@ -1,5 +1,6 @@
 export 'continuously_insert_location.dart';
 export 'get_exercises.dart';
+export 'get_regimen_name_and_id_for_workout_id.dart';
 export 'get_regimens.dart';
 export 'get_workouts.dart';
 export 'initialize.dart';

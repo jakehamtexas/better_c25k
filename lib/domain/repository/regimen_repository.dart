@@ -7,4 +7,5 @@ import '../entities/common/common.dart';
 abstract class RegimenRepository {
   Future<Either<Failure, List<NameAndId<int>>>> getAllRegimenNamesAndIds();
   Future<Either<Failure, int>> insertRegimen(RegimenEntity entity);
+  Future<Either<Failure, String>> getNameForId(int regimenId);
 }

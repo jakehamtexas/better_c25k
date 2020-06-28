@@ -16,4 +16,5 @@ abstract class WorkoutRepository {
     @required List<WorkoutEntity> workoutEntities,
     @required int regimenId,
   });
+  Future<Either<Failure, int>> getRegimenIdForWorkoutId(int workoutId);
 }

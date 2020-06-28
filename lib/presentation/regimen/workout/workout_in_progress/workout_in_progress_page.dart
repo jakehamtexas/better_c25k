@@ -8,6 +8,7 @@ import '../../../../domain/usecases/get_exercises.dart';
 import '../../../error/error.dart';
 import '../../../router/routes.dart';
 import 'bloc/workout_in_progress_bloc.dart';
+import 'go_back_to_workouts_button.dart';
 import 'workout_in_progress_initial_viewport.dart';
 import 'workout_in_progress_paused_viewport.dart';
 import 'workout_in_progress_unpaused_viewport.dart';
@@ -15,12 +16,11 @@ import 'workout_in_progress_unpaused_viewport.dart';
 class WorkoutInProgressPage extends StatelessWidget {
   final WorkoutInProgressEntity _entity;
 
-  String get _workoutTitle => _entity.workoutTitle;
   int get _workoutId => _entity.workoutId;
 
   const WorkoutInProgressPage(this._entity);
 
-  Widget bodyBuilder(WorkoutInProgressState state) {
+  Widget _viewportBuilder(WorkoutInProgressState state) {
     if (state is ExercisesRetrievalSuccessState) {
       return WorkoutInProgressInitialViewport(
         firstExercise: state.firstExercise,
@@ -57,24 +57,37 @@ class WorkoutInProgressPage extends StatelessWidget {
       },
       child: BlocConsumer<WorkoutInProgressBloc, WorkoutInProgressState>(
         builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(_workoutTitle),
-            ),
-            body: bodyBuilder(
-              state,
+          return WillPopScope(
+            onWillPop: () async => false,
+            child: Material(
+              child: SafeArea(
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 8),
+                  child: _viewportBuilder(
+                    state,
+                  ),
+                ),
+              ),
             ),
           );
         },
         listener: (context, state) {
           if (state is WorkoutCompletedState) {
+            final regimenNameAndIdByWorkoutId =
+                MapEntry(state.workoutId, state.regimenNameAndId);
             Navigator.of(context).pushReplacementNamed(
               Routes.workoutComplete,
-              arguments: "",
+              arguments: regimenNameAndIdByWorkoutId,
             );
           }
           if (state is ExercisesRetrievalFailureState) {
             NavigateToDefaultErrorPage()(context)(state.failure);
+          }
+          if (state is GoBackToWorkoutsState) {
+            GoBackToWorkoutsButton.navigate(
+              context,
+              state.regimenNameAndId,
+            );
           }
         },
       ),

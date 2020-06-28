@@ -47,6 +47,12 @@ class Services {
         workoutRepository: workoutRepository,
       );
     });
+    getIt.registerFactory<GetRegimenNameAndIdForWorkoutId>(
+      () => GetRegimenNameAndIdForWorkoutId(
+        regimenRepository: getIt<domain.RegimenRepository>(),
+        workoutRepository: getIt<domain.WorkoutRepository>(),
+      ),
+    );
     return getIt;
   }
 

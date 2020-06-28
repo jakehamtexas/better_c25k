@@ -25,7 +25,9 @@ WorkoutInProgressPage Function(BuildContext _) _doWorkout(
         workoutInProgressEntity as WorkoutInProgressEntity);
 
 WorkoutCompletedPage Function(BuildContext _) _workoutComplete(Object args) =>
-    (BuildContext _) => WorkoutCompletedPage();
+    (BuildContext _) => WorkoutCompletedPage(
+          regimenNameAndIdByWorkoutId: args as MapEntry<int, NameAndId<int>>,
+        );
 
 final Map<String, Widget Function(BuildContext) Function(Object)>
     routeBuilders = {

@@ -39,4 +39,19 @@ class RegimenRepository extends DatabaseAccessor<RegimenDatabase>
         .mapLeftToFailure()
         .run() as Either<Failure, int>;
   }
+
+  @override
+  Future<Either<Failure, String>> getNameForId(int regimenId) async {
+    final query = select(regimens)
+      ..where(
+        (regimen) => regimen.id.equals(regimenId),
+      );
+    return await Task(
+      () => query
+          .map(
+            (regimen) => regimen.name,
+          )
+          .getSingle(),
+    ).attempt().mapLeftToFailure().run() as Either<Failure, String>;
+  }
 }

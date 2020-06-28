@@ -32,8 +32,14 @@ class ExercisesRetrievalFailureState extends WorkoutInProgressState
 }
 
 class WorkoutCompletedState extends WorkoutInProgressState {
+  final int workoutId;
+  final NameAndId<int> regimenNameAndId;
+  const WorkoutCompletedState({
+    @required this.workoutId,
+    @required this.regimenNameAndId,
+  });
   @override
-  List<Object> get props => [];
+  List<Object> get props => [workoutId, regimenNameAndId];
 }
 
 class PauseToggledOnState extends WorkoutInProgressStateDTO {
@@ -97,4 +103,15 @@ class WorkoutInProgressStateDTO extends WorkoutInProgressState {
 
   @override
   List<Object> get props => [currentCountdownTime, exerciseActionMessage];
+}
+
+class GoBackToWorkoutsState extends WorkoutInProgressState
+    implements IGoBackToWorkoutsState {
+  @override
+  List<Object> get props => [regimenNameAndId];
+
+  const GoBackToWorkoutsState(this.regimenNameAndId);
+
+  @override
+  final NameAndId<int> regimenNameAndId;
 }

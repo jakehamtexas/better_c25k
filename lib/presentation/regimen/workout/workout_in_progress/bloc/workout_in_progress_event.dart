@@ -60,3 +60,13 @@ class WorkoutCompletedEvent extends WorkoutInProgressEvent {
   @override
   List<Object> get props => [];
 }
+
+class GoBackToWorkoutsEvent extends WorkoutInProgressEvent
+    implements IGoBackToWorkoutsEvent {
+  @override
+  final NameAndId<int> regimenNameAndId;
+
+  const GoBackToWorkoutsEvent([this.regimenNameAndId]);
+  @override
+  List<Object> get props => [regimenNameAndId];
+}
