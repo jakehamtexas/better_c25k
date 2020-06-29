@@ -1,9 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import '../../../../common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../domain/entities/common/common.dart';
-import '../go_back_to_workouts_button.dart';
+import '../../../../common/go_back_to_workouts_button.dart';
 import 'bloc/workout_completed_bloc.dart';
 
 class WorkoutCompletedPage extends StatelessWidget {
@@ -29,22 +30,21 @@ class WorkoutCompletedPage extends StatelessWidget {
         builder: (BuildContext context, WorkoutCompletedState state) {
           return SafeArea(
             child: Material(
-              child: Row(
+              child: Column(
                 children: <Widget>[
-                  const Expanded(
-                    child: Center(
-                      child: AutoSizeText(
-                        "You did it!",
-                        style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  GoBackToWorkoutsButton.topLeft(
+                    context: context,
+                    event: GoBackToWorkoutsEvent(regimenNameAndId),
+                  ),
+                  ExpandedCenter(
+                    child: AutoSizeText(
+                      "You did it!",
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  GoBackToWorkoutsButton(
-                      buildContext: context,
-                      event: GoBackToWorkoutsEvent(regimenNameAndId))
                 ],
               ),
             ),

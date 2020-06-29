@@ -1,11 +1,10 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constant/workout_in_progress_viewport.dart';
 import '../../../../domain/usecases/usecases.dart';
+import '../../../common/common.dart';
 import 'bloc/workout_in_progress_bloc.dart';
-import 'go_back_to_workouts_button.dart';
 
 abstract class WorkoutInProgressViewport extends StatelessWidget {
   final WorkoutInProgressStateDTO _state;
@@ -26,46 +25,20 @@ abstract class WorkoutInProgressViewport extends StatelessWidget {
         _getActionButtons(buttonIcon, onPressedHandler, context, shouldPause);
     return Column(
       children: <Widget>[
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                GoBackToWorkoutsButton(
-                  buildContext: context,
-                  event: const GoBackToWorkoutsEvent(),
-                ),
-                Center(
-                  child: AutoSizeText(
-                    _currentCountdownTime,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 80,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+        GoBackToWorkoutsButton.topLeft(
+          context: context,
+          event: const GoBackToWorkoutsEvent(),
         ),
-        Expanded(
-          child: Center(
-            child: AutoSizeText(
-              _exerciseMessage,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 80,
-              ),
-            ),
-          ),
+        ExpandedCenter(
+          child: BigWorkoutText(_currentCountdownTime),
         ),
-        Expanded(
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: actionButtons,
-            ),
+        ExpandedCenter(
+          child: BigWorkoutText(_exerciseMessage),
+        ),
+        ExpandedCenter(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: actionButtons,
           ),
         ),
       ],
