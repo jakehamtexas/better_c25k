@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../../../constant/completion_status.dart';
@@ -59,6 +58,8 @@ class WorkoutInProgressBloc
         hasNextExercise: _hasNextExercise,
       );
 
+  bool workoutCompleted = false;
+
   @override
   Stream<WorkoutInProgressState> mapEventToState(
     WorkoutInProgressEvent event,
@@ -92,7 +93,8 @@ class WorkoutInProgressBloc
   Stream<WorkoutInProgressState> _workoutCompleted() async* {
     await _updateWorkoutStatus(CompletionStatus.completed);
     final regimenNameAndId = await _getRegimenNameAndId();
-    await _playWorkoutCompletedPieces();
+    _playWorkoutCompletedPieces();
+    workoutCompleted = true;
     yield WorkoutCompletedState(
       regimenNameAndId: regimenNameAndId,
       workoutId: _workoutId,
@@ -110,9 +112,9 @@ class WorkoutInProgressBloc
         _exerciseAction, _currentExercise.durationInSeconds);
   }
 
-  Future _playDingWithDelay() async {
+  Future _playDingWithDelay([int delayInMs = 1000]) async {
     await GetIt.I<PlayDing>()();
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(Duration(milliseconds: delayInMs));
   }
 
   Stream<WorkoutInProgressState> _decrementExercise(bool shouldPause) async* {
@@ -132,7 +134,7 @@ class WorkoutInProgressBloc
     if (shouldPause) {
       _stopwatch?.stop();
     } else {
-      await _playExerciseTransitionPieces();
+      _playExerciseTransitionPieces();
     }
 
     yield shouldPause ? _pauseToggledOnState : _pauseToggledOffState;
@@ -181,7 +183,7 @@ class WorkoutInProgressBloc
     final exercisesOrFailure = await event.usecase(event.workoutId);
     if (exercisesOrFailure.isRight()) {
       _exercises = exercisesOrFailure.getOrThrow();
-      await _playExerciseTransitionPieces();
+      _playExerciseTransitionPieces();
     }
 
     yield exercisesOrFailure.fold(
@@ -198,20 +200,27 @@ class WorkoutInProgressBloc
 
   void _startTimer() {
     _stopwatch = Stopwatch()..start();
-    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      if (_currentCountdownTime <= 0) {
-        final isLastExercise = _exerciseIndex == _exercises.length - 1;
-        if (isLastExercise) {
-          add(WorkoutCompletedEvent());
-        } else {
-          add(const IncrementExerciseEvent(shouldPause: false));
+    Timer.periodic(
+      const Duration(seconds: 1),
+      (Timer timer) {
+        if (workoutCompleted) {
           timer.cancel();
-          _startTimer();
+          return;
         }
-      } else if (_stopwatch.isRunning) {
-        add(DecrementRemainingTimeEvent());
-      }
-    });
+        if (_currentCountdownTime == 1) {
+          final isLastExercise = _exerciseIndex == _exercises.length - 1;
+          if (isLastExercise) {
+            add(WorkoutCompletedEvent());
+          } else {
+            add(const IncrementExerciseEvent(shouldPause: false));
+            timer.cancel();
+            _startTimer();
+          }
+        } else if (_stopwatch.isRunning) {
+          add(DecrementRemainingTimeEvent());
+        }
+      },
+    );
   }
 
   Future _updateWorkoutStatus(CompletionStatus completionStatus) async {
