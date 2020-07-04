@@ -48,6 +48,8 @@ dev_dependencies:
   auto_size_text: ^2.1.0
   soundpool: ^1.1.1
   flutter_tts: ^1.2.3
+  google_maps_flutter: ^0.5.28+1
+  flutter_polyline_points: ^0.2.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
