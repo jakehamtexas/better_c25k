@@ -1,15 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import '../../../../common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../domain/entities/common/common.dart';
+import '../../../../common/common.dart';
 import '../../../../common/widgets/go_back_to_workouts_button.dart';
+import '../../../../map/map.dart';
 import 'bloc/workout_completed_bloc.dart';
 
 class WorkoutCompletedPage extends StatelessWidget {
   final MapEntry<int, NameAndId<int>> regimenNameAndIdByWorkoutId;
   NameAndId<int> get regimenNameAndId => regimenNameAndIdByWorkoutId.value;
+  int get workoutId => regimenNameAndIdByWorkoutId.key;
+
   const WorkoutCompletedPage({
     Key key,
     @required this.regimenNameAndIdByWorkoutId,
@@ -37,12 +40,17 @@ class WorkoutCompletedPage extends StatelessWidget {
                     event: GoBackToWorkoutsEvent(regimenNameAndId),
                   ),
                   ExpandedCenter(
-                    child: AutoSizeText(
-                      "You did it!",
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      children: <Widget>[
+                        AutoSizeText(
+                          "You did it!",
+                          style: TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        WorkoutMap(workoutId),
+                      ],
                     ),
                   ),
                 ],

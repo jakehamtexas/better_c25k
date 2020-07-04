@@ -17,6 +17,8 @@ class MapLoadNetworkFailureEvent extends MapEvent {
 }
 
 class MapLoadSuccessEvent extends MapEvent {
+  final Set<Polyline> polylines;
+  const MapLoadSuccessEvent(this.polylines);
   @override
   List<Object> get props => [];
 }

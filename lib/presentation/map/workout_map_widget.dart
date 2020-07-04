@@ -24,9 +24,9 @@ class WorkoutMap extends StatelessWidget {
             case MapLoadingState:
               return const WorkoutMapLoadingIndicator();
             case MapLoadedState:
-              return const SuccessfulWorkoutMap();
+              return SuccessfulWorkoutMap((state as MapLoadedState).polylines);
             case NetworkErrorState:
-              return const WorkoutMapNetworkError();
+              return WorkoutMapNetworkError(_exerciseId);
             default:
               return Container();
           }

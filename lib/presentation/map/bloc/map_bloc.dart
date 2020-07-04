@@ -16,13 +16,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   ) async* {
     switch (event.runtimeType) {
       case BeginMapLoadEvent:
+        await _beginMapLoad();
         yield MapLoadingState();
         break;
       case MapLoadNetworkFailureEvent:
         yield NetworkErrorState();
         break;
       case MapLoadSuccessEvent:
-        yield MapLoadedState();
+        yield MapLoadedState((event as MapLoadSuccessEvent).polylines);
         break;
     }
   }

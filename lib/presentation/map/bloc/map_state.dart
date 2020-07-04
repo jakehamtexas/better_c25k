@@ -10,6 +10,8 @@ class MapLoadingState extends MapState {
 }
 
 class MapLoadedState extends MapState {
+  final Set<Polyline> polylines;
+  const MapLoadedState(this.polylines);
   @override
   List<Object> get props => [];
 }
