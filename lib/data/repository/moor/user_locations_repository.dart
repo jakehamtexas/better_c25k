@@ -32,4 +32,22 @@ class UserLocationsRepository extends DatabaseAccessor<RegimenDatabase>
         .mapLeftToFailure()
         .run() as Either<Failure, int>;
   }
+
+  @override
+  Future<Either<Failure, List<UserLocationEntity>>> getUserLocationsForWorkout(
+      int workoutId) async {
+    final query = select(userLocations)
+      ..where((userLocation) => userLocation.workoutId.equals(workoutId));
+    return await Task(
+      () => query
+          .map((userLocation) => UserLocationEntity(
+                latitude: userLocation.latitude,
+                longitude: userLocation.longitude,
+                speedInMetersPerSecond: userLocation.speedInMetersPerSecond,
+                time: userLocation.time,
+              ))
+          .get(),
+    ).attempt().mapLeftToFailure().run()
+        as Either<Failure, List<UserLocationEntity>>;
+  }
 }

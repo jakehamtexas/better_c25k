@@ -7,4 +7,8 @@ abstract class UserLocationsRepository {
     UserLocationEntity userLocation,
     int workoutId,
   );
+
+  Future<Either<Failure, List<UserLocationEntity>>> getUserLocationsForWorkout(
+    int workoutId,
+  );
 }

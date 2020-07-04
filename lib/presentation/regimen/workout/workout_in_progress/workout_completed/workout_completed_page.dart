@@ -40,19 +40,17 @@ class WorkoutCompletedPage extends StatelessWidget {
                     event: GoBackToWorkoutsEvent(regimenNameAndId),
                   ),
                   ExpandedCenter(
-                    child: Column(
-                      children: <Widget>[
-                        AutoSizeText(
-                          "You did it!",
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        WorkoutMap(workoutId),
-                      ],
+                    child: AutoSizeText(
+                      "You did it!",
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
+                  ExpandedCenter(
+                    child: WorkoutMap(workoutId),
+                  )
                 ],
               ),
             ),

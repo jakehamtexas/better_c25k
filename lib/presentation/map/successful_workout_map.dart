@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SuccessfulWorkoutMap extends StatelessWidget {
   LatLng get _lastPosition => _polylines.last.points.last;
+
   Set<Marker> get _firstAndLastPositionMarkers => {
         Marker(
           position: _polylines.first.points.first,
@@ -35,9 +36,15 @@ class SuccessfulWorkoutMap extends StatelessWidget {
       onMapCreated: (controller) {
         _controller.complete(controller);
       },
-      initialCameraPosition: CameraPosition(
-        target: _lastPosition,
-      ),
+      initialCameraPosition: _initialCameraPosition(),
+    );
+  }
+
+  CameraPosition _initialCameraPosition() {
+    const streetLevelZoom = 15.0;
+    return CameraPosition(
+      target: _lastPosition,
+      zoom: streetLevelZoom,
     );
   }
 }

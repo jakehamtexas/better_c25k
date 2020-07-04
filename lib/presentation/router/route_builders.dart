@@ -7,8 +7,8 @@ import '../../presentation/home/home.dart';
 import '../../presentation/regimen/regimen.dart';
 import '../../presentation/regimen/workout/workout_in_progress/workout_completed/workout_completed.dart';
 import '../../presentation/regimen/workout/workout_in_progress/workout_in_progress.dart';
-import '../error/error.dart';
 import '../analysis/analysis.dart';
+import '../error/error.dart';
 import '../preferences/preferences.dart';
 import 'routes.dart';
 

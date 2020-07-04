@@ -1,6 +1,7 @@
 export 'continuously_insert_location.dart';
 export 'exercise_sentence_builder.dart';
 export 'get_exercises.dart';
+export 'get_location_data_for_workout.dart';
 export 'get_regimen_name_and_id_for_workout_id.dart';
 export 'get_regimens.dart';
 export 'get_workouts.dart';

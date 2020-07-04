@@ -14,15 +14,16 @@ class WorkoutMapNetworkError extends StatelessWidget {
           child: Text("There was a network error!"),
         ),
         Expanded(
-            child: RawMaterialButton(
-          onPressed: () {
-            final bloc = BlocProvider.of(context);
-            bloc.add(
-              BeginMapLoadEvent(_exerciseId),
-            );
-          },
-          child: const Text("Retry"),
-        ))
+          child: RawMaterialButton(
+            onPressed: () {
+              final bloc = BlocProvider.of(context);
+              bloc.add(
+                BeginMapLoadEvent(_exerciseId),
+              );
+            },
+            child: const Text("Retry"),
+          ),
+        )
       ],
     );
   }

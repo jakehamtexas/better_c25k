@@ -13,11 +13,11 @@ class ShortTestRegimen extends RegimenEntity {
   static List<WorkoutEntity> _getShortTestWorkouts() => [
         WorkoutEntity(
           exercises: ExerciseBuilder()
-              .withWarmup(1)
-              .withCooldown(1)
+              .withWarmup(5)
+              .withCooldown(5)
               .addInOrder(
                 const ExerciseEntity(
-                  durationInSeconds: 1,
+                  durationInSeconds: 5,
                   exerciseAction: ExerciseAction.run,
                 ),
               )

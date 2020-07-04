@@ -36,9 +36,9 @@ class ConcreteSoundPlayingService implements SoundPlayingService {
     return Task(() async {
       try {
         return await _func();
-      } on PlatformException catch (e) {
+      } on PlatformException {
         // no-op
       }
-    }).attempt().mapLeftToFailure().run() as Future<Either<Failure, void>>;
+    }).attempt().mapLeftToFailure().run();
   }
 }

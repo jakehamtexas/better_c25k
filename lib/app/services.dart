@@ -65,6 +65,8 @@ class Services {
         () => PlayDing(GetIt.I<domain.SoundPlayingService>()));
     GetIt.I.registerFactory<SayWorkoutCompleted>(
         () => SayWorkoutCompleted(GetIt.I<domain.TextToSpeechService>()));
+    GetIt.I.registerFactory(() =>
+        GetLocationDataForWorkout(GetIt.I<domain.UserLocationsRepository>()));
   }
 
   static void _registerRepositories() {
