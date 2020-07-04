@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../domain/entities/common/common.dart';
-import '../../../../common/go_back_to_workouts_button.dart';
+import '../../../../common/widgets/go_back_to_workouts_button.dart';
 import 'bloc/workout_completed_bloc.dart';
 
 class WorkoutCompletedPage extends StatelessWidget {

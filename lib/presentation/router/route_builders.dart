@@ -8,6 +8,8 @@ import '../../presentation/regimen/regimen.dart';
 import '../../presentation/regimen/workout/workout_in_progress/workout_completed/workout_completed.dart';
 import '../../presentation/regimen/workout/workout_in_progress/workout_in_progress.dart';
 import '../error/error.dart';
+import '../analysis/analysis.dart';
+import '../preferences/preferences.dart';
 import 'routes.dart';
 
 ErrorPage Function(BuildContext _) _error(Object failure) =>
@@ -28,6 +30,11 @@ WorkoutCompletedPage Function(BuildContext _) _workoutComplete(Object args) =>
     (BuildContext _) => WorkoutCompletedPage(
           regimenNameAndIdByWorkoutId: args as MapEntry<int, NameAndId<int>>,
         );
+AnalysisPage Function(BuildContext _) _analysis(Object args) =>
+    (BuildContext _) => const AnalysisPage();
+
+PreferencesPage Function(BuildContext _) _preferences(Object args) =>
+    (BuildContext _) => const PreferencesPage();
 
 final Map<String, Widget Function(BuildContext) Function(Object)>
     routeBuilders = {
@@ -36,4 +43,6 @@ final Map<String, Widget Function(BuildContext) Function(Object)>
   Routes.regimen: _regimen,
   Routes.doWorkout: _doWorkout,
   Routes.workoutComplete: _workoutComplete,
+  Routes.analysis: _analysis,
+  Routes.preferences: _preferences,
 };
