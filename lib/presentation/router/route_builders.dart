@@ -5,7 +5,7 @@ import '../../domain/entities/common/common.dart';
 import '../../domain/entities/workout_in_progress/workout_in_progress.dart';
 import '../../presentation/home/home.dart';
 import '../../presentation/regimen/regimen.dart';
-import '../../presentation/regimen/workout/workout_in_progress/workout_completed/workout_completed.dart';
+import '../../presentation/regimen/workout/workout_completed/workout_completed.dart';
 import '../../presentation/regimen/workout/workout_in_progress/workout_in_progress.dart';
 import '../analysis/analysis.dart';
 import '../error/error.dart';

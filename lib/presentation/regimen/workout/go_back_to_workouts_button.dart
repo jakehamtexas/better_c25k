@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constant/workout_in_progress_viewport.dart';
 import '../../../core/bloc/bloc.dart';
 import '../../../domain/entities/common/common.dart';
-import '../../regimen/workout/workout_in_progress/workout_completed/bloc/workout_completed_bloc.dart'
+import 'workout_completed/bloc/workout_completed_bloc.dart'
     as workout_completed;
 
 class GoBackToWorkoutsButton<
