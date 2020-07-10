@@ -18,9 +18,9 @@ class AppStateRepository implements domain.AppStateRepository {
     return _valueOrKeyNotFoundFailure(hasBeenInitialized);
   }
 
-  Either<Failure, bool> _valueOrKeyNotFoundFailure(bool hasBeenInitialized) {
-    return hasBeenInitialized != null
-        ? right(hasBeenInitialized)
+  Either<Failure, TValue> _valueOrKeyNotFoundFailure<TValue>(TValue value) {
+    return value != null
+        ? right(value)
         : left(SharedPreferencesFailure.keyNotFound());
   }
 
@@ -48,14 +48,34 @@ class AppStateRepository implements domain.AppStateRepository {
   }
 
   @override
-  Future<Either<Failure, PreferencesEntity>> getPreferences() {
-    // TODO: implement getPreferences
-    throw UnimplementedError();
+  Future<Either<Failure, PreferencesEntity>> getPreferences() async {
+    final sharedPreferences = await _gettingSharedPreferences;
+    final hasWorkoutVoiceExplanationToggledOn = sharedPreferences
+        .getBool(AppStateKeys.preferences.hasWorkoutVoiceExplanationToggledOn);
+    final preferences = [
+      _valueOrKeyNotFoundFailure(hasWorkoutVoiceExplanationToggledOn)
+    ].toList();
+    if (preferences.any((element) => element.isLeft())) {
+      return left(SharedPreferencesFailure.keyNotFound());
+    }
+
+    return right(PreferencesEntity(
+      hasWorkoutVoiceExplanationToggledOn: hasWorkoutVoiceExplanationToggledOn,
+    ));
   }
 
   @override
-  Future<Either<Failure, Null>> setPreferences(PreferencesEntity entity) {
-    // TODO: implement setPreferences
-    throw UnimplementedError();
+  Future<Either<Failure, Null>> setPreferences(PreferencesEntity entity) async {
+    final sharedPreferences = await _gettingSharedPreferences;
+    final preferences = [
+      await sharedPreferences.setBool(
+        AppStateKeys.preferences.hasWorkoutVoiceExplanationToggledOn,
+        entity.hasWorkoutVoiceExplanationToggledOn,
+      ),
+    ];
+    if (preferences.any((element) => element == null)) {
+      return left(SharedPreferencesFailure.keyNotFound());
+    }
+    return right(null);
   }
 }
