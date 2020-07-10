@@ -10,4 +10,6 @@ abstract class AppStateRepository {
     bool hasLocationPermission,
   });
   Future<Either<Failure, bool>> getHasLocationPermission();
+  Future<Either<Failure, PreferencesEntity>> getPreferences();
+  Future<Either<Failure, Null>> setPreferences(PreferencesEntity entity);
 }
