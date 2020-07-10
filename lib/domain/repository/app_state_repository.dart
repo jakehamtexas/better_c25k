@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../core/error/error.dart';
+import '../entities/preferences/preferences_entity.dart';
 
 abstract class AppStateRepository {
   Future<Either<Failure, bool>> getHasBeenInitialized();
