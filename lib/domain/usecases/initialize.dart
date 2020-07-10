@@ -31,7 +31,7 @@ class Initialize {
         await appStateRepository.getHasBeenInitialized();
     final namesAndIdsOrFailure =
         await hasBeenInitializedOrFailure.fold((failure) async {
-      if (failure is KeyNotFoundFailure) {
+      if (failure is SharedPreferencesFailure) {
         return _initialize(context);
       } else {
         return left(failure);

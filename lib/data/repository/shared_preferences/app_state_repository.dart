@@ -21,7 +21,7 @@ class AppStateRepository implements domain.AppStateRepository {
   Either<Failure, bool> _valueOrKeyNotFoundFailure(bool hasBeenInitialized) {
     return hasBeenInitialized != null
         ? right(hasBeenInitialized)
-        : left(const KeyNotFoundFailure());
+        : left(SharedPreferencesFailure.keyNotFound());
   }
 
   @override
