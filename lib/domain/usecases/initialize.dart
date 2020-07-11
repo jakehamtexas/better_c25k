@@ -1,3 +1,4 @@
+import 'package:better_c25k/domain/entities/preferences/preferences_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
@@ -41,6 +42,9 @@ class Initialize {
       return regimenRepository.getAllRegimenNamesAndIds();
     }) as Either<Failure, List<NameAndId<int>>>;
     await soundPlayingService.initialize(context);
+    await appStateRepository.setPreferences(
+      PreferencesEntity.defaultPreferences(),
+    );
     return namesAndIdsOrFailure;
   }
 
