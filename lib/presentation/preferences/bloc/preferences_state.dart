@@ -34,4 +34,10 @@ class GetFailedState extends PreferencesState {}
 
 class SaveFailedState extends PreferencesState {}
 
-class SaveSuccessfulState extends PreferencesState {}
+class SaveSuccessfulState extends HydratedPreferencesState {
+  SaveSuccessfulState(
+    PreferencesEntity preferences,
+  ) : super(
+          preferences: preferences,
+        );
+}

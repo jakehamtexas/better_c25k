@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SaveFailedSnackBar extends SnackBar {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
+  const SaveFailedSnackBar()
+      : super(
+          content: const Text("Save failed! Please try again."),
+        );
 }

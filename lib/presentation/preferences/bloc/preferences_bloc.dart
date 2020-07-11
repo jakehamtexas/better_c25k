@@ -67,11 +67,14 @@ class PreferencesBloc extends Bloc<PreferencesEvent, PreferencesState> {
     final potentialLeftFailure = await setPreferencesUseCase(event.preferences);
     yield potentialLeftFailure.fold(
       (_) => SaveFailedState(),
-      (_) => SaveSuccessfulState(),
+      (_) => SaveSuccessfulState(event.preferences),
     );
   }
 
   Stream<PreferencesState> _cancelSelected(CancelSelectedEvent event) async* {
-    yield HiddenSaveableButtonBarState(event.preferences);
+    final preferencesOrFailure = await _gettingPreferences;
+    if (preferencesOrFailure.isRight()) {
+      yield HiddenSaveableButtonBarState(preferencesOrFailure.getOrThrow());
+    }
   }
 }

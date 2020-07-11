@@ -18,21 +18,31 @@ class PreferencesPage extends StatelessWidget implements HasPageIndex {
         create: (BuildContext context) =>
             PreferencesBloc()..add(GetPreferencesEvent()),
         child: BlocConsumer<PreferencesBloc, PreferencesState>(
+          buildWhen: (_, current) => current is! SaveFailedState,
           builder: (BuildContext context, PreferencesState state) {
+            Widget widget;
             switch (state.runtimeType) {
               case GetFailedState:
                 return FailedToGetPreferences();
               case ShownSaveableButtonBarState:
-                return PreferencesWithSaveBar(
+                widget = PreferencesWithSaveBar(
                   (state as HydratedPreferencesState).preferences,
                 );
+                break;
               case HiddenSaveableButtonBarState:
-                return PreferencesWithoutSaveBar(
+                widget = PreferencesWithoutSaveBar(
                   (state as HydratedPreferencesState).preferences,
                 );
+                break;
+              case SaveSuccessfulState:
+                widget = PreferencesWithoutSaveBar(
+                  (state as HydratedPreferencesState).preferences,
+                );
+                break;
               default:
                 return Container();
             }
+            return ControlViewAnimation(widget);
           },
           listener: (BuildContext context, PreferencesState state) {
             switch (state.runtimeType) {

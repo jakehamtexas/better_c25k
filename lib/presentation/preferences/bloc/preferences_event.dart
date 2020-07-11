@@ -24,11 +24,4 @@ class SaveSelectedEvent extends PreferencesEvent implements HasPreferences {
   final PreferencesEntity preferences;
 }
 
-class CancelSelectedEvent extends PreferencesEvent implements HasPreferences {
-  CancelSelectedEvent({
-    @required this.preferences,
-  });
-
-  @override
-  final PreferencesEntity preferences;
-}
+class CancelSelectedEvent extends PreferencesEvent {}

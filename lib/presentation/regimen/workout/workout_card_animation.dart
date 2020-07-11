@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'collapsed_workout_card.dart';
 import 'workout_card_base.dart';
 
 class WorkoutCardAnimation extends StatelessWidget {
   final WorkoutCardBase child;
   static const duration = Duration(milliseconds: 300);
-
-  bool get isCollapsed => child is CollapsedWorkoutCard;
 
   const WorkoutCardAnimation(this.child) : super();
 
