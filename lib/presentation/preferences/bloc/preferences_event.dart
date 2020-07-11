@@ -9,12 +9,10 @@ class PreferencesChangedEvent extends PreferencesEvent
     implements HasPreferences {
   PreferencesChangedEvent({
     @required this.preferences,
-    @required this.shouldShowSaveBar,
   });
 
   @override
   final PreferencesEntity preferences;
-  final bool shouldShowSaveBar;
 }
 
 class SaveSelectedEvent extends PreferencesEvent implements HasPreferences {
