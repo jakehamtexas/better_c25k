@@ -1,10 +1,12 @@
-import 'package:better_c25k/domain/entities/preferences/preferences_entity.dart';
-import 'package:better_c25k/presentation/preferences/bloc/preferences_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../common/common.dart';
 import '../scaffold/scaffold.dart';
+import 'bloc/preferences_bloc.dart';
+import 'failed_to_get_preferences.dart';
+import 'control_view/control_view.dart';
+import 'snack_bar/snack_bar.dart';
 
 class PreferencesPage extends StatelessWidget implements HasPageIndex {
   const PreferencesPage({Key key}) : super(key: key);
@@ -45,50 +47,4 @@ class PreferencesPage extends StatelessWidget implements HasPageIndex {
 
   @override
   int get pageIndex => 2;
-}
-
-class SaveSuccessfulSnackBar extends SnackBar {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
-
-class SaveFailedSnackBar extends SnackBar {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
-
-class PreferencesWithoutSaveBar extends StatelessWidget {
-  final PreferencesEntity preferences;
-  const PreferencesWithoutSaveBar(this.preferences);
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
-
-class PreferencesWithSaveBar extends StatelessWidget {
-  final PreferencesEntity preferences;
-  const PreferencesWithSaveBar(this.preferences);
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
-
-class FailedToGetPreferences extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
 }
