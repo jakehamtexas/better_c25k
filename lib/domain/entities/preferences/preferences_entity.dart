@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 class PreferencesEntity extends Equatable {
   final bool hasWorkoutVoiceExplanationToggledOn;
