@@ -11,5 +11,6 @@ abstract class AppStateRepository {
   });
   Future<Either<Failure, bool>> getHasLocationPermission();
   Future<Either<Failure, PreferencesEntity>> getPreferences();
+  // ignore: prefer_void_to_null
   Future<Either<Failure, Null>> setPreferences(PreferencesEntity entity);
 }

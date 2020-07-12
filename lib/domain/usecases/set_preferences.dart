@@ -8,6 +8,7 @@ class SetPreferences {
   final AppStateRepository appStateRepository;
   const SetPreferences(this.appStateRepository);
 
+  // ignore: prefer_void_to_null
   Future<Either<Failure, Null>> call(PreferencesEntity entity) {
     return appStateRepository.setPreferences(entity);
   }
