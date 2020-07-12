@@ -9,5 +9,7 @@ class _Preferences {
 
   String get hasWorkoutVoiceExplanationToggledOn =>
       '$_prefix-hasWorkoutVoiceExplanationToggledOn';
+  String get hasWorkoutTransitionDingSoundEffectToggledOn =>
+      '$_prefix-hasWorkoutTransitionDingSoundEffectToggledOn';
   const _Preferences();
 }

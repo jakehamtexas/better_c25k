@@ -135,8 +135,11 @@ class WorkoutInProgressBloc
   }
 
   Future _playDingWithDelay([int delayInMs = 1000]) async {
-    await GetIt.I<PlayDing>()();
-    await Future.delayed(Duration(milliseconds: delayInMs));
+    final preferences = await _getPreferences();
+    if (preferences.hasWorkoutTransitionDingSoundEffectToggledOn) {
+      await GetIt.I<PlayDing>()();
+      await Future.delayed(Duration(milliseconds: delayInMs));
+    }
   }
 
   Stream<WorkoutInProgressState> _decrementExercise(bool shouldPause) async* {

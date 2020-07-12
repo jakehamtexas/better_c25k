@@ -52,8 +52,12 @@ class AppStateRepository implements domain.AppStateRepository {
     final sharedPreferences = await _gettingSharedPreferences;
     final hasWorkoutVoiceExplanationToggledOn = sharedPreferences
         .getBool(AppStateKeys.preferences.hasWorkoutVoiceExplanationToggledOn);
+    final hasWorkoutTransitionDingSoundEffectToggledOn =
+        sharedPreferences.getBool(AppStateKeys
+            .preferences.hasWorkoutTransitionDingSoundEffectToggledOn);
     final preferences = [
-      _valueOrKeyNotFoundFailure(hasWorkoutVoiceExplanationToggledOn)
+      _valueOrKeyNotFoundFailure(hasWorkoutVoiceExplanationToggledOn),
+      _valueOrKeyNotFoundFailure(hasWorkoutTransitionDingSoundEffectToggledOn),
     ].toList();
     if (preferences.any((element) => element.isLeft())) {
       return left(SharedPreferencesFailure.keyNotFound());
@@ -61,19 +65,26 @@ class AppStateRepository implements domain.AppStateRepository {
 
     return right(PreferencesEntity(
       hasWorkoutVoiceExplanationToggledOn: hasWorkoutVoiceExplanationToggledOn,
+      hasWorkoutTransitionDingSoundEffectToggledOn:
+          hasWorkoutTransitionDingSoundEffectToggledOn,
     ));
   }
 
   @override
+  // ignore: prefer_void_to_null
   Future<Either<Failure, Null>> setPreferences(PreferencesEntity entity) async {
     final sharedPreferences = await _gettingSharedPreferences;
-    final preferences = [
+    final setOperationResults = [
       await sharedPreferences.setBool(
         AppStateKeys.preferences.hasWorkoutVoiceExplanationToggledOn,
         entity.hasWorkoutVoiceExplanationToggledOn,
       ),
+      await sharedPreferences.setBool(
+        AppStateKeys.preferences.hasWorkoutTransitionDingSoundEffectToggledOn,
+        entity.hasWorkoutTransitionDingSoundEffectToggledOn,
+      ),
     ];
-    if (preferences.any((element) => element == null)) {
+    if (setOperationResults.any((element) => element == null)) {
       return left(SharedPreferencesFailure.keyNotFound());
     }
     return right(null);

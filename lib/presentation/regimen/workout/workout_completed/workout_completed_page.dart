@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../domain/entities/common/common.dart';
 import '../../../common/common.dart';
-import '../go_back_to_workouts_button.dart';
 import '../../../map/map.dart';
+import '../go_back_to_workouts_button.dart';
 import 'bloc/workout_completed_bloc.dart';
 
 class WorkoutCompletedPage extends StatelessWidget {
