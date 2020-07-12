@@ -15,13 +15,12 @@ class PreferencesChangedEvent extends PreferencesEvent
   final PreferencesEntity preferences;
 }
 
-class SaveSelectedEvent extends PreferencesEvent implements HasPreferences {
-  SaveSelectedEvent({
-    @required this.preferences,
-  });
-
-  @override
-  final PreferencesEntity preferences;
-}
+class SaveSelectedEvent extends PreferencesEvent {}
 
 class CancelSelectedEvent extends PreferencesEvent {}
+
+class UpdateBottomSheetControllerEvent extends PreferencesEvent {
+  final PersistentBottomSheetController bottomSheetController;
+
+  UpdateBottomSheetControllerEvent(this.bottomSheetController);
+}

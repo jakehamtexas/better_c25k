@@ -6,6 +6,7 @@ import '../scaffold/scaffold.dart';
 import 'bloc/preferences_bloc.dart';
 import 'control_view/control_view.dart';
 import 'failed_to_get_preferences.dart';
+import 'save_bar.dart';
 import 'snack_bar/snack_bar.dart';
 
 class PreferencesPage extends StatelessWidget implements HasPageIndex {
@@ -18,39 +19,39 @@ class PreferencesPage extends StatelessWidget implements HasPageIndex {
         create: (BuildContext context) =>
             PreferencesBloc()..add(GetPreferencesEvent()),
         child: BlocConsumer<PreferencesBloc, PreferencesState>(
-          buildWhen: (_, current) => current is! SaveFailedState,
+          buildWhen: (_, current) => [GetFailedState, GetSucceededState]
+              .any((element) => element == current.runtimeType),
           builder: (BuildContext context, PreferencesState state) {
-            Widget widget;
             switch (state.runtimeType) {
               case GetFailedState:
                 return FailedToGetPreferences();
-              case ShownSaveableButtonBarState:
-                widget = PreferencesWithSaveBar(
-                  (state as HydratedPreferencesState).preferences,
-                );
-                break;
-              case HiddenSaveableButtonBarState:
-                widget = PreferencesWithoutSaveBar(
-                  (state as HydratedPreferencesState).preferences,
-                );
-                break;
-              case SaveSuccessfulState:
-                widget = PreferencesWithoutSaveBar(
-                  (state as HydratedPreferencesState).preferences,
+              case GetSucceededState:
+                return ControlViewListView(
+                  (state as GetSucceededState).preferences,
                 );
                 break;
               default:
                 return Container();
             }
-            return ControlViewAnimation(widget);
           },
           listener: (BuildContext context, PreferencesState state) {
+            final scaffold = Scaffold.of(context);
             switch (state.runtimeType) {
               case SaveFailedState:
-                Scaffold.of(context).showSnackBar(SaveFailedSnackBar());
+                scaffold.showSnackBar(const SaveFailedSnackBar());
                 break;
               case SaveSuccessfulState:
-                Scaffold.of(context).showSnackBar(SaveSuccessfulSnackBar());
+                scaffold.showSnackBar(const SaveSuccessfulSnackBar());
+                break;
+              case ShowSaveBarState:
+                final bottomSheetController = scaffold.showBottomSheet(
+                  SaveBar.builder(
+                    context,
+                  ),
+                );
+                BlocProvider.of<PreferencesBloc>(context).add(
+                    UpdateBottomSheetControllerEvent(bottomSheetController));
+                break;
             }
           },
         ),
