@@ -72,7 +72,9 @@ class WorkoutRepository extends DatabaseAccessor<RegimenDatabase>
             .values
             .first as int;
       });
-      return List.generate(companions.length, (i) => lastRowId - i);
+      return List.generate(companions.length, (i) => lastRowId - i)
+          .reversed
+          .toList();
     }).attempt().mapLeftToFailure().run() as Either<Failure, List<int>>;
   }
 
