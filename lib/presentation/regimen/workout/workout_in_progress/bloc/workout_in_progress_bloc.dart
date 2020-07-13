@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:better_c25k/domain/entities/preferences/preferences_entity.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -60,6 +62,9 @@ class WorkoutInProgressBloc
 
   bool workoutCompleted = false;
 
+  Future<Either<Failure, PreferencesEntity>> get _gettingPreferences =>
+      GetIt.I<GetPreferences>()();
+
   @override
   Stream<WorkoutInProgressState> mapEventToState(
     WorkoutInProgressEvent event,
@@ -103,18 +108,38 @@ class WorkoutInProgressBloc
 
   Future<void> _playWorkoutCompletedPieces() async {
     await _playDingWithDelay();
-    await GetIt.I<SayWorkoutCompleted>()();
+    await _getPreferences();
+    final preferences = await _getPreferences();
+    if (preferences.hasWorkoutVoiceExplanationToggledOn) {
+      await GetIt.I<SayWorkoutCompleted>()();
+    }
+  }
+
+  Future<PreferencesEntity> _getPreferences() async {
+    final preferencesOrFailure = await _gettingPreferences;
+    return preferencesOrFailure.getOrElse(
+      () => PreferencesEntity.defaultPreferences(),
+    );
   }
 
   Future _playExerciseTransitionPieces() async {
     await _playDingWithDelay();
-    await GetIt.I<SayWorkoutMeta>()(
-        _exerciseAction, _currentExercise.durationInSeconds);
+
+    final preferences = await _getPreferences();
+    if (preferences.hasWorkoutVoiceExplanationToggledOn) {
+      await GetIt.I<SayWorkoutMeta>()(
+        _exerciseAction,
+        _currentExercise.durationInSeconds,
+      );
+    }
   }
 
   Future _playDingWithDelay([int delayInMs = 1000]) async {
-    await GetIt.I<PlayDing>()();
-    await Future.delayed(Duration(milliseconds: delayInMs));
+    final preferences = await _getPreferences();
+    if (preferences.hasWorkoutTransitionDingSoundEffectToggledOn) {
+      await GetIt.I<PlayDing>()();
+      await Future.delayed(Duration(milliseconds: delayInMs));
+    }
   }
 
   Stream<WorkoutInProgressState> _decrementExercise(bool shouldPause) async* {

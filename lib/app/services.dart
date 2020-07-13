@@ -67,6 +67,10 @@ class Services {
         () => SayWorkoutCompleted(GetIt.I<domain.TextToSpeechService>()));
     GetIt.I.registerFactory(() =>
         GetLocationDataForWorkout(GetIt.I<domain.UserLocationsRepository>()));
+    GetIt.I.registerFactory(
+        () => GetPreferences(GetIt.I<domain.AppStateRepository>()));
+    GetIt.I.registerFactory(
+        () => SetPreferences(GetIt.I<domain.AppStateRepository>()));
   }
 
   static void _registerRepositories() {

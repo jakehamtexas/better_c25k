@@ -1,40 +1,40 @@
 import 'package:dartz/dartz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../constant/app_state_keys.dart';
 import '../../../core/error/error.dart';
 import '../../../core/error/failure.dart';
+import '../../../domain/entities/preferences/preferences_entity.dart';
 import '../../../domain/repository/repository.dart' as domain;
 
 class AppStateRepository implements domain.AppStateRepository {
   Future<SharedPreferences> get _gettingSharedPreferences =>
       SharedPreferences.getInstance();
-  static const String _initKey = 'init';
-  static const String _hasLocationPermissionKey = "hasLocationPermission";
   @override
   Future<Either<Failure, bool>> getHasBeenInitialized() async {
     final sharedPreferences = await _gettingSharedPreferences;
-    final hasBeenInitialized = sharedPreferences.getBool(_initKey);
+    final hasBeenInitialized = sharedPreferences.getBool(AppStateKeys.init);
 
     return _valueOrKeyNotFoundFailure(hasBeenInitialized);
   }
 
-  Either<Failure, bool> _valueOrKeyNotFoundFailure(bool hasBeenInitialized) {
-    return hasBeenInitialized != null
-        ? right(hasBeenInitialized)
-        : left(const KeyNotFoundFailure());
+  Either<Failure, TValue> _valueOrKeyNotFoundFailure<TValue>(TValue value) {
+    return value != null
+        ? right(value)
+        : left(SharedPreferencesFailure.keyNotFound());
   }
 
   @override
   Future<Either<Failure, bool>> setHasBeenInitialized() async {
     final sharedPreferences = await _gettingSharedPreferences;
-    return right(await sharedPreferences.setBool(_initKey, true));
+    return right(await sharedPreferences.setBool(AppStateKeys.init, true));
   }
 
   @override
   Future<Either<Failure, bool>> getHasLocationPermission() async {
     final sharedPreferences = await _gettingSharedPreferences;
     final hasLocationPermission =
-        sharedPreferences.getBool(_hasLocationPermissionKey);
+        sharedPreferences.getBool(AppStateKeys.hasLocationPermission);
     return _valueOrKeyNotFoundFailure(hasLocationPermission);
   }
 
@@ -44,6 +44,49 @@ class AppStateRepository implements domain.AppStateRepository {
   }) async {
     final sharedPreferences = await _gettingSharedPreferences;
     return right(await sharedPreferences.setBool(
-        _hasLocationPermissionKey, hasLocationPermission));
+        AppStateKeys.hasLocationPermission, hasLocationPermission));
+  }
+
+  @override
+  Future<Either<Failure, PreferencesEntity>> getPreferences() async {
+    final sharedPreferences = await _gettingSharedPreferences;
+    final hasWorkoutVoiceExplanationToggledOn = sharedPreferences
+        .getBool(AppStateKeys.preferences.hasWorkoutVoiceExplanationToggledOn);
+    final hasWorkoutTransitionDingSoundEffectToggledOn =
+        sharedPreferences.getBool(AppStateKeys
+            .preferences.hasWorkoutTransitionDingSoundEffectToggledOn);
+    final preferences = [
+      _valueOrKeyNotFoundFailure(hasWorkoutVoiceExplanationToggledOn),
+      _valueOrKeyNotFoundFailure(hasWorkoutTransitionDingSoundEffectToggledOn),
+    ].toList();
+    if (preferences.any((element) => element.isLeft())) {
+      return left(SharedPreferencesFailure.keyNotFound());
+    }
+
+    return right(PreferencesEntity(
+      hasWorkoutVoiceExplanationToggledOn: hasWorkoutVoiceExplanationToggledOn,
+      hasWorkoutTransitionDingSoundEffectToggledOn:
+          hasWorkoutTransitionDingSoundEffectToggledOn,
+    ));
+  }
+
+  @override
+  // ignore: prefer_void_to_null
+  Future<Either<Failure, Null>> setPreferences(PreferencesEntity entity) async {
+    final sharedPreferences = await _gettingSharedPreferences;
+    final setOperationResults = [
+      await sharedPreferences.setBool(
+        AppStateKeys.preferences.hasWorkoutVoiceExplanationToggledOn,
+        entity.hasWorkoutVoiceExplanationToggledOn,
+      ),
+      await sharedPreferences.setBool(
+        AppStateKeys.preferences.hasWorkoutTransitionDingSoundEffectToggledOn,
+        entity.hasWorkoutTransitionDingSoundEffectToggledOn,
+      ),
+    ];
+    if (setOperationResults.any((element) => element == null)) {
+      return left(SharedPreferencesFailure.keyNotFound());
+    }
+    return right(null);
   }
 }
