@@ -167,7 +167,6 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     const dayOneDescription =
         "Brisk five-minute warmup walk, then: Jog for 5 mins; Walk for 3 mins; Jog for 5 mins; Walk for 3 mins; Jog for 5 mins.";
     final dayOneWorkout = WorkoutEntity(
-      workoutId: 1,
       ordinalDayOfWeekNumber: 1,
       ordinalWeekNumber: 5,
       description: dayOneDescription,
@@ -194,7 +193,6 @@ class C25KRegimenStaticEntity extends RegimenEntity {
         "Brisk five-minute warmup warlk, then: Jog 3/4 mile (or 8 minutes); Walk 1/2 mile (or 5 minutes); Jog 3/4 mile (or 8 minutes).";
 
     final dayTwoWorkout = WorkoutEntity(
-      workoutId: 2,
       ordinalDayOfWeekNumber: 2,
       ordinalWeekNumber: 5,
       description: dayTwoDescription,
@@ -212,7 +210,6 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     const dayThreeDescription =
         "Brisk five-minute warmup walk, then jog two miles (or 20 minutes) with no walking.";
     final dayThreeWorkout = WorkoutEntity(
-      workoutId: 3,
       ordinalDayOfWeekNumber: 3,
       ordinalWeekNumber: 5,
       description: dayThreeDescription,
@@ -250,7 +247,6 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     const dayOneDescription =
         "Brisk five-minute warmup walk, then: Jog for 5 mins; Walk for 3 mins; Jog for 5 mins; Walk for 3 mins; Jog for 5 mins.";
     final dayOneWorkout = WorkoutEntity(
-      workoutId: 4,
       ordinalDayOfWeekNumber: 1,
       ordinalWeekNumber: 6,
       description: dayOneDescription,
@@ -277,7 +273,6 @@ class C25KRegimenStaticEntity extends RegimenEntity {
         "Brisk five-minute warmup walk, then: Jog 1 mile (or 10 minutes); Walk 1/4 mile (or 3 minutes); Jog 1 mile (or 10 minutes).";
 
     final dayTwoWorkout = WorkoutEntity(
-      workoutId: 5,
       ordinalDayOfWeekNumber: 2,
       ordinalWeekNumber: 6,
       description: dayTwoDescription,
@@ -294,7 +289,6 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     const dayThreeDescription =
         "Brisk five-minute warmup walk, then jog 2-1/4 miles (or 22 minutes) with no walking.";
     final dayThreeWorkout = WorkoutEntity(
-      workoutId: 6,
       ordinalDayOfWeekNumber: 3,
       ordinalWeekNumber: 6,
       description: dayThreeDescription,
@@ -357,7 +351,6 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     const dayThreeDescription =
         "The final workout! Congratulations! Brisk five-minute warmup walk, then jog 3 miles (or 30 minutes).";
     final dayThreeWorkout = WorkoutEntity(
-      workoutId: 7,
       ordinalDayOfWeekNumber: 3,
       ordinalWeekNumber: 8,
       description: dayThreeDescription,
@@ -373,7 +366,6 @@ class C25KRegimenStaticEntity extends RegimenEntity {
     @required List<ExerciseEntity> exercises,
   }) =>
       Iterable<int>.generate(numCopies).map((index) => WorkoutEntity(
-            workoutId: 7,
             ordinalDayOfWeekNumber: index + 1,
             ordinalWeekNumber: ordinalWeekNumber,
             description: description,

@@ -15,7 +15,7 @@ class WorkoutEntity extends WorkoutPresentationEntity {
           totalDuration + durationInSeconds);
 
   WorkoutEntity({
-    @required int workoutId,
+    int workoutId,
     @required this.exercises,
     @required int ordinalDayOfWeekNumber,
     @required int ordinalWeekNumber,
