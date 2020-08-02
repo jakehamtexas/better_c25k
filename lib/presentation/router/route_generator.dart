@@ -10,7 +10,10 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     try {
       final builder = _getBuilder(settings);
-      return MaterialPageRoute(builder: builder);
+      return PageRouteBuilder(
+        pageBuilder: (context, _, __) => builder(context),
+        transitionDuration: const Duration(),
+      );
     } catch (_) {
       return errorRoute();
     }
