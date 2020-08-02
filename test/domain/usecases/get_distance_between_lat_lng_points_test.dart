@@ -15,5 +15,19 @@ void main() {
       // assert
       expect(actual, matcher);
     });
+
+    test(
+        'should show correct distance rounded to two decimal places in meters when difference of 1 long',
+        () {
+      // arrange
+      const firstLatLng = LatLngEntity(latitude: 0, longitude: 0);
+      const secondLatLng = LatLngEntity(latitude: 0, longitude: 1);
+      const matcher = 111194.93;
+
+      //act
+      final actual = StatsEngine.getDistance(firstLatLng, secondLatLng);
+      // assert
+      expect(actual, matcher);
+    });
   });
 }
